@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import PageComponent from "../components/PageComponent";
 
-const Home = () => {
-    return <div>Home</div>;
+const Home = (props) => { 
+
+  return <PageComponent title="Trang chủ">Trang Chủ</PageComponent>;
 };
 
 export default Home;

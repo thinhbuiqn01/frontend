@@ -1,13 +1,21 @@
+import { Outlet } from "react-router-dom";
+import "./App.css";
+
+import Header from "./components/Header";
+
  
-import './App.css'
 
-function App() { 
-
+ 
+function App() {
+ 
   return (
-    <div className="App">
-       hello world
-    </div>
-  )
+    <>
+      <div className="min-h-full">
+        <Header/>
+        <Outlet />
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
