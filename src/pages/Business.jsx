@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import PageComponent from "../components/PageComponent";
 
 const Business = () => {
-  return <PageComponent title="Business">Business</PageComponent>;
+  const [business, setBusiness] = useState({
+    name:"",
+    slug:"slug",
+    description:"",
+    image:"",
+    image_url:"", 
+    jobs:"",
+  });
+  return <PageComponent title="Business"></PageComponent>;
 };
 
 export default Business;

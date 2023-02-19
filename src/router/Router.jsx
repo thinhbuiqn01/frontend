@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Business from "../pages/Business";
+import BusinessView from "../pages/BusinessView";
 
 const Router = createBrowserRouter([
   {
@@ -13,7 +14,11 @@ const Router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/cong-ty", element: <Business /> },
       {
-        path: "/signup",
+        path: "/them-cong-ty",
+        element: <BusinessView />,
+      },
+      {
+        path: "/dang-ky",
         element: <Signup />,
       },
       {

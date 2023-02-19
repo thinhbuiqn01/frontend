@@ -1,16 +1,16 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  BellIcon,
+  UserIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import { useStateContext } from "../context/ContextProvider";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
 const navigation = [
   { name: "PT HIRE", to: "/", current: true },
   { name: "Việc làm IT", to: "viec-lam", current: false },
@@ -23,7 +23,15 @@ const navigation = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-const Header = () => {
+const Header = ({ currentUser }) => {
+  const { logout } = useStateContext();
+  const navigate = useNavigate();
+  const Logout = (e) => {
+    e.preventDefault();
+    logout();
+    navigate("/dang-ky");
+  };
+
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -75,11 +83,17 @@ const Header = () => {
                       <div>
                         <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                           <span className="sr-only">Open user menu</span>
-                          <img
-                            className="h-8 w-8 rounded-full"
-                            src={user.imageUrl}
-                            alt=""
-                          />
+                          {currentUser.imageUrl ? (
+                            <>
+                              <img
+                                className="h-8 w-8 rounded-full"
+                                src={currentUser.imageUrl}
+                                alt=""
+                              />
+                            </>
+                          ) : (
+                            <UserIcon className="w-6 text-white" />
+                          )}
                         </Menu.Button>
                       </div>
                       <Transition
@@ -141,37 +155,43 @@ const Header = () => {
             <Disclosure.Panel className="md:hidden">
               <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                 {navigation.map((item) => (
-                  <Disclosure.Button
+                  <NavLink
                     key={item.name}
-                    as="a"
                     to={item.to}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block px-3 py-2 rounded-md text-base font-medium"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
+                    className={({ isActive }) =>
+                      classNames(
+                        isActive
+                          ? "bg-gray-900 text-white"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        "block px-3 py-2 rounded-md text-base font-medium"
+                      )
+                    }
                   >
                     {item.name}
-                  </Disclosure.Button>
+                  </NavLink>
                 ))}
               </div>
               <div className="border-t border-gray-700 pt-4 pb-3">
                 <div className="flex items-center px-5">
                   <div className="flex-shrink-0">
-                    <img
-                      className="h-10 w-10 rounded-full"
-                      src={user.imageUrl}
-                      alt=""
-                    />
+                    {currentUser.imageUrl ? (
+                      <>
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src={currentUser.imageUrl}
+                          alt=""
+                        />
+                      </>
+                    ) : (
+                      <UserIcon className="w-6 text-white" />
+                    )}
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">
-                      {user.name}
+                      {currentUser.name}
                     </div>
                     <div className="text-sm font-medium leading-none text-gray-400">
-                      {user.email}
+                      {currentUser.email}
                     </div>
                   </div>
                   <button
