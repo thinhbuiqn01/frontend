@@ -5,14 +5,23 @@ import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Business from "../pages/Business";
 import BusinessView from "../pages/BusinessView";
+import School from "../school/School";
+import NotFound from "../pages/NotFound";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFound />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/cong-ty", element: <Business /> },
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/cong-ty",
+        element: <Business />,
+      },
       {
         path: "/them-cong-ty",
         element: <BusinessView />,
@@ -26,6 +35,10 @@ const Router = createBrowserRouter([
         element: <Login />,
       },
     ],
+  },
+  {
+    path: "/truong",
+    element: <School />,
   },
 ]);
 

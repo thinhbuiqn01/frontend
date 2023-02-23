@@ -29,7 +29,7 @@ const Header = ({ currentUser }) => {
   const Logout = (e) => {
     e.preventDefault();
     logout();
-    navigate("/dang-ky");
+    navigate("/dang-nhap");
   };
 
   return (
@@ -92,7 +92,15 @@ const Header = ({ currentUser }) => {
                               />
                             </>
                           ) : (
-                            <UserIcon className="w-6 text-white" />
+                            <>
+                              {currentUser.name ? (
+                                <div className="w-6 text-white">
+                                  {currentUser.name}
+                                </div>
+                              ) : (
+                                <UserIcon className="w-6 text-white" />
+                              )}
+                            </>
                           )}
                         </Menu.Button>
                       </div>
@@ -108,7 +116,7 @@ const Header = ({ currentUser }) => {
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <Menu.Item>
                             <Link
-                              to="cai-dat"
+                              to="/cai-dat"
                               className="block px-4 py-2 text-sm text-gray-700"
                             >
                               Cài đặt
@@ -117,20 +125,26 @@ const Header = ({ currentUser }) => {
 
                           <Menu.Item>
                             <Link
-                              to="ho-so"
+                              to="/ho-so"
                               className="block px-4 py-2 text-sm text-gray-700"
                             >
                               Hồ sơ
                             </Link>
                           </Menu.Item>
                           <Menu.Item>
-                            <Link
-                              to="dang-xuat"
-                              onClick={(e) => Logout(e)}
-                              className="block px-4 py-2 text-sm text-gray-700"
-                            >
-                              Đăng xuất
-                            </Link>
+                            {currentUser.name ? (
+                              <Link
+                                to="/dang-xuat"
+                                onClick={(e) => Logout(e)}
+                                className="block px-4 py-2 text-sm text-gray-700"
+                              >
+                                Đăng xuất
+                              </Link>
+                            ) : (
+                              <Link to="/dang-nhap" className="block px-4 py-2 text-sm text-gray-700">
+                                Đăng nhập
+                              </Link>
+                            )}
                           </Menu.Item>
                         </Menu.Items>
                       </Transition>
@@ -209,22 +223,27 @@ const Header = ({ currentUser }) => {
                     to="cai-dat"
                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                   >
-                    Cài đặt
+                    <Link to="cai-dat">Cài đặt</Link>
                   </Disclosure.Button>
                   <Disclosure.Button
                     as="Link"
-                    href="ho-so"
+                    href="/ho-so"
                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                   >
-                    Hồ sơ
+                    <Link to="/ho-so">Hồ Sơ</Link>
                   </Disclosure.Button>
                   <Disclosure.Button
                     as="Link"
                     to="dang-xuat"
-                    onClick={(e) => Logout(e)}
                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                   >
-                    Đăng xuất
+                    {currentUser.name ? (
+                      <Link to="/dang-nhap" onClick={(e) => Logout(e)}>
+                        Đăng xuất
+                      </Link>
+                    ) : (
+                      <Link to="/dang-nhap">Đăng nhập</Link>
+                    )}
                   </Disclosure.Button>
                 </div>
                 {/*  */}
