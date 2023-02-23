@@ -1,6 +1,6 @@
 import { GithubOutlined, GoogleOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Row } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import PageComponent from "../components/PageComponent";
@@ -20,7 +20,9 @@ const Login = () => {
   const [employer, setEmployer] = useState(false);
   const [isDev, setIsDev] = useState(true);
   const [isEmp, setIsEmp] = useState(false);
-  const navigate = useNavigate;
+  let navigate = useNavigate;
+
+ 
   const handleLoginEmp = (e) => {
     setEmployer(true);
     setIsEmp(true);
@@ -48,7 +50,7 @@ const Login = () => {
         setUserToken(data.token);
       })
       .catch((e) => {
-        console.log(e);
+        console.log(12);
       });
   };
 
@@ -185,7 +187,7 @@ const Login = () => {
               </div>
             </>
           )}
-        </div> 
+        </div>
         <div className="mt-5 md:col-span-2 md:mt-0">
           {employer ? <>quang cao</> : <>a</>}
         </div>
