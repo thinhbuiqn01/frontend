@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
-import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -11,7 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useStateContext } from "../context/ContextProvider";
 
-const navigation = [
+const roleStudent = [
   { name: "PT HIRE", to: "/", current: true },
   { name: "Việc làm IT", to: "viec-lam", current: false },
   { name: "Công ty IT", to: "cong-ty", current: false },
@@ -20,11 +19,18 @@ const navigation = [
   { name: "Việc làm thực tập sinh", to: "thuc-tap-sinh", current: false },
 ];
 
+const roleSchool = [
+  { name: "PT HIRE UTE", to: "/trang-truong", current: true },
+  { name: "Sinh viên", to: "/truong/sinh-vien", current: false },
+  { name: "Doanh nghiệp", to: "/truong/doanh-nghiep", current: false },
+];
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser }) => { 
   const { logout } = useStateContext();
+  
   const navigate = useNavigate();
   const Logout = (e) => {
     e.preventDefault();
@@ -49,7 +55,7 @@ const Header = ({ currentUser }) => {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
-                      {navigation.map((item) => (
+                      {(currentUser.role === 2 ? roleSchool: roleStudent).map((item) => (
                         <NavLink
                           key={item.name}
                           to={item.to}
@@ -94,11 +100,11 @@ const Header = ({ currentUser }) => {
                           ) : (
                             <>
                               {currentUser.name ? (
-                                <div className="w-6 text-white">
+                                <div className=" text-white">
                                   {currentUser.name}
                                 </div>
                               ) : (
-                                <UserIcon className="w-6 text-white" />
+                                <UserIcon className=" text-white" />
                               )}
                             </>
                           )}
@@ -141,7 +147,10 @@ const Header = ({ currentUser }) => {
                                 Đăng xuất
                               </Link>
                             ) : (
-                              <Link to="/dang-nhap" className="block px-4 py-2 text-sm text-gray-700">
+                              <Link
+                                to="/dang-nhap"
+                                className="block px-4 py-2 text-sm text-gray-700"
+                              >
                                 Đăng nhập
                               </Link>
                             )}
@@ -168,7 +177,7 @@ const Header = ({ currentUser }) => {
 
             <Disclosure.Panel className="md:hidden">
               <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-                {navigation.map((item) => (
+                {roleStudent.map((item) => (
                   <NavLink
                     key={item.name}
                     to={item.to}

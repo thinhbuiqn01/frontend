@@ -5,8 +5,10 @@ import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Business from "../pages/Business";
 import BusinessView from "../pages/BusinessView";
-import School from "../school/School";
 import NotFound from "../pages/NotFound";
+import ManageStudent from "../school/ManageStudent";
+import School from "../school/School";
+import DetailsStudent from "../school/DetailsStudent";
 
 const Router = createBrowserRouter([
   {
@@ -15,9 +17,14 @@ const Router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        path: "/",
-        element: <Home />,
+        path: "/dang-ky",
+        element: <Signup />,
       },
+      {
+        path: "/dang-nhap",
+        element: <Login />,
+      },
+
       {
         path: "/cong-ty",
         element: <Business />,
@@ -27,18 +34,23 @@ const Router = createBrowserRouter([
         element: <BusinessView />,
       },
       {
-        path: "/dang-ky",
-        element: <Signup />,
+        path: "/truong/sinh-vien",
+        element: <ManageStudent />,
       },
       {
-        path: "/dang-nhap",
-        element: <Login />,
+        path: "/truong/sinh-vien/xem",
+        element: <DetailsStudent />,
+      },
+
+      {
+        path: "/trang-truong",
+        element: <School />,
+      },
+      {
+        path: "/",
+        element: <Home />,
       },
     ],
-  },
-  {
-    path: "/truong",
-    element: <School />,
   },
 ]);
 
