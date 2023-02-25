@@ -1,31 +1,17 @@
-import React, { useEffect, useState } from "react";
-import * as XLSX from "xlsx";
+import React, { useState } from "react";
 import validator from "validator";
+import * as XLSX from "xlsx";
 import axiosClient from "../api/axiosClient";
 
 const endEmail = "@sv.ute.udn.vn";
+const fileType = [
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+];
 const NewListStudent = () => {
   const [excelData, setExcelData] = useState(null);
-  /*   useEffect(() => {
-    axiosClient
-      .post("/create-list-user", excelData)
-      .then(({ data }) => {
-        console.log(data.status);
-        console.log(excelData, "dong 15");
-
-        // navigate("/");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [excelData]); */ 
-
-  const fileType = [
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  ];
   const [excelFile, setExcelFile] = useState(null);
-
   const [excelFileError, setExcelFileError] = useState(null);
+
 
   const handleImportFile = (e) => {
     let selectFile = e.target.files[0];
@@ -68,24 +54,12 @@ const NewListStudent = () => {
     } else {
       setExcelData(null);
     }
-  }; /* 
-  const validateData = excelData?.map((item) => {
-    return {
-      name: validator.trim(item.name),
-      email: `${item.id_sv}${endEmail}`,
-      phone: `0${item.sdt}`,
-      password: "@abc0123",
-    };
-  }); */
-  //console.log(validateData);
+  };
   const handleAddData = (e) => {
     axiosClient
       .post("/create-list-user", excelData)
       .then(({ data }) => {
-        console.log(data.status);
-        console.log(excelData, "dong 86");
-
-        // navigate("/");
+        console.log(data); 
       })
       .catch((e) => {
         console.log(e);

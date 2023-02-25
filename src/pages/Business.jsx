@@ -10,7 +10,9 @@ const Business = () => {
     image_url:"", 
     jobs:"",
   });
-  return <PageComponent title="Business"></PageComponent>;
+  return <PageComponent title="Business">
+    bussness
+  </PageComponent>;
 };
 
 export default Business;
