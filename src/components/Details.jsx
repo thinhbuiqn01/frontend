@@ -25,27 +25,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const defaultPassword = "abc01234";
-const DetailsStudent = () => {
+const Details = ({ state, ...props }) => {
+  const defaultPassword = "abc01234";
   const [selected, setSelected] = useState(status[0]);
-  const { state } = useLocation();
-  const [edit, setEdit] = useState(false);
-  let user = state?.user;
+  const [edit, setEdit] = useState(false); 
   const [phone, setPhone] = useState(user?.phone);
   const [password, setPassword] = useState("");
 
-  const handleSaveEdit = (e) => {
-    axiosClient.post(`/user/edit/${user.id}`, {
-      name: user.name,
-      email: user.email,
-      password: password,
-      phone: phone,
-      status: selected.status,
-    });
-    setEdit(false);
-  };
   return (
-    <PageComponent title="Quản lý sinh viên">
+    <div>
       <div className="overflow-hidden bg-white shadow sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
           <h3 className="text-base font-semibold leading-6 text-gray-900">
@@ -131,7 +119,7 @@ const DetailsStudent = () => {
                   style={{ paddingBottom: "100px" }}
                 >
                   {edit == false ? (
-                    user.status == 1 ? (
+                    user?.status == 1 ? (
                       "Đang hoạt động"
                     ) : (
                       "Đang khóa"
@@ -167,7 +155,7 @@ const DetailsStudent = () => {
                               <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                 {status.map((person) => (
                                   <Listbox.Option
-                                    key={person.id}
+                                    key={person?.id}
                                     className={({ active }) =>
                                       classNames(
                                         active
@@ -189,7 +177,7 @@ const DetailsStudent = () => {
                                               "ml-3 block truncate"
                                             )}
                                           >
-                                            {person.name}
+                                            {person?.name}
                                           </span>
                                         </div>
 
@@ -225,8 +213,8 @@ const DetailsStudent = () => {
           </form>
         </div>
       </div>
-    </PageComponent>
+    </div>
   );
 };
 
-export default DetailsStudent;
+export default Details;

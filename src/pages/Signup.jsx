@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PageComponent from "../components/PageComponent";
 import axiosClient from "../api/axiosClient";
 import { useStateContext } from "../context/ContextProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const { setCurrentUser, currentUser, setUserToken, userToken } =
@@ -110,12 +110,12 @@ const Signup = () => {
 
             <div className="flex items-center justify-between">
               <div className="text-sm">
-                <a
-                  href="#"
+                <Link
+                  to="/dang-nhap"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Quên mật khẩu
-                </a>
+                  Đăng nhập
+                </Link>
               </div>
             </div>
 

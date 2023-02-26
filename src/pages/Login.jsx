@@ -1,7 +1,7 @@
 import { GithubOutlined, GoogleOutlined } from "@ant-design/icons";
-import { Button, Col, Divider, Row } from "antd";
+import { Alert, Button, Col, Divider, Row } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import PageComponent from "../components/PageComponent";
 import { useStateContext } from "../context/ContextProvider";
@@ -20,9 +20,12 @@ const Login = () => {
   const [employer, setEmployer] = useState(false);
   const [isDev, setIsDev] = useState(true);
   const [isEmp, setIsEmp] = useState(false);
+  const [informationLogin, setInformationLogin] = useState({
+    status: "",
+    message: "",
+  });
   let navigate = useNavigate;
 
- 
   const handleLoginEmp = (e) => {
     setEmployer(true);
     setIsEmp(true);
@@ -48,9 +51,16 @@ const Login = () => {
       .then(({ data }) => {
         setCurrentUser(data.user);
         setUserToken(data.token);
+        setInformationLogin({ status: data.status, message: data.message });
+        /* setInformationLogin(data); */
       })
       .catch((e) => {
-        console.log(12);
+        setInformationLogin({
+          status: e.response.data.status,
+          message: e.response.data.message,
+        });
+
+        //setInformationLogin(false);
       });
   };
 
@@ -77,7 +87,7 @@ const Login = () => {
               }}
               onClick={(e) => handleLoginEmp(e)}
             >
-              Employer
+              Đăng nhập
             </Col>
           </Row>
           {isDev ? (
@@ -118,6 +128,28 @@ const Login = () => {
                       <h2 className=" text-center font-bold tracking-tight text-gray-600">
                         Chào mừng nhà tuyển dụng
                       </h2>
+                    </div>
+                    <div>
+                      {" "}
+                      {informationLogin.status == "" ? (
+                        ""
+                      ) : (
+                        <Alert
+                          message={informationLogin.message}
+                          type={informationLogin.status}
+                          showIcon
+                          action={
+                            <Button size="small" type="text">
+                              {informationLogin.status == "success" ? (
+                                <Link to={"/"}>Đến trang chủ</Link>
+                              ) : (
+                                ""
+                              )}
+                            </Button>
+                          }
+                          closable
+                        />
+                      )}
                     </div>
                     <form
                       className="mt-8 space-y-6"
@@ -164,12 +196,11 @@ const Login = () => {
 
                       <div className="flex items-center justify-between">
                         <div className="text-sm">
-                          <a
-                            href="#"
+                          <Link to="/dang-ky"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                           >
-                            Quên mật khẩu
-                          </a>
+                            Đăng ký
+                          </Link>
                         </div>
                       </div>
 
@@ -181,7 +212,7 @@ const Login = () => {
                           Đăng nhập
                         </button>
                       </div>
-                    </form>
+                    </form> 
                   </div>
                 </div>
               </div>
