@@ -9,6 +9,7 @@ import NotFound from "../pages/NotFound";
 import ManageStudent from "../school/ManageStudent";
 import School from "../school/School";
 import DetailsStudent from "../school/DetailsStudent";
+import { AdminBusiness, AdminCareer, AdminDashboard, AdminSchool, AdminStudents, AdminTechnology } from "../Admin";
 
 const Router = createBrowserRouter([
   {
@@ -49,6 +50,36 @@ const Router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminDashboard />,
+    children: [
+      {
+        path: "/admin/cong-nghe",
+        element: <AdminTechnology />,
+      },
+      {
+        path: "/admin/nganh-nghe",
+        element: <AdminCareer />,
+      },
+      {
+        path: "/admin/sinh-vien",
+        element: <AdminStudents />,
+      },
+      {
+        path: "/admin/doanh-nghiep",
+        element: <AdminBusiness />,
+      },
+      {
+        path: "/admin/nha-truong",
+        element: <AdminSchool />,
+      },
+      {
+        path: "/admin/sinh-vien/xem",
+        element: <DetailsStudent />,
       },
     ],
   },

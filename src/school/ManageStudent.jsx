@@ -3,20 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import PageComponent from "../components/PageComponent";
+import TableManage from "../components/TableManage";
 
 const ManageStudent = () => {
   const [roleGetData, setRoleGetData] = useState(1);
-  const [students, setStudents] = useState(
-    JSON.parse(localStorage.getItem("LIST_STUDENT")) || []
-  );
-
-  const [display, setDisplay] = useState("hidden");
+  const [students, setStudents] = useState([]);
 
   useEffect(() => {
     axiosClient
-      .post(`users/${roleGetData}`)
+      .post(`students/${roleGetData}`)
       .then(({ data, status }) => {
-        localStorage.setItem("LIST_STUDENT", JSON.stringify(data.users));
+        setStudents(data.users);
       })
       .catch((e) => {
         console.log(e);
@@ -40,7 +37,7 @@ const ManageStudent = () => {
       title: "Hành động",
       dataIndex: "action",
       render: (_, record) => (
-        <Space size="middle">
+        <Space size="middle" key={record.id}>
           <Link to={"/truong/sinh-vien/xem"} state={{ user: record }}>
             Xem
           </Link>
@@ -50,7 +47,7 @@ const ManageStudent = () => {
   ];
   return (
     <PageComponent title="Quản lý sinh viên">
-      <Table columns={columns} dataSource={students} />
+      <TableManage columns={columns} dataSource={students} />
     </PageComponent>
   );
 };

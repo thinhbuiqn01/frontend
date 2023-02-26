@@ -28,9 +28,9 @@ const roleSchool = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-const Header = ({ currentUser }) => { 
+const Header = ({ currentUser }) => {
   const { logout } = useStateContext();
-  
+
   const navigate = useNavigate();
   const Logout = (e) => {
     e.preventDefault();
@@ -55,22 +55,24 @@ const Header = ({ currentUser }) => {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
-                      {(currentUser.role === 2 ? roleSchool: roleStudent).map((item) => (
-                        <NavLink
-                          key={item.name}
-                          to={item.to}
-                          className={({ isActive }) =>
-                            classNames(
-                              isActive
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "px-3 py-2 rounded-md text-sm font-medium"
-                            )
-                          }
-                        >
-                          {item.name}
-                        </NavLink>
-                      ))}
+                      {(currentUser.role === 2 ? roleSchool : roleStudent).map(
+                        (item) => (
+                          <NavLink
+                            key={item.name}
+                            to={item.to}
+                            className={({ isActive }) =>
+                              classNames(
+                                isActive
+                                  ? "bg-gray-900 text-white"
+                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                "px-3 py-2 rounded-md text-sm font-medium"
+                              )
+                            }
+                          >
+                            {item.name}
+                          </NavLink>
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
@@ -136,7 +138,21 @@ const Header = ({ currentUser }) => {
                             >
                               Hồ sơ
                             </Link>
-                          </Menu.Item>
+                          </Menu.Item> 
+
+                          {currentUser.role == 4 ? (
+                            <Menu.Item>
+                              <Link
+                                to={"/admin"}
+                                state={{ currentUser }}
+                                className="block px-4 py-2 text-sm text-gray-700"
+                              >
+                                Trang quản lý
+                              </Link>
+                            </Menu.Item>
+                          ) : (
+                            ""
+                          )}
                           <Menu.Item>
                             {currentUser.name ? (
                               <Link
