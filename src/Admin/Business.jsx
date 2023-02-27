@@ -15,6 +15,11 @@ const columns = [
   {
     title: "Trạng thái",
     dataIndex: "status",
+    render: (_, record) => (
+      <Space size="middle" key={record.id}>
+        {record.status == 1 ? "Đang hoạt động" : "Tạm khóa"}
+      </Space>
+    ),
   },
   {
     title: "Hành động",

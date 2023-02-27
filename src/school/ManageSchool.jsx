@@ -1,11 +1,10 @@
-import { Space, Table } from "antd";
-import React, { useEffect, useState } from "react";
+import { Space } from "antd";
+import React from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../api/axiosClient";
 import PageComponent from "../components/PageComponent";
 import TableManage from "../components/TableManage";
 
-const ManageStudent = () => {
+const ManageSchool = () => {
   const [roleGetData, setRoleGetData] = useState(1);
   const [students, setStudents] = useState([]);
 
@@ -46,10 +45,10 @@ const ManageStudent = () => {
     },
   ];
   return (
-    <PageComponent title="Quản lý sinh viên">
+    <PageComponent title="Quản lý doanh nghiệp">
       <TableManage columns={columns} dataSource={students} />
     </PageComponent>
   );
 };
 
-export default ManageStudent;
+export default ManageSchool;

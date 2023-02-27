@@ -5,11 +5,19 @@ import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Business from "../pages/Business";
 import BusinessView from "../pages/BusinessView";
-import NotFound from "../pages/NotFound";
-import ManageStudent from "../school/ManageStudent";
-import School from "../school/School";
+import NotFound from "../pages/NotFound"; 
+import School from "../school/School"; 
+import {
+  AdminBusiness,
+  AdminCareer,
+  AdminDashboard,
+  AdminNewStudents,
+  AdminSchool,
+  AdminStudents,
+  AdminTechnology,
+} from "../Admin"; 
+import { SchoolBusiness, SchoolStudent, SchoolDetailsStudent, SchoolNewListStudent } from "../school";
 import DetailsStudent from "../school/DetailsStudent";
-import { AdminBusiness, AdminCareer, AdminDashboard, AdminSchool, AdminStudents, AdminTechnology } from "../Admin";
 
 const Router = createBrowserRouter([
   {
@@ -36,13 +44,20 @@ const Router = createBrowserRouter([
       },
       {
         path: "/truong/sinh-vien",
-        element: <ManageStudent />,
+        element: <SchoolStudent />,
+      },
+      {
+        path: "/truong/sinh-vien/them",
+        element: <SchoolNewListStudent />,
       },
       {
         path: "/truong/sinh-vien/xem",
-        element: <DetailsStudent />,
+        element: <SchoolDetailsStudent />,
       },
-
+      {
+        path: "/truong/doanh-nghiep",
+        element: <SchoolBusiness />,
+      },
       {
         path: "/trang-truong",
         element: <School />,
@@ -80,6 +95,10 @@ const Router = createBrowserRouter([
       {
         path: "/admin/sinh-vien/xem",
         element: <DetailsStudent />,
+      },
+      {
+        path: "/admin/sinh-vien/them",
+        element: <AdminNewStudents />,
       },
     ],
   },

@@ -2,8 +2,7 @@ import { Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
-import TableManage from "../components/TableManage";
-import ManageStudent from "../school/ManageStudent";
+import TableManage from "../components/TableManage"; 
 
 const columns = [
   {
@@ -13,6 +12,10 @@ const columns = [
   {
     title: "Tên sinh viên",
     dataIndex: "name",
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
   },
   {
     title: "Trạng thái",

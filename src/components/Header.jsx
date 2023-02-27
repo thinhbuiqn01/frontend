@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useStateContext } from "../context/ContextProvider";
 
+import logo from "../assets/images/logo.png";
 const roleStudent = [
   { name: "PT HIRE", to: "/", current: true },
   { name: "Việc làm IT", to: "viec-lam", current: false },
@@ -48,8 +49,8 @@ const Header = ({ currentUser }) => {
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <img
-                      className="h-8 w-8"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                      className="h-8 w-8 rounded-full"
+                      src={logo}
                       alt="Your Company"
                     />
                   </div>
@@ -138,7 +139,7 @@ const Header = ({ currentUser }) => {
                             >
                               Hồ sơ
                             </Link>
-                          </Menu.Item> 
+                          </Menu.Item>
 
                           {currentUser.role == 4 ? (
                             <Menu.Item>
@@ -148,6 +149,16 @@ const Header = ({ currentUser }) => {
                                 className="block px-4 py-2 text-sm text-gray-700"
                               >
                                 Trang quản lý
+                              </Link>
+                            </Menu.Item>
+                          ) : currentUser.role == 2 ? (
+                            <Menu.Item>
+                              <Link
+                                to={"/truong/doanh-nghiep"}
+                                state={{ currentUser }}
+                                className="block px-4 py-2 text-sm text-gray-700"
+                              >
+                                Quản lý doanh nghiệp
                               </Link>
                             </Menu.Item>
                           ) : (
