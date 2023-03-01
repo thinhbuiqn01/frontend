@@ -33,15 +33,35 @@ const DetailsStudent = () => {
   let user = state?.user;
   const [phone, setPhone] = useState(user?.phone);
   const [password, setPassword] = useState("");
+  const [inform, setInform] = useState(null);
 
   const handleSaveEdit = (e) => {
-    axiosClient.post(`/user/edit/${user.id}`, {
-      name: user.name,
-      email: user.email,
-      password: password,
-      phone: phone,
-      status: selected.status,
-    });
+    axiosClient
+      .post(`/user/edit/${user.id}`, {
+        name: user.name,
+        email: user.email,
+        password: defaultPassword,
+        phone: phone,
+        status: selected.status,
+      })
+      .then((data) => {
+        setInform({
+          name: "Thông báo cập nhật thông tin",
+          user_id: data.data.data.id,
+          description: `Tài khoản ${data.data.data.name} đã được thay đổi thành mặc định là: "<b>abc01234</b>" và số điện thoại cập nhật là: "<b>${data.data.data.phone}</b>"`,
+        });
+      })
+      .then((data) => { 
+        axiosClient
+          .post("create-inform", inform)
+          .then((data) => {
+            console.log(data.data.data); 
+          })
+          .catch((e) => console.log(e));
+      })
+      .catch((error) => {
+        console.log(e);
+      });
     setEdit(false);
   };
   return (
