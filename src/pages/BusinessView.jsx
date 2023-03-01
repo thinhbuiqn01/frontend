@@ -1,200 +1,126 @@
-import React, { useState } from "react";
-import PageComponent from "../components/PageComponent";
+import React, { useEffect, useState } from "react";
 
-const BusinessView = () => {
-  const [business, setBusiness] = useState({
-    name: "",
-    slug: "slug",
-    description: "",
-    website: "",
-    image: "",
-    image_url: "",
-    jobs: [],
-  });
+import hallCompany from "../assets/images/hallCompany.jpg";
 
-  const HandleInfoChange = (e) => {
-    e.preventDefault();
-    setBusiness({ ...business, [e.target.name]: e.target.value });
-  };
+import axiosClient from "../api/axiosClient";
+const BusinessView = ({ data }) => {
+  const [infoBusiness, setInfoBusiness] = useState(null);
 
-  const onChangeImage = (e) => {
-    e.preventDefault();
-    console.log(123);
-  };
- 
-
+  useEffect(() => {
+    axiosClient
+      .get(`get-info/${data?.user.id}`)
+      .then((res) => {
+        if (res.data.status == "success") {
+          setInfoBusiness(res.data.data);
+        } else {
+          setInfoBusiness(null);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []); 
   return (
-    <PageComponent title="Thêm công ty">
-      <>
-        {/*  */}
-        <div>
-          <div className="md:grid md:grid-cols-3 md:gap-6">
-            <div className="md:col-span-1">
-              <div className="px-4 sm:px-0">
-                <h3 className="text-lg font-medium leading-6 text-gray-900">
-                  Tạo hồ sơ công ty của bạn
-                </h3>
-                <p className="mt-1 text-sm text-gray-600">
-                  Thông tin này sẽ được hiển thị công khai, vì vậy hãy cẩn thận
-                  với những gì bạn chia sẻ.
-                </p>
+    <>
+      {infoBusiness !== null ? (
+        <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            <svg
+              className="absolute top-0 left-[max(50%,25rem)] h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
+              aria-hidden="true"
+            >
+              <defs>
+                <pattern
+                  id="e813992c-7d03-4cc4-a2bd-151760b470a0"
+                  width={200}
+                  height={200}
+                  x="50%"
+                  y={-1}
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path d="M100 200V.5M.5 .5H200" fill="none" />
+                </pattern>
+              </defs>
+              <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+                <path
+                  d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z"
+                  strokeWidth={0}
+                />
+              </svg>
+              <rect
+                width="100%"
+                height="100%"
+                strokeWidth={0}
+                fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)"
+              />
+            </svg>
+          </div>
+          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+            <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+              <div className="lg:pr-4">
+                <div className="lg:max-w-lg">
+                  <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    {infoBusiness?.name}
+                  </h1>
+                  <p className="mt-6 text-xl leading-8 text-gray-700">
+                    {infoBusiness?.description}
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="mt-5 md:col-span-2 md:mt-0">
-              <form action="#" method="POST">
-                <div className="shadow sm:overflow-hidden sm:rounded-md">
-                  <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                    <div className="grid grid-cols-3 gap-6">
-                      {/* tên công ty */}
-                      <div className="col-span-6 sm:col-span-3">
-                        <label
-                          htmlFor="Tên công ty"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          Tên công ty
-                        </label>
-                        <input
-                          type="text"
-                          name="name"
-                          id="name"
-                          autoComplete="given-name"
-                          onChange={(e) => HandleInfoChange(e)}
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        />
-                      </div>
-                      {/* tên công ty */}
-                      {/* website */}
-                      <div className="col-span-3 sm:col-span-2">
-                        <label
-                          htmlFor="company-website"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          Website
-                        </label>
-                        <div className="mt-1 flex rounded-md shadow-sm">
-                          <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
-                            http://
-                          </span>
-                          <input
-                            type="text"
-                            name="company-website"
-                            id="company-website"
-                            onChange={(e) => HandleInfoChange(e)}
-                            className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            placeholder="www.example.com"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    {/* website */}
-                    {/* mô tả */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Mô tả
-                      </label>
-                      <div className="mt-1">
-                        <textarea
-                          id="about"
-                          name="about"
-                          rows={3}
-                          onChange={(e) => HandleInfoChange(e)}
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder="Mô tả về công ty của bạn"
-                          defaultValue={""}
-                        />
-                      </div>
-                      <p className="mt-2 text-sm text-gray-500">
-                        Mô tả ngắn gọn cho công ty của bạn.
-                      </p>
-                    </div>
-                    {/* mô tả */}
-                    {/* Thành phố */}
-                    <div className="col-span-6 sm:col-span-3">
-                      <label
-                        htmlFor="Thành phố"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Thành phố
-                      </label>
-                      <select
-                        id="state"
-                        name="state"
-                        autoComplete="state-name"
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                      >
-                        <option>Hà Nội</option>
-                        <option>Đà Nẵng</option>
-                        <option>Hồ Chí Minh</option>
-                      </select>
-                    </div>
-                    {/* Thành phố */}
-
-                    {/* hình ảnh */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Hình ảnh
-                      </label>
-                      <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                        <div className="space-y-1 text-center">
-                          <svg
-                            className="mx-auto h-12 w-12 text-gray-400"
-                            stroke="currentColor"
-                            fill="none"
-                            viewBox="0 0 48 48"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                              strokeWidth={2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                          <div className="flex text-sm text-gray-600">
-                            <label
-                              htmlFor="file-upload"
-                              className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
-                            >
-                              <span>Upload a file</span>
-                              <input
-                                id="file-upload"
-                                name="file-upload"
-                                type="file"
-                                onChange={onChangeImage}
-                                className="sr-only"
-                              />
-                            </label>
-                            <p className="pl-1">or drag and drop</p>
-                          </div>
-                          <p className="text-xs text-gray-500">
-                            PNG, JPG, GIF up to 10MB
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    {/* hình ảnh */}
-                  </div>
-                  <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      Lưu
-                    </button>
+            {/* right */}
+            <div className="-mt-12 -ml-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+              <img
+                src={infoBusiness?.image || hallCompany}
+                className="shadow-2xl rounded-lg"
+              />
+            </div>
+            {/* right */}
+            <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+              <div className="lg:pr-4">
+                <div className="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
+                  <ul role="list" className="mt-8 space-y-8 text-gray-600">
+                    <li className="flex gap-x-3">
+                      <span>
+                        <strong className="font-semibold text-gray-900">
+                          Quy mô công ty
+                        </strong>{" "}
+                        {infoBusiness?.scales}
+                      </span>
+                    </li>
+                    <li className="flex gap-x-3">
+                      <span>
+                        <strong className="font-semibold text-gray-900">
+                          Lĩnh vực
+                        </strong>{" "}
+                        {infoBusiness?.task}
+                      </span>
+                    </li>
+                    <li className="flex gap-x-3">
+                      <span>
+                        <strong className="font-semibold text-gray-900">
+                          Trụ sở
+                        </strong>{" "}
+                        {infoBusiness?.location}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="lg:pr-4">
+                  <div className="lg:max-w-lg"> 
+                    <p className="mt-6 text-xl leading-8 text-gray-700">
+                      {infoBusiness?.description}
+                    </p>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
-
-        <div className="hidden sm:block" aria-hidden="true">
-          <div className="py-5">
-            <div className="border-t border-gray-200" />
-          </div>
-        </div>
-      </>
-    </PageComponent>
+      ) : (
+        "Hiện chưa có thông tin về công ty"
+      )}
+    </>
   );
 };
 

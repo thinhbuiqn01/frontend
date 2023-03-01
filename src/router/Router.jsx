@@ -5,8 +5,8 @@ import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Business from "../pages/Business";
 import BusinessView from "../pages/BusinessView";
-import NotFound from "../pages/NotFound"; 
-import School from "../school/School"; 
+import NotFound from "../pages/NotFound";
+import School from "../school/School";
 import {
   AdminBusiness,
   AdminCareer,
@@ -15,9 +15,16 @@ import {
   AdminSchool,
   AdminStudents,
   AdminTechnology,
-} from "../Admin"; 
-import { SchoolBusiness, SchoolStudent, SchoolDetailsStudent, SchoolNewListStudent } from "../school";
+} from "../Admin";
+import {
+  SchoolBusiness,
+  SchoolStudent,
+  SchoolDetailsStudent,
+  SchoolNewListStudent,
+  SchoolBusinessDetails, 
+} from "../school";
 import DetailsStudent from "../school/DetailsStudent";
+import Profile from "../components/Profile";
 
 const Router = createBrowserRouter([
   {
@@ -32,8 +39,7 @@ const Router = createBrowserRouter([
       {
         path: "/dang-nhap",
         element: <Login />,
-      },
-
+      }, 
       {
         path: "/cong-ty",
         element: <Business />,
@@ -59,8 +65,17 @@ const Router = createBrowserRouter([
         element: <SchoolBusiness />,
       },
       {
+        path: "/truong/doanh-nghiep/xem",
+        element: <SchoolBusinessDetails />,
+      },
+      {
         path: "/trang-truong",
         element: <School />,
+      },
+
+      {
+        path: "/ho-so",
+        element: <Profile />,
       },
       {
         path: "/",

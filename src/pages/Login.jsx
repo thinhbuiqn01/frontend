@@ -52,7 +52,6 @@ const Login = () => {
         setCurrentUser(data.user);
         setUserToken(data.token);
         setInformationLogin({ status: data.status, message: data.message });
-        /* setInformationLogin(data); */
       })
       .catch((e) => {
         setInformationLogin({
@@ -196,7 +195,8 @@ const Login = () => {
 
                       <div className="flex items-center justify-between">
                         <div className="text-sm">
-                          <Link to="/dang-ky"
+                          <Link
+                            to="/dang-ky"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                           >
                             Đăng ký
@@ -212,7 +212,7 @@ const Login = () => {
                           Đăng nhập
                         </button>
                       </div>
-                    </form> 
+                    </form>
                   </div>
                 </div>
               </div>

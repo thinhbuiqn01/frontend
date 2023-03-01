@@ -40,6 +40,7 @@ const NewStudents = () => {
   const [nameFile, setNameFile] = useState(null);
   const [excelFileError, setExcelFileError] = useState(null);
   const [students, setStudents] = useState([]);
+  const [informs, setInforms] = useState([]);
 
   useEffect(() => {
     axiosClient
@@ -83,9 +84,7 @@ const NewStudents = () => {
       const workSheetName = workbook.SheetNames[0];
       const workSheet = workbook.Sheets[workSheetName];
       const data = XLSX.utils.sheet_to_json(workSheet);
-      // console.log("🚀 ~ file: NewStudents.jsx:50 ~ handleSubmitDataExcel ~ data:", data)
-      // console.log(students);
-      // const data = differenceWith
+       
       const formatData = data?.map((item) => {
         return {
           name: validator.trim(item.name),
@@ -108,17 +107,21 @@ const NewStudents = () => {
       setExcelData(null);
     }
   };
+  console.log(excelData);
 
   const handleAddData = (e) => {
     axiosClient
-      .post("/create-list-user")
+      .post("/create-list-user", excelData)
       .then(({ data }) => {
         console.log(data.users);
+        //setInforms()
         setStudents(data.users);
       })
       .catch((e) => {
         setResponseBackend("Dữ liệu đã tồn tại");
       });
+
+    axiosClient.post("create-informs");
   };
 
   return (

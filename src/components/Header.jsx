@@ -1,13 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
+import axiosClient from "../api/axiosClient";
+import { Avatar, Badge, Drawer, List, Modal, Skeleton, Space } from "antd";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  BellIcon,
-  UserIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { BellOutlined } from "@ant-design/icons";
 import { useStateContext } from "../context/ContextProvider";
 
 import logo from "../assets/images/logo.png";
@@ -18,6 +15,11 @@ const roleStudent = [
   { name: "Blog IT", to: "blog", current: false },
   { name: "Việc làm fresher", to: "fresher", current: false },
   { name: "Việc làm thực tập sinh", to: "thuc-tap-sinh", current: false },
+];
+
+const roleBusiness = [
+  { name: "PT HIRE", to: "/", current: true },
+  { name: "Đăng việc", to: "dang-viec", current: false },
 ];
 
 const roleSchool = [
@@ -31,16 +33,101 @@ function classNames(...classes) {
 }
 const Header = ({ currentUser }) => {
   const { logout } = useStateContext();
-
+  const [informs, setInforms] = useState([]);
+  const [linkPage, setLinkPage] = useState("");
   const navigate = useNavigate();
   const Logout = (e) => {
     e.preventDefault();
     logout();
+    setInforms([]);
     navigate("/dang-nhap");
+  };
+  const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState("right");
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+  const onChange = (e) => {
+    setPlacement(e.target.value);
+  };
+
+  useEffect(() => {
+    if (currentUser.role == 1) {
+      return setLinkPage("sinh-vien/thong-bao");
+    } else if (currentUser.role == 2) {
+      return setLinkPage("truong/thong-bao");
+    }
+    if (currentUser.role == 3) {
+      return setLinkPage("doanh-nghiep/thong-bao");
+    } else {
+      return setLinkPage("admin/thong-bao");
+    }
+  });
+  useEffect(() => {
+    setTimeout(() => {
+      axiosClient
+        .get(`inform/${currentUser.id}`)
+        .then((data) => {
+          setInforms(data.data.inform);
+        })
+        .catch((e) => console.log(e));
+    }, 0);
+  }, [currentUser.id]);
+
+  const handleDeleteInform = (e, id) => {
+    e.preventDefault(); 
+    const deleteInform = async () => {
+      await axiosClient.delete(`delete-inform/${id}`);
+    };
+    deleteInform();
+    axiosClient
+      .get(`inform/${currentUser.id}`)
+      .then((data) => {
+        setInforms(data.data.inform);
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
     <>
+      <Drawer
+        title={`Thông báo của ${currentUser?.name}`}
+        placement={placement}
+        closable={false}
+        onClose={onClose}
+        open={open}
+        key={placement}
+      >
+        <List
+          className="demo-loadmore-list"
+          itemLayout="horizontal"
+          //loadMore={loadMore}
+          dataSource={informs}
+          renderItem={(item) => (
+            <List.Item
+              actions={[
+                <a key="list-loadmore-edit">Xem</a>,
+                <a
+                  key="list-loadmore-more"
+                  onClick={(e) => handleDeleteInform(e, item.id)}
+                >
+                  Xóa
+                </a>,
+              ]}
+            >
+              <Skeleton avatar title={false} loading={item.loading} active>
+                <List.Item.Meta
+                  title={<a href="https://ant.design">{item.name}</a>}
+                  description={item.description}
+                />
+              </Skeleton>
+            </List.Item>
+          )}
+        />
+      </Drawer>
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
@@ -56,35 +143,57 @@ const Header = ({ currentUser }) => {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
-                      {(currentUser.role === 2 ? roleSchool : roleStudent).map(
-                        (item) => (
-                          <NavLink
-                            key={item.name}
-                            to={item.to}
-                            className={({ isActive }) =>
-                              classNames(
-                                isActive
-                                  ? "bg-gray-900 text-white"
-                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                                "px-3 py-2 rounded-md text-sm font-medium"
-                              )
-                            }
-                          >
-                            {item.name}
-                          </NavLink>
-                        )
-                      )}
+                      {(currentUser.role === 2
+                        ? roleSchool
+                        : currentUser.role == 1
+                        ? roleStudent
+                        : currentUser.role == 3
+                        ? roleBusiness
+                        : roleStudent
+                      ).map((item) => (
+                        <NavLink
+                          key={item.name}
+                          to={item.to}
+                          className={({ isActive }) =>
+                            classNames(
+                              isActive
+                                ? "bg-gray-900 text-white"
+                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              "px-3 py-2 rounded-md text-sm font-medium"
+                            )
+                          }
+                        >
+                          {item.name}
+                        </NavLink>
+                      ))}
                     </div>
                   </div>
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    <button
-                      type="button"
-                      className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <button onClick={showDrawer}>
+                      <Space
+                        size="middle"
+                        style={{
+                          margin: "0 20px 8px 0",
+                        }}
+                      >
+                        <Badge
+                          count={informs.length}
+                          size="small"
+                          overflowCount={2}
+                          style={{ color: "white", marginRight: "10px" }}
+                        >
+                          <BellOutlined
+                            size="large"
+                            style={{
+                              margin: "0 8px 0",
+                              fontSize: "16px",
+                              color: "white",
+                            }}
+                          />
+                        </Badge>
+                      </Space>
                     </button>
 
                     {/* Profile dropdown PC */}
@@ -134,6 +243,7 @@ const Header = ({ currentUser }) => {
 
                           <Menu.Item>
                             <Link
+                              state={{ currentUser }}
                               to="/ho-so"
                               className="block px-4 py-2 text-sm text-gray-700"
                             >
@@ -244,13 +354,12 @@ const Header = ({ currentUser }) => {
                       {currentUser.email}
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+
+                  <Space size="small">
+                    <Badge count={99} overflowCount={10}>
+                      <BellOutlined />
+                    </Badge>
+                  </Space>
                 </div>
                 {/* Mobile  */}
                 <div className="mt-3 space-y-1 px-2">
