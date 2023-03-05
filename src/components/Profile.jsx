@@ -7,59 +7,43 @@ const Profile = () => {
   const { currentUser } = useStateContext();
 
   const [infoProfile, setInfoProfile] = useState(null);
-  const [nameCPN, setNameCPN] = useState(null);
-  const [scales, setScales] = useState(null);
-  const [description, setDescription] = useState(null);
-  const [linkWebsite, setLinkWebsite] = useState(null);
-  const [task, setTask] = useState(null);
-  const [location, setLocation] = useState(null);
+  const [nameCPN, setNameCPN] = useState("");
+  const [scales, setScales] = useState("");
+  const [description, setDescription] = useState("");
+  const [linkWebsite, setLinkWebsite] = useState("");
+  const [task, setTask] = useState("");
+  const [location, setLocation] = useState("");
 
   useEffect(() => {
     axiosClient
       .get(`get-info/${currentUser.id}`)
       .then((res) => {
-        if (res.data.status == "success") { 
+        if (res.data.status == "success") {
           setInfoProfile(res.data.data);
-        } else { 
+        } else {
           setInfoProfile(null);
         }
       })
       .catch((e) => console.log(e));
   }, []);
-  console.log(infoProfile);
-  console.log(currentUser);
   const handleSubmitInformBusiness = (e) => {
     e.preventDefault();
     axiosClient
       .post("extra-info", {
         name: nameCPN,
-        scales,
+        scales: scales,
         description,
         link_website: linkWebsite,
-        task,
-        location,
+        task: task,
+        location: location,
         image: "",
         user_id: currentUser.id,
       })
       .then((res) => {
         setInfoProfile(res.data.data);
-
-        setNameCPN(null);
-        setScales(null);
-        setDescription(null);
-        setLinkWebsite(null);
-        setTask(null);
-        setLocation(null);
       })
       .catch((e) => {
         console.log(e);
-        setInfoProfile(null);
-        setNameCPN(null);
-        setScales(null);
-        setDescription(null);
-        setLinkWebsite(null);
-        setTask(null);
-        setLocation(null);
       });
   };
   return (
@@ -166,8 +150,11 @@ const Profile = () => {
                         </label>
                         <select
                           id="state"
-                          defaultValue={scales}
-                          onChange={(e) => setScales(e.target.value)}
+                          defaultValue={`5-20 Nhân viên`}
+                          onChange={(e) => {
+                            console.log(e.target.value);
+                            setScales(e.target.value || "5-20 Nhân viên");
+                          }}
                           className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         >
                           <option value="5-20 Nhân viên">5-20 Nhân viên</option>
@@ -194,13 +181,16 @@ const Profile = () => {
                         </label>
                         <select
                           id="state"
-                          defaultValue={location}
-                          onChange={(e) => setLocation(e.target.value)}
+                          defaultValue={`Hà Nội`}
+                          onChange={(e) => {
+                            console.log(e.target.value);
+                            setLocation(e.target.value || "Hà Nội");
+                          }}
                           className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         >
-                          <option>Hà Nội</option>
-                          <option>Đà Nẵng</option>
-                          <option>Hồ Chí Minh</option>
+                          <option value="Hà Nội">Hà Nội</option>
+                          <option value="Đà Nẵng">Đà Nẵng</option>
+                          <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                         </select>
                       </div>
                       {/* Thành phố */}

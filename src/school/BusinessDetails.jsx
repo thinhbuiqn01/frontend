@@ -18,7 +18,7 @@ const BusinessDetails = () => {
   const handleAccountOpen = async (e, id) => {
     const data = await axiosClient.post(`account-open/${id}`);
     setStatusAccount(data.data.user.status);
-
+    
     console.log(data);
   };
   return (
