@@ -21,10 +21,11 @@ import {
   SchoolStudent,
   SchoolDetailsStudent,
   SchoolNewListStudent,
-  SchoolBusinessDetails, 
+  SchoolBusinessDetails,
 } from "../school";
 import DetailsStudent from "../school/DetailsStudent";
-import Profile from "../components/Profile";
+import Profile from "../components/Profile"; 
+import Jobs from "../pages/Jobs";
 
 const Router = createBrowserRouter([
   {
@@ -40,14 +41,6 @@ const Router = createBrowserRouter([
         path: "/dang-nhap",
         element: <Login />,
       }, 
-      {
-        path: "/cong-ty",
-        element: <Business />,
-      },
-      {
-        path: "/them-cong-ty",
-        element: <BusinessView />,
-      },
       {
         path: "/truong/sinh-vien",
         element: <SchoolStudent />,
@@ -71,8 +64,7 @@ const Router = createBrowserRouter([
       {
         path: "/trang-truong",
         element: <School />,
-      },
-
+      }, 
       {
         path: "/ho-so",
         element: <Profile />,
@@ -80,6 +72,18 @@ const Router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/doanhnghiep",
+        element: <Business />,
+      },
+      {
+        path: "/doanh-nghiep/cong-viec",
+        element: <Jobs />,
+      },
+      {
+        path: "/doanh-nghiep/cong-viec/them",
+        element: <Jobs />,
       },
     ],
   },

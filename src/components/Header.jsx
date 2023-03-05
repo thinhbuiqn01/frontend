@@ -18,8 +18,8 @@ const roleStudent = [
 ];
 
 const roleBusiness = [
-  { name: "PT HIRE", to: "/", current: true },
-  { name: "Đăng việc", to: "dang-viec", current: false },
+  { name: "PT HIRE", to: "/doanhnghiep", current: false },
+  { name: "Công việc", to: "/doanh-nghiep/cong-viec", current: true },
 ];
 
 const roleSchool = [
