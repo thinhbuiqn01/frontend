@@ -4,7 +4,7 @@ import axiosClient from "../api/axiosClient";
 import { Avatar, Badge, Drawer, List, Modal, Skeleton, Space } from "antd";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { BellOutlined } from "@ant-design/icons";
+import { BellOutlined, DashOutlined } from "@ant-design/icons";
 import { useStateContext } from "../context/ContextProvider";
 
 import logo from "../assets/images/logo.png";
@@ -86,7 +86,11 @@ const Header = ({ currentUser }) => {
   const handleDeleteInform = (e, id) => {
     e.preventDefault();
     const deleteInform = async () => {
-      await axiosClient.delete(`delete-inform/${id}`);
+      const response = await axiosClient.delete(`delete-inform/${id}`);
+      if (response.status == 200) {
+        setInforms(response.data.inform);
+      }
+      console.log(response);
     };
     deleteInform();
     axiosClient
@@ -107,32 +111,66 @@ const Header = ({ currentUser }) => {
         open={open}
         key={placement}
       >
-        <List
-          className="demo-loadmore-list"
-          itemLayout="horizontal"
-          //loadMore={loadMore}
-          dataSource={informs}
-          renderItem={(item) => (
-            <List.Item
-              actions={[
-                <a key="list-loadmore-edit">Xem</a>,
-                <a
-                  key="list-loadmore-more"
-                  onClick={(e) => handleDeleteInform(e, item.id)}
-                >
-                  Xóa
-                </a>,
-              ]}
-            >
-              <Skeleton avatar title={false} loading={item.loading} active>
-                <List.Item.Meta
-                  title={<a href="https://ant.design">{item.name}</a>}
-                  description={item.description}
-                />
-              </Skeleton>
-            </List.Item>
-          )}
-        />
+        <div className="mt-8">
+          <div className="flow-root">
+            <ul role="list" className="-my-6 divide-y divide-gray-200">
+              {informs.map((inform) => (
+                <li key={inform.id} className="flex py-6">
+                  <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                    <img
+                      src={logo}
+                      alt="informs"
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+
+                  <div className="ml-4 flex flex-1 flex-col">
+                    <div>
+                      <div className="flex justify-between text-base font-medium text-gray-900">
+                        <h3>
+                          {currentUser.role == 2 ? (
+                            <Link
+                              to={`truong/doanh-nghiep/cong-viec/duyet/${inform.job_id}`}
+                            >
+                              {inform.name}
+                            </Link>
+                          ) : currentUser.role == 1 ? (
+                            <Link to={`/cong-viec/${inform.job_id}`}>
+                              {inform.name}
+                            </Link>
+                          ) : currentUser.role == 3 ? (
+                            <Link
+                              to={`doanh-nghiep/cong-viec/${inform.job_id}`}
+                            >
+                              {inform.name}
+                            </Link>
+                          ) : (
+                            ""
+                          )}
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="flex flex-1 items-end justify-between text-sm">
+                      <p className="text-gray-500">
+                        Ngày đăng: {inform.created_at.slice(0, 10)}
+                      </p>
+
+                      <div className="flex">
+                        <button
+                          type="button"
+                          onClick={(e) => handleDeleteInform(e, inform.id)}
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                        >
+                          Xóa
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </Drawer>
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (

@@ -3,7 +3,7 @@ import App from "../App";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Signup from "../pages/Signup";
-import Business from "../pages/Business"; 
+import Business from "../pages/Business";
 import NotFound from "../pages/NotFound";
 import School from "../school/School";
 import {
@@ -22,6 +22,7 @@ import {
   SchoolDetailsStudent,
   SchoolNewListStudent,
   SchoolBusinessDetails,
+  SchoolReviewJob,
 } from "../school";
 import DetailsStudent from "../school/DetailsStudent";
 import Profile from "../components/Profile";
@@ -60,6 +61,10 @@ const Router = createBrowserRouter([
         element: <SchoolBusiness />,
       },
       {
+        path: "/truong/doanh-nghiep/cong-viec/duyet/:idJob",
+        element: <SchoolReviewJob />,
+      },
+      {
         path: "/truong/doanh-nghiep/xem",
         element: <SchoolBusinessDetails />,
       },
@@ -83,6 +88,7 @@ const Router = createBrowserRouter([
         path: "/doanh-nghiep/cong-viec/:businessID",
         element: <BusinessEditJob />,
       },
+
       {
         path: "/doanh-nghiep/cong-viec",
         element: <Jobs />,
