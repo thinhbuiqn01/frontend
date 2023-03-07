@@ -12,7 +12,7 @@ const fileType = [
 const NewListStudent = () => {
   return (
     <PageComponent title="Thêm danh sách sinh viên mới">
-      <AdminNewStudents />
+      <AdminNewStudents route={'/truong/sinh-vien'} />
     </PageComponent>
   );
 };

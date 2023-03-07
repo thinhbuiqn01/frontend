@@ -1,6 +1,7 @@
-import { Space } from "antd";
-import React, { useState } from "react";
+import { Button, Space, Spin } from "antd";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axiosClient from "../api/axiosClient";
 import TableManage from "../components/TableManage";
 const columns = [
   {
@@ -10,6 +11,10 @@ const columns = [
   {
     title: "Tài khoản",
     dataIndex: "name",
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
   },
   {
     title: "Trạng thái",
@@ -33,15 +38,42 @@ const columns = [
   },
 ];
 const School = () => {
-  const [school, setSchool] = useState(
-    JSON.parse(localStorage.getItem("USERS"))?.filter((item) => {
-      return item.role == 2;
-    }) || []
-  );
+  const [school, setSchool] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    axiosClient
+      .post("users")
+      .then((res) => {
+        const data = res.data.users?.filter((i) => {
+          return i.role == 2;
+        });
+        setSchool(data);
+        setLoading(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
   return (
-    <div>
-      <TableManage columns={columns} dataSources={school} />
-    </div>
+    <>
+      <div>
+        <Link to="/admin/nha-truong/them">
+          <Button type="primary" ghost>
+            Thêm tài khoản cho nhà trường
+          </Button>
+        </Link>
+        <div style={{ marginBottom: "20px" }}></div>
+        <>
+          {loading == false ? (
+            <div style={{ width: "700px", height: "300px", margin: "0 auto" }}>
+              <Spin />
+            </div>
+          ) : (
+            <TableManage columns={columns} dataSources={school} />
+          )}
+        </>
+      </div>
+    </>
   );
 };
 

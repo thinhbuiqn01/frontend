@@ -1,12 +1,12 @@
 import {
   LaptopOutlined,
   NotificationOutlined,
+  UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Button, Layout, Menu, theme } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import axiosClient from "../api/axiosClient";
 
 function getItem(label, key, icon, children) {
   return {
@@ -18,6 +18,11 @@ function getItem(label, key, icon, children) {
 }
 
 const options = [
+  {
+    key: 0, 
+    name: "Dashboard",
+    icon: <UnorderedListOutlined />,
+  },
   {
     key: 1,
     name: "Người dùng",
@@ -49,9 +54,8 @@ const options = [
     children: [
       {
         key: 21,
-
-        name: "Ngành nghề",
-        to: "/admin/nganh-nghe",
+        name: "Công việc",
+        to: "/admin/cong-viec",
       },
       {
         key: 22,
@@ -60,11 +64,9 @@ const options = [
       },
     ],
   },
+
   {
-    name: "Công việc",
-    icon: <UserOutlined />,
-  },
-  {
+    key: 3,
     name: "Thông báo",
     icon: <NotificationOutlined />,
   },
