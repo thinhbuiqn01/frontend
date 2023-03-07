@@ -1,8 +1,8 @@
-import { Space } from "antd";
+import { Space, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
-import TableManage from "../components/TableManage"; 
+import TableManage from "../components/TableManage";
 
 const columns = [
   {
@@ -33,18 +33,19 @@ const columns = [
     ),
   },
 ];
-const Students = () => { 
+const Students = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     axiosClient
       .post("users")
       .then((res) => {
-        localStorage.setItem("USERS", JSON.stringify(res.data.users));
         const data = res.data.users?.filter((i) => {
           return i.role == 1;
         });
         setUsers(data);
+        setLoading(true);
       })
       .catch((e) => {
         console.log(e);
@@ -53,7 +54,13 @@ const Students = () => {
 
   return (
     <>
-      <TableManage columns={columns} dataSources={users} />
+      {loading == false ? (
+        <div style={{ width: "700px", height: "300px", margin: "0 auto" }}>
+          <Spin />
+        </div>
+      ) : (
+        <TableManage columns={columns} dataSources={users} />
+      )}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Button, Space } from "antd";
 import { differenceBy } from "lodash";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import validator from "validator";
 import * as XLSX from "xlsx";
 import axiosClient from "../api/axiosClient";
@@ -33,7 +33,7 @@ const endEmail = "@sv.ute.udn.vn";
 const fileType = [
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 ];
-const NewStudents = () => {
+const NewStudents = ({ route }) => {
   const [excelData, setExcelData] = useState(null);
   const [excelFile, setExcelFile] = useState(null);
   const [responseBackend, setResponseBackend] = useState(null);
@@ -41,6 +41,8 @@ const NewStudents = () => {
   const [excelFileError, setExcelFileError] = useState(null);
   const [students, setStudents] = useState([]);
   const [informs, setInforms] = useState([]);
+
+  const navigate = useNavigation();
 
   useEffect(() => {
     axiosClient
@@ -84,7 +86,7 @@ const NewStudents = () => {
       const workSheetName = workbook.SheetNames[0];
       const workSheet = workbook.Sheets[workSheetName];
       const data = XLSX.utils.sheet_to_json(workSheet);
-       
+
       const formatData = data?.map((item) => {
         return {
           name: validator.trim(item.name),
@@ -101,27 +103,30 @@ const NewStudents = () => {
       /* Way to */
       const differenceData = differenceBy(formatData, students, "email");
 
-      setExcelData(differenceData);
+      if (differenceData.length !== 0) {
+        setExcelData(differenceData);
+      } else {
+        alert("Dữ liệu đã tồn tại");
+      }
+
       //setExcelData(formatDataFilter);
     } else {
       setExcelData(null);
     }
   };
-  console.log(excelData);
-
   const handleAddData = (e) => {
     axiosClient
       .post("/create-list-user", excelData)
       .then(({ data }) => {
-        console.log(data.users);
         //setInforms()
-        setStudents(data.users);
+        setStudents(data.data.users);
+        alert("Cập nhật danh sách sinh viên thành công");
+        setExcelData([]);
+        setExcelFile(null);
       })
       .catch((e) => {
         setResponseBackend("Dữ liệu đã tồn tại");
       });
-
-    axiosClient.post("create-informs");
   };
 
   return (

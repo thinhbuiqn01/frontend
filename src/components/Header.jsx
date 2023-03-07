@@ -67,18 +67,24 @@ const Header = ({ currentUser }) => {
     }
   });
   useEffect(() => {
-    setTimeout(() => {
+    if (currentUser.role == 1) {
       axiosClient
         .get(`inform/${currentUser.id}`)
         .then((data) => {
           setInforms(data.data.inform);
         })
         .catch((e) => console.log(e));
-    }, 0);
+    } else if (currentUser.role == 2) {
+      const getData = async () => {
+        const informSchool = await axiosClient.get(`inform-job-school`);
+        setInforms(informSchool.data.notification);
+      };
+      getData();
+    }
   }, [currentUser.id]);
 
   const handleDeleteInform = (e, id) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const deleteInform = async () => {
       await axiosClient.delete(`delete-inform/${id}`);
     };
@@ -244,7 +250,11 @@ const Header = ({ currentUser }) => {
                           <Menu.Item>
                             <Link
                               state={{ currentUser }}
-                              to="/ho-so"
+                              to={
+                                currentUser.role === 3
+                                  ? "doanh-nghiep/ho-so"
+                                  : "ho-so"
+                              }
                               className="block px-4 py-2 text-sm text-gray-700"
                             >
                               Hồ sơ

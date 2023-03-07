@@ -1,6 +1,7 @@
-import { Space } from "antd";
-import React, { useState } from "react";
+import { Space, Spin } from "antd";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axiosClient from "../api/axiosClient";
 import TableManage from "../components/TableManage";
 
 const columns = [
@@ -34,14 +35,32 @@ const columns = [
   },
 ];
 const Business = () => {
-  const [businesses, setBusinesses] = useState(
-    JSON.parse(localStorage.getItem("USERS"))?.filter((item) => {
-      return item.role == 3;
-    }) || []
-  );
+  const [businesses, setBusinesses] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    axiosClient
+      .post("users")
+      .then((res) => {
+        const data = res.data.users?.filter((i) => {
+          return i.role == 3;
+        });
+        setBusinesses(data);
+        setLoading(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
   return (
     <>
-      <TableManage columns={columns} dataSources={businesses} />
+      {loading == false ? (
+        <div style={{ width: "700px", height: "300px", margin: "0 auto" }}>
+          <Spin />
+        </div>
+      ) : (
+        <TableManage columns={columns} dataSources={businesses} />
+      )}
     </>
   );
 };
