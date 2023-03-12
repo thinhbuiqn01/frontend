@@ -19,46 +19,58 @@ function getItem(label, key, icon, children) {
 
 const options = [
   {
-    key: 0, 
+    key: 0,
     name: "Dashboard",
     icon: <UnorderedListOutlined />,
   },
   {
     key: 1,
-    name: "Người dùng",
+    name: "Sinh viên",
     icon: <UserOutlined />,
     children: [
       {
         key: 11,
-        name: "Sinh viên",
+        name: "Danh sách sinh viên",
         to: "/admin/sinh-vien",
       },
       {
         key: 12,
-
-        name: "Nhà trường",
-        to: "/admin/nha-truong",
-      },
-      {
-        key: 13,
-
-        name: "Doanh nghiệp",
-        to: "/admin/doanh-nghiep",
+        name: "Thêm danh sách sinh viên",
+        to: "/admin/sinh-vien/them",
       },
     ],
   },
   {
     key: 2,
+    name: "Nhà trường",
+    icon: <UserOutlined />,
+    children: [
+      {
+        key: 21,
+        name: "Danh sách tài khoản",
+        to: "/admin/nha-truong",
+      },
+      {
+        key: 22,
+
+        name: "Thêm tài khoản cho trường",
+        to: "/admin/nha-truong/them",
+      },
+    ],
+  },
+
+  {
+    key: 3,
     name: "Công việc",
     icon: <LaptopOutlined />,
     children: [
       {
-        key: 21,
+        key: 31,
         name: "Công việc",
         to: "/admin/cong-viec",
       },
       {
-        key: 22,
+        key: 32,
         name: "Công nghệ",
         to: "/admin/cong-nghe",
       },
@@ -106,7 +118,7 @@ const Dashboard = () => {
           style={{
             background: colorBgContainer,
           }}
-          width={200}
+          width={250}
         >
           <Menu
             mode="inline"

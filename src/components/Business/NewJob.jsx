@@ -1,4 +1,4 @@
-import { Alert, Button, Form, Input } from "antd";
+import { Alert, Button, Form, Input, Select, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../api/axiosClient";
 import { useStateContext } from "../../context/ContextProvider";
@@ -13,6 +13,7 @@ const NewJob = () => {
   const [form] = Form.useForm();
   const [name, setName] = useState("");
   const [techUsing, setTechUsing] = useState("");
+  const [techs, setTechs] = useState([]);
   const [requireJob, setRequireJob] = useState("");
   const [description, setDescription] = useState("");
   const [locationWork, setLocationWork] = useState("");
@@ -25,6 +26,12 @@ const NewJob = () => {
     axiosClient
       .get(`business/${currentUser.id}`)
       .then((res) => setBusiness(res.data.business))
+      .catch((e) => console.log(e));
+    axiosClient
+      .get("technologies")
+      .then((res) => {
+        setTechs(res.data.tech);
+      })
       .catch((e) => console.log(e));
   }, []);
   const handleGiveJob = () => {
@@ -52,6 +59,17 @@ const NewJob = () => {
     giveJob();
     navigate("/doanh-nghiep/cong-viec");
   };
+
+  const options = techs?.map((tech) => {
+    return {
+      value: tech.id,
+      label: tech.name,
+    };
+  });
+
+  const handleChange = (value, label) => { 
+    setTechUsing(JSON.stringify(label));
+  }; 
   return (
     <PageComponent title={<MenuBusiness />}>
       {currentUser?.status == 0 ? (
@@ -79,10 +97,25 @@ const NewJob = () => {
               required
               tooltip="Trường này là bắt buộc"
             >
-              <Input
-                placeholder="Công nghệ sử dụng"
-                onChange={(e) => setTechUsing(e.target.value)}
-              />
+              <Space
+                direction="vertical"
+                style={{
+                  width: "100%",
+                }}
+              >
+                <Select
+                  mode="multiple"
+                  size={"middle"}
+                  placeholder="Nhập từ khóa tìm kiếm"
+                  defaultValue={options.slice(0)}
+                  tokenSeparators={[","]}
+                  onChange={handleChange}
+                  style={{
+                    width: "100%",
+                  }}
+                  options={options}
+                />
+              </Space>
             </Form.Item>
             <Form.Item
               label="Yêu cầu công việc"

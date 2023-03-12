@@ -1,11 +1,13 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, useNavigate } from "react-router-dom";
 import App from "../App";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Signup from "../pages/Signup";
-import Business from "../pages/Business"; 
+import Business from "../pages/Business";
 import NotFound from "../pages/NotFound";
 import School from "../school/School";
+
+import { AdminEditSchool } from "../Admin/component/";
 import {
   AdminBusiness,
   AdminDashboard,
@@ -19,11 +21,11 @@ import {
 import {
   SchoolBusiness,
   SchoolStudent,
-  SchoolDetailsStudent,
+  SchoolEditStudent,
   SchoolNewListStudent,
   SchoolBusinessDetails,
+  SchoolReviewJob,
 } from "../school";
-import DetailsStudent from "../school/DetailsStudent";
 import Profile from "../components/Profile";
 import Jobs from "../pages/Jobs";
 import NewJob from "../components/Business/NewJob";
@@ -53,11 +55,15 @@ const Router = createBrowserRouter([
       },
       {
         path: "/truong/sinh-vien/xem",
-        element: <SchoolDetailsStudent />,
+        element: <SchoolEditStudent />,
       },
       {
         path: "/truong/doanh-nghiep",
         element: <SchoolBusiness />,
+      },
+      {
+        path: "/truong/doanh-nghiep/cong-viec/duyet/:idJob",
+        element: <SchoolReviewJob />,
       },
       {
         path: "/truong/doanh-nghiep/xem",
@@ -83,6 +89,7 @@ const Router = createBrowserRouter([
         path: "/doanh-nghiep/cong-viec/:businessID",
         element: <BusinessEditJob />,
       },
+
       {
         path: "/doanh-nghiep/cong-viec",
         element: <Jobs />,
@@ -90,6 +97,10 @@ const Router = createBrowserRouter([
       {
         path: "/doanh-nghiep/cong-viec/them",
         element: <NewJob />,
+      },
+      {
+        path: "/ho-so",
+        element: <SchoolEditStudent />,
       },
     ],
   },
@@ -114,8 +125,12 @@ const Router = createBrowserRouter([
         element: <AdminSchoolCreate />,
       },
       {
-        path: "/admin/sinh-vien/xem",
-        element: <DetailsStudent />,
+        path: "/admin/nha-truong/xem/:idSchool",
+        element: <AdminEditSchool />,
+      },
+      {
+        path: "/admin/sinh-vien/xem/",
+        element: <SchoolEditStudent />,
       },
       {
         path: "/admin/sinh-vien/them",

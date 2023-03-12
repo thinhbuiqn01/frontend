@@ -2,7 +2,7 @@ import Dashboard from "./Dashboard";
 import Technology from "./Technology";
 import Students from "./Students";
 import School from "./School";
-import NewStudents from "./NewStudents";
+import NewStudents from "./component/NewStudents";
 import Business from "./Business";
 import SchoolCreate from "./SchoolCreate";
 import Jobs from "./Jobs";

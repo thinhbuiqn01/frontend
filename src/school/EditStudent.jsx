@@ -26,44 +26,31 @@ function classNames(...classes) {
 }
 
 const defaultPassword = "abc01234";
-const DetailsStudent = () => {
+const EditStudent = () => {
+  const state = useLocation();
   const [selected, setSelected] = useState(status[0]);
-  const { state } = useLocation();
+
+  const user = state.state.currentUser;
   const [edit, setEdit] = useState(false);
-  let user = state?.user;
   const [phone, setPhone] = useState(user?.phone);
   const [password, setPassword] = useState("");
-  const [inform, setInform] = useState(null);
 
   const handleSaveEdit = (e) => {
     axiosClient
       .post(`/user/edit/${user.id}`, {
         name: user.name,
         email: user.email,
-        password: defaultPassword,
+        password: password !== "" ? password : defaultPassword,
         phone: phone,
         status: selected.status,
       })
-      .then((data) => {
-        setInform({
-          name: "Thông báo cập nhật thông tin",
-          user_id: data.data.data.id,
-          description: `Tài khoản ${data.data.data.name} đã được thay đổi thành mặc định là: "<b>abc01234</b>" và số điện thoại cập nhật là: "<b>${data.data.data.phone}</b>"`,
-        });
-      })
-      .then((data) => { 
-        axiosClient
-          .post("create-inform", inform)
-          .then((data) => {
-            console.log(data.data.data); 
-          })
-          .catch((e) => console.log(e));
-      })
+
       .catch((error) => {
         console.log(e);
       });
     setEdit(false);
   };
+  console.log(user);
   return (
     <PageComponent title="Quản lý sinh viên">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg">
@@ -72,11 +59,11 @@ const DetailsStudent = () => {
             {user?.name}
             <span style={{ float: "right" }}>
               {edit == true ? (
-                <Button primary={true} onClick={() => handleSaveEdit(user.id)}>
+                <Button primary onClick={() => handleSaveEdit(user?.id)}>
                   Lưu
                 </Button>
               ) : (
-                <Button danger={true} onClick={() => setEdit(true)}>
+                <Button danger onClick={() => setEdit(true)}>
                   Chỉnh sửa
                 </Button>
               )}
@@ -84,7 +71,7 @@ const DetailsStudent = () => {
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
             {user?.role == 1
-              ? `Sinh viên khóa 20${user.email.slice(0, 2)}`
+              ? `Sinh viên khóa 20${user?.email.slice(0, 2)}`
               : user?.role == 2
               ? `Tham gia ngày ${user.created_at.slice(0, 10)}`
               : ""}
@@ -135,7 +122,6 @@ const DetailsStudent = () => {
                     <input
                       type="text"
                       required
-                      value={defaultPassword}
                       onChange={(e) => setPassword(e.target.value)}
                       className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -151,7 +137,7 @@ const DetailsStudent = () => {
                   style={{ paddingBottom: "100px" }}
                 >
                   {edit == false ? (
-                    user.status == 1 ? (
+                    user?.status == 1 ? (
                       "Đang hoạt động"
                     ) : (
                       "Đang khóa"
@@ -249,4 +235,4 @@ const DetailsStudent = () => {
   );
 };
 
-export default DetailsStudent;
+export default EditStudent;
