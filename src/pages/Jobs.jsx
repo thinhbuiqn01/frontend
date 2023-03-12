@@ -1,9 +1,10 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
-import { Avatar, List, Space, Spin, Tabs } from "antd";
+import { Avatar, Col, List, Row, Space, Spin, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import MenuBusiness from "../components/Business/Menu";
+import HotJobs from "../components/HotJobs";
 import PageComponent from "../components/PageComponent";
 import { useStateContext } from "../context/ContextProvider";
 const avatar = `https://joesch.moe/api/v1/random?key=1`;
@@ -13,7 +14,7 @@ const Jobs = () => {
 
   const [loading, setLoading] = useState(false);
   const [business, setBusiness] = useState();
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState();
   const [jobsConfirm, setJobsConfirm] = useState([]);
   const [jobsNonConfirm, setJobsNonConfirm] = useState([]);
   const items = [
@@ -40,6 +41,7 @@ const Jobs = () => {
         `jobs/${businessInfo.data.business.id}`
       );
       setJobs(jobsInfo.data.jobs);
+
       const confirm = jobsInfo.data.jobs.filter((job) => job.status == 1);
       const nonConfirm = jobsInfo.data.jobs.filter((job) => job.status == 0);
       setJobsConfirm(confirm);
@@ -53,13 +55,30 @@ const Jobs = () => {
       {loading == false ? (
         <Spin />
       ) : (
-        <Tabs defaultActiveKey="1" items={items} />
+        <Row>
+          <Col span={16}>
+            <Tabs defaultActiveKey="1" items={items} />
+          </Col>
+          <Col span={8}>
+            <HotJobs />
+          </Col>
+        </Row>
       )}
     </PageComponent>
   );
 };
 
 const ListJobComponent = ({ data }) => {
+  const handleConvertTech = (techUse) => {
+    const convertArray = JSON.parse(techUse);
+    const mergeTech = convertArray.map((item) => {
+      return item.label;
+    });
+    const mergeTechToString = mergeTech.toString();
+    const replayMergeTech = mergeTechToString.replace(/,/gi, ", ");
+    return replayMergeTech;
+  };
+
   return (
     <List
       itemLayout="vertical"
@@ -107,9 +126,14 @@ const ListJobComponent = ({ data }) => {
                 {item.name_job}
               </Link>
             }
-            description={item.tech_using}
+            description={(() => handleConvertTech(item.tech_using))()}
           />
-          {item.description}
+
+          <div>
+            <span>
+              <ListRequireJob>{item.require_job}</ListRequireJob>
+            </span>
+          </div>
         </List.Item>
       )}
     />
@@ -117,3 +141,13 @@ const ListJobComponent = ({ data }) => {
 };
 
 export default Jobs;
+const ListRequireJob = ({ children }) => {
+  const toArray = children.replace(/-/gi, "").split("\n");
+  return (
+    <>
+      {toArray.map((item, index) => (
+        <li key={index}>- {item}</li>
+      ))}
+    </>
+  );
+};

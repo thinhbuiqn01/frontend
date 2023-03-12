@@ -285,19 +285,23 @@ const Header = ({ currentUser }) => {
                             </Link>
                           </Menu.Item>
 
-                          <Menu.Item>
-                            <Link
-                              state={{ currentUser }}
-                              to={
-                                currentUser.role === 3
-                                  ? "doanh-nghiep/ho-so"
-                                  : "ho-so"
-                              }
-                              className="block px-4 py-2 text-sm text-gray-700"
-                            >
-                              Hồ sơ
-                            </Link>
-                          </Menu.Item>
+                          {currentUser.role == 4 || currentUser.role == 2 ? (
+                            ""
+                          ) : (
+                            <Menu.Item>
+                              <Link
+                                state={{ currentUser }}
+                                to={
+                                  currentUser.role === 3
+                                    ? "/doanh-nghiep/ho-so"
+                                    : "/ho-so"
+                                }
+                                className="block px-4 py-2 text-sm text-gray-700"
+                              >
+                                Hồ sơ
+                              </Link>
+                            </Menu.Item>
+                          )}
 
                           {currentUser.role == 4 ? (
                             <Menu.Item>

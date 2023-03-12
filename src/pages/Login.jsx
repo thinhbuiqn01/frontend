@@ -12,7 +12,7 @@ const color = {
 
 const Login = () => {
   const { setCurrentUser, setUserToken, currentUser, userToken } =
-    useStateContext(); 
+    useStateContext();
   const [size, setSize] = useState("default");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,23 +23,7 @@ const Login = () => {
     status: "",
     message: "",
   });
-  let navigate = useNavigate;
 
-  const handleLoginEmp = (e) => {
-    setEmployer(true);
-    setIsEmp(true);
-    setIsDev(false);
-  };
-
-  const handleLoginDev = (e) => {
-    setEmployer(false);
-    setIsEmp(false);
-    setIsDev(true);
-  };
-
-  const handleLoginGoogle = async (e) => {
-    e.preventDefault();
-  };
   const handleOnSubmitLoginEmployer = (e) => {
     e.preventDefault();
     axiosClient

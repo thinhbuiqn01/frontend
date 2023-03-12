@@ -1,42 +1,11 @@
-import { Button, Space, Spin } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
+import { Button, Space, Spin, Tag, Modal } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import TableManage from "../components/TableManage";
-const columns = [
-  {
-    title: "ID",
-    dataIndex: "id",
-  },
-  {
-    title: "Tài khoản",
-    dataIndex: "name",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-  },
-  {
-    title: "Trạng thái",
-    dataIndex: "status",
-    render: (_, record) => (
-      <Space size="middle" key={record.id}>
-        {record.status == 1 ? "Đang hoạt động" : "Tạm khóa"}
-      </Space>
-    ),
-  },
-  {
-    title: "Hành động",
-    dataIndex: "action",
-    render: (_, record) => (
-      <Space size="middle" key={record.id}>
-        <Link to={"/admin/nha-truong/xem"} state={{ user: record }}>
-          Xem
-        </Link>
-      </Space>
-    ),
-  },
-];
+const { confirm } = Modal;
+
 const School = () => {
   const [school, setSchool] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -54,6 +23,78 @@ const School = () => {
         console.log(e);
       });
   }, []);
+
+  const showDeleteConfirm = (record) => {
+    confirm({
+      title: "Bạn có chắn chắn xóa tài khoản",
+      icon: <ExclamationCircleFilled />,
+      content: "Chọn 'Yes' Tài khoản sẽ bị xóa vĩnh viễn",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        const handleDelete = async () => {
+          const res = await axiosClient.post(`/admin/user/delete/${record.id}`);
+          if (res.status == 200) {
+            const filterUser = res.data.users?.filter((user) => {
+              return user.role == 2;
+            });
+            setSchool(filterUser);
+          }
+        };
+        handleDelete();
+      },
+      onCancel() {},
+    });
+  };
+
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "id",
+    },
+    {
+      title: "Tài khoản",
+      dataIndex: "name",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      render: (_, record) => (
+        <Space size="middle" key={record.id}>
+          {record.status == 1 ? (
+            <Tag color="#50d63e">Hoạt động</Tag>
+          ) : (
+            <Tag color="#f50">Tạm khóa</Tag>
+          )}
+        </Space>
+      ),
+    },
+    {
+      title: "Hành động",
+      dataIndex: "action",
+      render: (_, record) => (
+        <Space size="middle" key={record.id}>
+          <Link
+            to={`/admin/nha-truong/xem/${record.id}`}
+            state={{ user: record }}
+          >
+            <Tag color="#2db7f5">Xem</Tag>
+          </Link>
+          <Link
+            to={"/admin/nha-truong"}
+            onClick={() => showDeleteConfirm(record)}
+          >
+            <Tag color="#f50">Xóa</Tag>
+          </Link>
+        </Space>
+      ),
+    },
+  ];
   return (
     <>
       <div>

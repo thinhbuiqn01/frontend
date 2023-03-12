@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigation } from "react-router-dom";
 import validator from "validator";
 import * as XLSX from "xlsx";
-import axiosClient from "../api/axiosClient";
-import TableManage from "../components/TableManage";
+import axiosClient from "../../api/axiosClient";
+import TableManage from "../../components/TableManage";
 const columns = [
   {
     title: "STT",

@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const StateContext = createContext({
   currentUser: {},
@@ -11,6 +12,7 @@ export const ContextProvider = ({ children }) => {
   const currentUserInit = localStorage.getItem("current_user")
     ? JSON.parse(localStorage.getItem("current_user"))
     : {};
+
   const [currentUser, _setCurrentUser] = useState(currentUserInit);
 
   const [userToken, _setUserToken] = useState(
@@ -27,12 +29,13 @@ export const ContextProvider = ({ children }) => {
     _setCurrentUser(user);
   };
 
-  const logout = () => {
+  const logout = async () => {
     setCurrentUser({});
     setUserToken("");
     localStorage.removeItem("current_user");
     localStorage.removeItem("TOKEN");
-  }; 
+  };
+
   return (
     <StateContext.Provider
       value={{
