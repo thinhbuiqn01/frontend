@@ -39,6 +39,7 @@ const Profile = () => {
         link_website: linkWebsite,
         image: image,
         task: task,
+        status: 1,
         location: location,
         user_id: currentUser.id,
       })

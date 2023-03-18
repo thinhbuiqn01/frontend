@@ -26,6 +26,7 @@ const roleSchool = [
   { name: "PT HIRE UTE", to: "/trang-truong", current: true },
   { name: "Sinh viên", to: "/truong/sinh-vien", current: false },
   { name: "Doanh nghiệp", to: "/truong/doanh-nghiep", current: false },
+  { name: "Công việc", to: "/truong/cong-viec", current: false },
 ];
 
 function classNames(...classes) {
@@ -130,7 +131,7 @@ const Header = ({ currentUser }) => {
                         <h3>
                           {currentUser.role == 2 ? (
                             <Link
-                              to={`truong/doanh-nghiep/cong-viec/duyet/${inform.job_id}`}
+                              to={`truong/cong-viec/duyet/${inform.job_id}`}
                             >
                               {inform.name}
                             </Link>

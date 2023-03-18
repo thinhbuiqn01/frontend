@@ -2,11 +2,11 @@ import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, Col, List, Row, Space, Spin, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../api/axiosClient";
-import MenuBusiness from "../components/Business/Menu";
-import HotJobs from "../components/HotJobs";
-import PageComponent from "../components/PageComponent";
-import { useStateContext } from "../context/ContextProvider";
+import axiosClient from "../../api/axiosClient";
+import MenuBusiness from "../../components/Business/Menu";
+import HotJobs from "../../components/HotJobs";
+import PageComponent from "../../components/PageComponent";
+import { useStateContext } from "../../context/ContextProvider";
 const avatar = `https://joesch.moe/api/v1/random?key=1`;
 
 const Jobs = () => {
