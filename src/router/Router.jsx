@@ -27,9 +27,11 @@ import {
   SchoolReviewJob,
 } from "../school";
 import Profile from "../components/Profile";
-import Jobs from "../pages/Jobs";
+import Jobs from "../pages/business/Jobs";
 import NewJob from "../components/Business/NewJob";
 import { BusinessEditJob } from "../components/Business";
+import StudentPage from "../pages/students/StudentPage";
+import { StudentCareer, StudentHome } from "../pages/students";
 
 const Router = createBrowserRouter([
   {
@@ -61,13 +63,14 @@ const Router = createBrowserRouter([
         path: "/truong/doanh-nghiep",
         element: <SchoolBusiness />,
       },
-      {
-        path: "/truong/doanh-nghiep/cong-viec/duyet/:idJob",
-        element: <SchoolReviewJob />,
-      },
+
       {
         path: "/truong/doanh-nghiep/xem",
         element: <SchoolBusinessDetails />,
+      },
+      {
+        path: "/truong/cong-viec/duyet/:idJob",
+        element: <SchoolReviewJob />,
       },
       {
         path: "/trang-truong",
@@ -79,7 +82,17 @@ const Router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <Home />,
+        element: <StudentPage />,
+        children: [
+          {
+            path: "/viec-lam",
+            element: <StudentCareer />,
+          },
+          {
+            path: "/",
+            element: <StudentHome />,
+          },
+        ],
       },
       {
         path: "/doanhnghiep",
