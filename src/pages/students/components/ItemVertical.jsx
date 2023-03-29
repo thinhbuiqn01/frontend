@@ -1,19 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+import { DiffOutlined } from "@ant-design/icons";
 import h1 from "../../../assets/images/swiper/h1.jpg";
 
-const ItemVertical = ({ props }) => {
+const ItemVertical = ({ job }) => {
   return (
     <Wrapper>
       <div className="image">
         <img src={h1} alt="2312" />
       </div>
       <div className="content">
-        <div className="title">sdsds</div>
-        <div className="location">312321</div>
-        <div className="icon">3213</div>
-        <div className="time">32đasadsadsad13</div>
+        <div className="title">{job.name_job}</div>
+        <div className="location">{job.location}</div>
+        <div className="icon">
+          <DiffOutlined />
+        </div>
+        <div className="time">{job.updated_at.slice(0, 10)}</div>
       </div>
     </Wrapper>
   );
@@ -23,8 +26,10 @@ export default ItemVertical;
 
 const Wrapper = styled.div`
   display: flex;
-  border: 0.001em solid #c7c7c7;
-  margin: 4px 10px;
+  width: 48%;
+  border: 0.001em solid #412a2a;
+  margin: 10px auto;
+
   &:hover {
     background-color: #d0e9fb;
   }
@@ -75,6 +80,24 @@ const Wrapper = styled.div`
       position: absolute;
       bottom: 8px;
       right: 10px;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    width: 80%;
+    margin: 10px auto;
+  }
+
+  @media only screen and (max-width: 450px) {
+    width: 90%;
+    margin: 10px auto;
+
+    .content {
+      .time {
+        position: absolute;
+        bottom: 2px;
+        right: 4px;
+      }
     }
   }
 `;

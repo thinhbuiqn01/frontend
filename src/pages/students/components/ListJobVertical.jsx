@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axiosClient from "../../../api/axiosClient";
 import ItemVertical from "./ItemVertical";
 
@@ -8,22 +8,21 @@ const ListJobVertical = () => {
     axiosClient
       .get("/jobs-confirm")
       .then((res) => {
-        console.log(res);
+        setJobs(res.data.jobs);
+        setLoading(true);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   return (
-    <div>
-      <Row>
-        <Col span={12}>
-          <ItemVertical />
-        </Col>
-        <Col span={12}>
-          <ItemVertical />
-        </Col>
-      </Row>
+    <div style={{ display: "flex", flexWrap: "wrap" }}>
+      {loading
+        ? jobs.map((job) => <ItemVertical key={job.id} job={job} />)
+        : ""}
     </div>
   );
 };

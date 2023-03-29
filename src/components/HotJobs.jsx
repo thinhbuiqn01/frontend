@@ -19,7 +19,7 @@ const HotJobs = () => {
       });
   }, []);
   return (
-    <Wrapper>
+    <Wrapper style={{ width: "100%" }}>
       <h1>
         <span>Công việc</span> hot hôm nay
       </h1>
@@ -46,8 +46,7 @@ const HotJobs = () => {
 export default HotJobs;
 
 const Wrapper = styled.div`
-  padding: 8px;
-  margin: 8px;
+  padding: 8px; 
   h1 {
     text-align: center;
     font-size: 24px;

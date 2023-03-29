@@ -26,7 +26,7 @@ const BusinessHighlight = () => {
       });
   }, []);
   return (
-    <div>
+    <>
       <TitleComponent title={"Công ty nỖi bật"} size="20px" />
       <>
         {loading == false ? (
@@ -55,7 +55,7 @@ const BusinessHighlight = () => {
           </>
         )}
       </>
-    </div>
+    </>
   );
 };
 
