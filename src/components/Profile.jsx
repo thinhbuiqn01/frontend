@@ -15,7 +15,7 @@ const Profile = () => {
   const [linkWebsite, setLinkWebsite] = useState("");
   const [task, setTask] = useState("");
   const [location, setLocation] = useState("");
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     axiosClient
@@ -31,13 +31,16 @@ const Profile = () => {
   }, []);
   const handleSubmitInformBusiness = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+
+    formData.append("File", image);
     axiosClient
       .post("extra-info", {
         name: nameCPN,
         scales: scales,
         description,
         link_website: linkWebsite,
-        image: image,
+        image: formData,
         task: task,
         status: 1,
         location: location,
