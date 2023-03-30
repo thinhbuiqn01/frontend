@@ -5,6 +5,7 @@ import hallCompany from "../assets/images/hallCompany.jpg";
 import axiosClient from "../api/axiosClient";
 import { Spin } from "antd";
 import { ListJobUser } from "../components/Job";
+import { host } from "../utils/APIRoutes";
 const BusinessView = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [infoBusiness, setInfoBusiness] = useState(null);
@@ -77,7 +78,10 @@ const BusinessView = ({ data }) => {
                 {/* right */}
                 <div className="-mt-12 -ml-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
                   <img
-                    src={infoBusiness?.image || hallCompany}
+                    style={{ width: "100%" }}
+                    src={
+                      `${host}/uploads/${infoBusiness?.image}` || hallCompany
+                    }
                     className="shadow-2xl rounded-lg"
                   />
                 </div>

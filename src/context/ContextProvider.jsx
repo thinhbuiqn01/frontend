@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 const StateContext = createContext({
   currentUser: {},
   userToken: null,
+  search: "",
+  setSearch: () => {},
   setCurrentUser: () => {},
   setUserToken: () => {},
 });
@@ -18,6 +20,7 @@ export const ContextProvider = ({ children }) => {
   const [userToken, _setUserToken] = useState(
     localStorage.getItem("TOKEN") || ""
   );
+  const [search, setSearch] = useState("");
 
   const setUserToken = (token) => {
     localStorage.setItem("TOKEN", token);
@@ -43,7 +46,9 @@ export const ContextProvider = ({ children }) => {
         setCurrentUser,
         userToken,
         setUserToken,
+        search,
         logout,
+        setSearch,
       }}
     >
       {children}

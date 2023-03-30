@@ -1,5 +1,4 @@
-import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
-import { Avatar, Col, List, Row, Space, Spin, Tabs } from "antd";
+import { Avatar, Col, List, Row, Spin, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../../api/axiosClient";
@@ -7,13 +6,14 @@ import MenuBusiness from "../../components/Business/Menu";
 import HotJobs from "../../components/HotJobs";
 import PageComponent from "../../components/PageComponent";
 import { useStateContext } from "../../context/ContextProvider";
+import styled from "styled-components";
+import { host } from "../../utils/APIRoutes";
 const avatar = `https://joesch.moe/api/v1/random?key=1`;
 
 const Jobs = () => {
   const { currentUser } = useStateContext();
 
   const [loading, setLoading] = useState(false);
-  const [business, setBusiness] = useState();
   const [jobs, setJobs] = useState();
   const [jobsConfirm, setJobsConfirm] = useState([]);
   const [jobsNonConfirm, setJobsNonConfirm] = useState([]);
@@ -55,20 +55,44 @@ const Jobs = () => {
       {loading == false ? (
         <Spin />
       ) : (
-        <Row>
-          <Col span={16}>
+        <Wrapper>
+          <div className="tabs">
             <Tabs defaultActiveKey="1" items={items} />
-          </Col>
-          <Col span={8}>
+          </div>
+          <div className="list">
             <HotJobs />
-          </Col>
-        </Row>
+          </div>
+        </Wrapper>
       )}
     </PageComponent>
   );
 };
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  .tabs {
+    width: 70%;
+  }
+  .list {
+    width: 30%;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .tabs {
+      width: 100%;
+    }
+    .list {
+      display: none;
+      margin: 0 auto;
+      width: 80%;
+    }
+  }
+`;
+
 const ListJobComponent = ({ data }) => {
+  const { currentUser } = useStateContext();
+  const [business, setBusiness] = useState(); 
   const handleConvertTech = (techUse) => {
     const convertArray = JSON.parse(techUse);
     const mergeTech = convertArray.map((item) => {
@@ -78,7 +102,11 @@ const ListJobComponent = ({ data }) => {
     const replayMergeTech = mergeTechToString.replace(/,/gi, ", ");
     return replayMergeTech;
   };
-
+  useEffect(() => {
+    axiosClient.get(`business/${currentUser.id}`).then((res) => {
+      setBusiness(res.data.business); 
+    });
+  }, []);
   return (
     <List
       itemLayout="vertical"
@@ -94,35 +122,18 @@ const ListJobComponent = ({ data }) => {
       renderItem={(item) => (
         <List.Item
           key={item.id}
-          /* actions={[
-    <IconText
-      icon={StarOutlined}
-      text="156"
-      key="list-vertical-star-o"
-    />,
-    <IconText
-      icon={LikeOutlined}
-      text="156"
-      key="list-vertical-like-o"
-    />,
-    <IconText
-      icon={MessageOutlined}
-      text="2"
-      key="list-vertical-message"
-    />,
-  ]} */
           extra={
             <img
               width={272}
               alt="logo"
-              src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+              src={`${host}/uploads/${business?.image}`}
             />
           }
         >
           <List.Item.Meta
-            avatar={<Avatar src={avatar} />}
+            avatar={<Avatar src={`${host}/uploads/${business?.image}`} />}
             title={
-              <Link to={`/doanh-nghiep/cong-viec/${item.id}`} state={item}>
+              <Link to={`/doanh-nghiep/cong-viec/${item?.id}`} state={item}>
                 {item.name_job}
               </Link>
             }

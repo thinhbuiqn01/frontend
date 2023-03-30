@@ -4,7 +4,7 @@ import axiosClient from "../api/axiosClient";
 import { Avatar, Badge, Drawer, List, Modal, Skeleton, Space } from "antd";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { BellOutlined, DashOutlined } from "@ant-design/icons";
+import { BellOutlined, DashOutlined, UserAddOutlined } from "@ant-design/icons";
 import { useStateContext } from "../context/ContextProvider";
 
 import logo from "../assets/images/logo.png";
@@ -242,112 +242,111 @@ const Header = ({ currentUser }) => {
                     </button>
 
                     {/* Profile dropdown PC */}
-                    <Menu as="div" className="relative ml-3">
-                      <div>
-                        <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                          <span className="sr-only">Open user menu</span>
-                          {currentUser.imageUrl ? (
-                            <>
-                              <img
-                                className="h-8 w-8 rounded-full"
-                                src={currentUser.imageUrl}
-                                alt=""
-                              />
-                            </>
-                          ) : (
-                            <>
-                              {currentUser.name ? (
-                                <div className=" text-white">
-                                  {currentUser.name}
-                                </div>
-                              ) : (
-                                <UserIcon className=" text-white" />
-                              )}
-                            </>
-                          )}
-                        </Menu.Button>
-                      </div>
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                      >
-                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <Menu.Item>
-                            <Link
-                              to="/cai-dat"
-                              className="block px-4 py-2 text-sm text-gray-700"
-                            >
-                              Cài đặt
-                            </Link>
-                          </Menu.Item>
+                    {currentUser.name ? (
+                      <Menu as="div" className="relative ml-3">
+                        <div>
+                          <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            <span className="sr-only">Open user menu</span>
 
-                          {currentUser.role == 4 || currentUser.role == 2 ? (
-                            ""
-                          ) : (
+                            <div className=" text-white">
+                              {currentUser.name}
+                            </div>
+                          </Menu.Button>
+                        </div>
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <Menu.Item>
                               <Link
-                                state={{ currentUser }}
-                                to={
-                                  currentUser.role === 3
-                                    ? "/doanh-nghiep/ho-so"
-                                    : "/ho-so"
-                                }
+                                to="/cai-dat"
                                 className="block px-4 py-2 text-sm text-gray-700"
                               >
-                                Hồ sơ
+                                Cài đặt
                               </Link>
                             </Menu.Item>
-                          )}
 
-                          {currentUser.role == 4 ? (
-                            <Menu.Item>
-                              <Link
-                                to={"/admin"}
-                                state={{ currentUser }}
-                                className="block px-4 py-2 text-sm text-gray-700"
-                              >
-                                Trang quản lý
-                              </Link>
-                            </Menu.Item>
-                          ) : currentUser.role == 2 ? (
-                            <Menu.Item>
-                              <Link
-                                to={"/truong/doanh-nghiep"}
-                                state={{ currentUser }}
-                                className="block px-4 py-2 text-sm text-gray-700"
-                              >
-                                Quản lý doanh nghiệp
-                              </Link>
-                            </Menu.Item>
-                          ) : (
-                            ""
-                          )}
-                          <Menu.Item>
-                            {currentUser.name ? (
-                              <Link
-                                to="/dang-xuat"
-                                onClick={(e) => Logout(e)}
-                                className="block px-4 py-2 text-sm text-gray-700"
-                              >
-                                Đăng xuất
-                              </Link>
+                            {currentUser.role == 4 || currentUser.role == 2 ? (
+                              ""
                             ) : (
-                              <Link
-                                to="/dang-nhap"
-                                className="block px-4 py-2 text-sm text-gray-700"
-                              >
-                                Đăng nhập
-                              </Link>
+                              <Menu.Item>
+                                <Link
+                                  state={{ currentUser }}
+                                  to={
+                                    currentUser.role === 3
+                                      ? "/doanh-nghiep/ho-so"
+                                      : "/ho-so"
+                                  }
+                                  className="block px-4 py-2 text-sm text-gray-700"
+                                >
+                                  Hồ sơ
+                                </Link>
+                              </Menu.Item>
                             )}
-                          </Menu.Item>
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
+
+                            {currentUser.role == 4 ? (
+                              <Menu.Item>
+                                <Link
+                                  to={"/admin"}
+                                  state={{ currentUser }}
+                                  className="block px-4 py-2 text-sm text-gray-700"
+                                >
+                                  Trang quản lý
+                                </Link>
+                              </Menu.Item>
+                            ) : currentUser.role == 2 ? (
+                              <Menu.Item>
+                                <Link
+                                  to={"/truong/doanh-nghiep"}
+                                  state={{ currentUser }}
+                                  className="block px-4 py-2 text-sm text-gray-700"
+                                >
+                                  Quản lý doanh nghiệp
+                                </Link>
+                              </Menu.Item>
+                            ) : (
+                              ""
+                            )}
+                            <Menu.Item>
+                              {currentUser.name ? (
+                                <Link
+                                  to="/dang-xuat"
+                                  onClick={(e) => Logout(e)}
+                                  className="block px-4 py-2 text-sm text-gray-700"
+                                >
+                                  Đăng xuất
+                                </Link>
+                              ) : (
+                                <Link
+                                  to="/dang-nhap"
+                                  className="block px-4 py-2 text-sm text-gray-700"
+                                >
+                                  Đăng nhập
+                                </Link>
+                              )}
+                            </Menu.Item>
+                          </Menu.Items>
+                        </Transition>
+                      </Menu>
+                    ) : (
+                      <Link to="/dang-nhap">
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: "1rem",
+                            color: "white",
+                          }}
+                        >
+                          <UserAddOutlined style={{ height: "24px" }} />
+                        </span>
+                      </Link>
+                    )}
                     {/* PC */}
                   </div>
                 </div>
@@ -389,6 +388,7 @@ const Header = ({ currentUser }) => {
                   <div className="flex-shrink-0">
                     {currentUser.imageUrl ? (
                       <>
+                        {console.log(currentUser)}
                         <img
                           className="h-8 w-8 rounded-full"
                           src={currentUser.imageUrl}

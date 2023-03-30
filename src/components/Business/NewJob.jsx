@@ -41,7 +41,7 @@ const NewJob = () => {
       requireJob,
       description,
       locationWork,
-      emailGiveCV: emailGiveCV,
+      emailGiveCV: currentUser.email,
       business_id: business.id,
       status: 0,
     };
@@ -67,9 +67,9 @@ const NewJob = () => {
     };
   });
 
-  const handleChange = (value, label) => { 
+  const handleChange = (value, label) => {
     setTechUsing(JSON.stringify(label));
-  }; 
+  };
   return (
     <PageComponent title={<MenuBusiness />}>
       {currentUser?.status == 0 ? (
@@ -87,7 +87,7 @@ const NewJob = () => {
               required
               tooltip="Trường này là bắt buộc"
             >
-              <Input
+              <TextArea
                 placeholder="Tên công việc"
                 onChange={(e) => setName(e.target.value)}
               />
@@ -122,7 +122,7 @@ const NewJob = () => {
               required
               tooltip="Trường này là bắt buộc"
             >
-              <Input
+              <TextArea
                 placeholder="Yêu cầu công việc"
                 onChange={(e) => setRequireJob(e.target.value)}
               />
@@ -142,21 +142,21 @@ const NewJob = () => {
               required
               tooltip="Trường này là bắt buộc"
             >
-              <Input
+              <TextArea
                 placeholder="Địa điểm làm việc"
                 onChange={(e) => setLocationWork(e.target.value)}
               />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               label="Email nhận cv"
               required
               tooltip="Trường này là bắt buộc"
             >
-              <Input
+              <TextArea
                 placeholder="Email nhận cv"
                 onChange={(e) => setEmailGiveCV(e.target.value)}
               />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item>
               <Button type="primary" danger block onClick={handleGiveJob}>
                 Gửi

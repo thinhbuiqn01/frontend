@@ -1,16 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HotJobs from "../../components/HotJobs";
 import Blog from "./Blog";
 import BusinessHighlight from "./components/BusinessHighlight";
 
-import { Row, Col } from "antd";
-import PageComponent from "../../components/PageComponent";
 import Wrapper from "../../components/Wrapper";
 import ListJobVertical from "./components/ListJobVertical";
 import ListJobHorizontal from "./components/ListJobHorizontal";
 import styled from "styled-components";
+import SearchData from "../../components/SearchData";
+import axiosClient from "../../api/axiosClient";
 
 const Home = () => {
+  const [jobsHorizontal, setJobsHorizontal] = useState([]);
+
+  const [jobsVertical, setJobsVertical] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    axiosClient
+      .get("/jobs-full")
+      .then((res) => {
+        setJobsHorizontal(res.data);
+        setLoading(true);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  useEffect(() => {
+    axiosClient
+      .get("/jobs-confirm")
+      .then((res) => {
+        setJobsVertical(res.data.jobs);
+        setLoading(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <WrapperContent>
@@ -26,10 +52,18 @@ const Home = () => {
         <Blog />
       </Wrapper>
       <Wrapper>
-        <ListJobHorizontal />
+        <ListJobHorizontal
+          loading={loading}
+          jobs={jobsHorizontal}
+          setJobs={setJobsHorizontal}
+        />
       </Wrapper>
       <Wrapper>
-        <ListJobVertical />
+        <ListJobVertical
+          loading={loading}
+          jobs={jobsVertical}
+          setJobs={setJobsVertical}
+        />
       </Wrapper>
     </>
   );
