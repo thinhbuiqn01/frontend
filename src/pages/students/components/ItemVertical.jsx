@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { DiffOutlined } from "@ant-design/icons";
 import h1 from "../../../assets/images/swiper/h1.jpg";
 
-const ItemVertical = ({ job }) => {
+const ItemVertical = ({ job, width }) => {
   return (
     <Wrapper>
       <div className="image">

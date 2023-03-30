@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../api/axiosClient";
 import ItemHorizontal from "./ItemHorizontal";
-const ListJobHorizontal = () => {
-  const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    axiosClient
-      .get("/jobs-full")
-      .then((res) => {
-        setJobs(res.data);
-        setLoading(true);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+const ListJobHorizontal = ({ jobs, setJobs, loading }) => {
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {loading ? (
@@ -20,6 +9,14 @@ const ListJobHorizontal = () => {
           {jobs.map((job) => (
             <ItemHorizontal job={job} />
           ))}
+          {jobs.map((job) => (
+            <ItemHorizontal job={job} />
+          ))}
+          <>
+            {jobs.map((job) => (
+              <ItemHorizontal job={job} />
+            ))}
+          </>
         </>
       ) : (
         ""

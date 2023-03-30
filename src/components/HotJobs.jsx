@@ -11,7 +11,6 @@ const HotJobs = () => {
     axiosClient
       .post("jobs-hot")
       .then((res) => {
-        console.log(res);
         setJobs(res.data.jobs);
       })
       .catch((err) => {
@@ -46,7 +45,7 @@ const HotJobs = () => {
 export default HotJobs;
 
 const Wrapper = styled.div`
-  padding: 8px; 
+  padding: 8px;
   h1 {
     text-align: center;
     font-size: 24px;

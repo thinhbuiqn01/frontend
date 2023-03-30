@@ -1,20 +1,27 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 import h1 from "../../../assets/images/swiper/h1.jpg";
+import ConvertDescription from "../../../components/ConvertDescription";
 
 const ItemHorizontal = ({ job }) => {
   return (
     <Wrapper>
-      <div className="image">
-        <img src={h1} />
-      </div>
-      <div className="info">
-        <div className="info__name">{job.name_job.toUpperCase()}</div>
-        <div className="info__location">{job.location}</div>
-        <div className="info__description">{job.description}</div>
-        <div className="info__require_job">{job.require_job}</div>
-        <div className="info__time">{job.updated_at.slice(0, 10)}</div>
-      </div>
+      <Link>
+        <div className="image">
+          <img src={h1} />
+        </div>
+        <div className="info">
+          <div className="info__name">{job.name_job.toUpperCase()}</div>
+          <div className="info__location">{job.location}</div>
+          <div className="info__description">{job.description}</div>
+          <div className="info__require_job">
+            <ConvertDescription data={job.require_job} />{" "}
+          </div>
+          <div className="info__time">{job.updated_at.slice(0, 10)}</div>
+        </div>
+      </Link>
     </Wrapper>
   );
 };
@@ -23,7 +30,7 @@ export default ItemHorizontal;
 
 const Wrapper = styled.div`
   width: 23%;
-  margin: 1%;
+  margin: 1%; 
   position: relative;
   border: 1px solid #000;
   .image {
@@ -43,6 +50,10 @@ const Wrapper = styled.div`
       font-weight: 600;
     }
     &__location {
+    }
+
+    &__description {
+      
     }
     &__time {
       bottom: 10px;

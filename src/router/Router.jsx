@@ -32,6 +32,7 @@ import NewJob from "../components/Business/NewJob";
 import { BusinessEditJob } from "../components/Business";
 import StudentPage from "../pages/students/StudentPage";
 import { StudentCareer, StudentHome } from "../pages/students";
+import PageSearch from "../pages/students/PageSearch";
 
 const Router = createBrowserRouter([
   {
@@ -87,6 +88,10 @@ const Router = createBrowserRouter([
           {
             path: "/viec-lam",
             element: <StudentCareer />,
+          },
+          {
+            path: "/search",
+            element: <PageSearch />,
           },
           {
             path: "/",
