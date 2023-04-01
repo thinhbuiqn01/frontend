@@ -9,7 +9,7 @@ const columns = [
   {
     title: "ID",
     dataIndex: "id",
-    key: "id",
+    key: Math.random(),
     render: (_, record, index) => (
       <Space size="middle" key={index}>
         {index + 1}
@@ -19,16 +19,16 @@ const columns = [
   {
     title: "Tên doanh nghiệp",
     dataIndex: "name",
-    key: "id",
+    key: Math.random(),
   },
   {
     title: "Email",
     dataIndex: "email",
-    key: "id",
+    key: Math.random(),
   },
   {
     title: "Trạng thái",
-    key: "id", 
+    key: Math.random(),
     dataIndex: "status",
     render: (_, record, index) => (
       <Space size="middle" key={index}>
@@ -39,10 +39,14 @@ const columns = [
   {
     title: "Hành động",
     dataIndex: "action",
-    key:'id', 
+    key: Math.random(),
     render: (_, record, index) => (
       <Space size="middle" key={index}>
-        <Link to={"/truong/doanh-nghiep/xem"} state={{ user: record }}>
+        {console.log(record)}
+        <Link
+          to={`/truong/doanh-nghiep/xem/${record.id}`}
+          state={{ user: record }}
+        >
           Xem
         </Link>
       </Space>

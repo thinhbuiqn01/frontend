@@ -4,6 +4,7 @@ import "./App.css";
 
 import Header from "./components/Header";
 import { useStateContext } from "./context/ContextProvider";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const { currentUser } = useStateContext();
@@ -14,6 +15,7 @@ function App() {
       <div className="min-h-full">
         <Header currentUser={currentUser} />
         <Outlet />
+        <Footer />
       </div>
     </>
   );

@@ -24,7 +24,7 @@ const Ul = styled.ul`
   text-overflow: ellipsis;
   white-space: normal;
   -webkit-line-clamp: 2;
-  line-height: 1.6rem;  
+  line-height: 1.6rem;
 
   li {
     font-size: 0.9rem;
@@ -38,5 +38,8 @@ const Ul = styled.ul`
         color: black;
       }
     } */
+  }
+  a {
+    text-decoration: none;
   }
 `;
