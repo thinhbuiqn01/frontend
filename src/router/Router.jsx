@@ -33,6 +33,7 @@ import { BusinessEditJob } from "../components/Business";
 import StudentPage from "../pages/students/StudentPage";
 import { StudentCareer, StudentHome } from "../pages/students";
 import PageSearch from "../pages/students/PageSearch";
+import Counter from "../pages/counter/Counter";
 
 const Router = createBrowserRouter([
   {
@@ -66,7 +67,7 @@ const Router = createBrowserRouter([
       },
 
       {
-        path: "/truong/doanh-nghiep/xem",
+        path: "/truong/doanh-nghiep/xem/:id",
         element: <SchoolBusinessDetails />,
       },
       {
@@ -163,6 +164,10 @@ const Router = createBrowserRouter([
         element: <AdminJobs />,
       },
     ],
+  },
+  {
+    path: "/counter",
+    element: <Counter />,
   },
 ]);
 

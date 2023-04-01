@@ -1,12 +1,12 @@
+import { Spin } from "antd";
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import PageComponent from "../components/PageComponent";
 import Job from "./jobs/Job";
-import { Spin } from "antd";
 
 const ReviewJob = () => {
-  const params = useParams(); 
+  const params = useParams();
   const [loading, setLoading] = useState(false);
   const [job, setJob] = useState();
 
@@ -14,14 +14,15 @@ const ReviewJob = () => {
     getJob(params.idJob);
   }, []);
   const getJob = async (idJob) => {
-    const res = await axiosClient.get(`job/${idJob}`);
-    setJob(res.data.job); 
-    setLoading(true);
+    try {
+      const res = await axiosClient.get(`job/${idJob}`); 
+      setJob(res.data.job);
+      setLoading(true);
+    } catch (error) {}
   };
-  console.log(job);
   return (
     <PageComponent>
-      <>{loading ? <Job job={job} /> : <Spin />} </>
+      <>{loading ? <Job job={job} setJob={setJob} /> : <Spin />} </>
     </PageComponent>
   );
 };

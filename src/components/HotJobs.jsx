@@ -11,7 +11,7 @@ const HotJobs = () => {
     axiosClient
       .post("jobs-hot")
       .then((res) => {
-        setJobs(res.data.jobs);
+        setJobs(res.data.jobs.slice(0, 4));
       })
       .catch((err) => {
         console.log(err);
@@ -60,7 +60,7 @@ const Wrapper = styled.div`
   .list-job {
     margin-top: 20px;
     .item-job {
-      position: relative;
+      position: relative; 
       padding: 8px 12px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -79,6 +79,9 @@ const Wrapper = styled.div`
         font-weight: 500;
         text-transform: uppercase;
         color: #9c9c9c;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       h4 {
         color: #323232;

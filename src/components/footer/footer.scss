@@ -1,0 +1,17 @@
+footer {
+      background-color: #efefef;
+      color: black;
+      content {
+            width: 80%;
+
+            &__contact {
+                  width: 33.33%;
+            }
+            &__map {
+                  width: 33.33%;
+            }
+            &__community {
+                  width: 33.33%;
+            }
+      }
+}

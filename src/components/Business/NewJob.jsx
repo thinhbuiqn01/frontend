@@ -1,4 +1,4 @@
-import { Alert, Button, Form, Input, Select, Space } from "antd";
+import { Alert, Button, Form, Input, Select, Space, Tree } from "antd";
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../api/axiosClient";
 import { useStateContext } from "../../context/ContextProvider";
@@ -6,6 +6,7 @@ import PageComponent from "../PageComponent";
 import Marquee from "react-fast-marquee";
 import MenuBusiness from "./Menu";
 import { useNavigate } from "react-router-dom";
+import SelectAddress from "./SelectAddress";
 const { TextArea } = Input;
 
 const NewJob = () => {
@@ -17,6 +18,7 @@ const NewJob = () => {
   const [requireJob, setRequireJob] = useState("");
   const [description, setDescription] = useState("");
   const [locationWork, setLocationWork] = useState("");
+  const [mapWork, setMapWork] = useState("");
   const [emailGiveCV, setEmailGiveCV] = useState("");
   const [business, setBusiness] = useState();
 
@@ -35,12 +37,13 @@ const NewJob = () => {
       .catch((e) => console.log(e));
   }, []);
   const handleGiveJob = () => {
+    console.log(mapWork);
     const jobs = {
       name,
       techUsing,
       requireJob,
       description,
-      locationWork,
+      locationWork: locationWork + mapWork,
       emailGiveCV: currentUser.email,
       business_id: business.id,
       status: 0,
@@ -58,6 +61,7 @@ const NewJob = () => {
     };
     giveJob();
     navigate("/doanh-nghiep/cong-viec");
+    console.log(locationWork + mapWork);
   };
 
   const options = techs?.map((tech) => {
@@ -70,6 +74,7 @@ const NewJob = () => {
   const handleChange = (value, label) => {
     setTechUsing(JSON.stringify(label));
   };
+
   return (
     <PageComponent title={<MenuBusiness />}>
       {currentUser?.status == 0 ? (
@@ -142,21 +147,18 @@ const NewJob = () => {
               required
               tooltip="Trường này là bắt buộc"
             >
-              <TextArea
-                placeholder="Địa điểm làm việc"
-                onChange={(e) => setLocationWork(e.target.value)}
+              <SelectAddress
+                setMapWork={setMapWork}
+                locationWork={locationWork}
               />
             </Form.Item>
-            {/* <Form.Item
-              label="Email nhận cv"
-              required
-              tooltip="Trường này là bắt buộc"
-            >
+            <Form.Item label="Số nhà" required tooltip="Trường này là bắt buộc">
               <TextArea
-                placeholder="Email nhận cv"
-                onChange={(e) => setEmailGiveCV(e.target.value)}
-              />
-            </Form.Item> */}
+                rows={1}
+                onChange={(e) => setLocationWork(e.target.value)}
+              ></TextArea>
+            </Form.Item>
+
             <Form.Item>
               <Button type="primary" danger block onClick={handleGiveJob}>
                 Gửi

@@ -88,9 +88,11 @@ const Header = ({ currentUser }) => {
     e.preventDefault();
     const deleteInform = async () => {
       const response = await axiosClient.delete(`delete-inform/${id}`);
-      if (response.status == 200) {
-        setInforms(response.data.inform);
-      }
+      try {
+        if (response.status == 200) {
+          setInforms(response.data.inform);
+        }
+      } catch (error) {}
       console.log(response);
     };
     deleteInform();

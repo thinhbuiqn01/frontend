@@ -30,7 +30,7 @@ export default ItemHorizontal;
 
 const Wrapper = styled.div`
   width: 23%;
-  margin: 1%; 
+  margin: 1%;
   position: relative;
   border: 1px solid #000;
   .image {
@@ -53,7 +53,12 @@ const Wrapper = styled.div`
     }
 
     &__description {
-      
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      -webkit-line-clamp: 2;
     }
     &__time {
       bottom: 10px;
