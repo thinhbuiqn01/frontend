@@ -60,7 +60,7 @@ const Wrapper = styled.div`
   .list-job {
     margin-top: 20px;
     .item-job {
-      position: relative;
+      position: relative; 
       padding: 8px 12px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -83,6 +83,9 @@ const Wrapper = styled.div`
         text-overflow: ellipsis;
         overflow: hidden;
         color: #9c9c9c;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       h4 {
         color: #323232;

@@ -9,6 +9,7 @@ import { host } from "../utils/APIRoutes";
 const BusinessView = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [infoBusiness, setInfoBusiness] = useState(null);
+ 
   useEffect(() => {
     axiosClient.get(`get-info/${data?.user.id}`).then((res) => {
       if (res.data.status == "success") {
