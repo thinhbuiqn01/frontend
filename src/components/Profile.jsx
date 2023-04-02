@@ -62,7 +62,6 @@ const Profile = () => {
   };
   const handleChangeImage = (e) => {
     const imagesArray = [];
-    console.log(e.target.files.length);
     for (let i = 0; i < e.target.files.length; i++) {
       imagesArray.push(e.target.files[i]);
     }

@@ -30,9 +30,14 @@ export default ItemHorizontal;
 
 const Wrapper = styled.div`
   width: 23%;
+ 
+  height: 400px;
   margin: 1%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ 
+  margin: 1%; 
   position: relative;
-  border: 1px solid #000;
+  border-radius: 5px;
   .image {
     margin: 0 auto;
     width: 50%;

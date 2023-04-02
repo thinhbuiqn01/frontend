@@ -76,8 +76,12 @@ const Wrapper = styled.div`
       h3,
       h4 {
         font-size: 14px;
+        width: 80%;
         font-weight: 500;
         text-transform: uppercase;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
         color: #9c9c9c;
         white-space: nowrap;
         overflow: hidden;

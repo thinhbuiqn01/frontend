@@ -9,13 +9,14 @@ import ListJobHorizontal from "./components/ListJobHorizontal";
 import styled from "styled-components";
 import SearchData from "../../components/SearchData";
 import axiosClient from "../../api/axiosClient";
+import ListCardBusiness from "../../components/listcard/ListCardBusiness";
 
 const Home = () => {
   const [jobsHorizontal, setJobsHorizontal] = useState([]);
 
   const [jobsVertical, setJobsVertical] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     axiosClient
       .get("/jobs-full")
@@ -48,23 +49,28 @@ const Home = () => {
         </div>
       </WrapperContent>
 
-      <Wrapper>
-        <Blog />
-      </Wrapper>
-      <Wrapper>
+      <WrapperContent>
+        <h2>Công ty hàng đầu</h2>
+        <ListCardBusiness />
+      </WrapperContent>
+      <WrapperContent>
+        <h2>Công việc hàng đầu</h2>
+
         <ListJobHorizontal
           loading={loading}
           jobs={jobsHorizontal}
           setJobs={setJobsHorizontal}
         />
-      </Wrapper>
-      <Wrapper>
+      </WrapperContent>
+      <WrapperContent>
+        <h2>Công việc hàng đầu</h2>
+
         <ListJobVertical
           loading={loading}
           jobs={jobsVertical}
           setJobs={setJobsVertical}
         />
-      </Wrapper>
+      </WrapperContent>
     </>
   );
 };
@@ -73,7 +79,7 @@ export default Home;
 
 const WrapperContent = styled.div`
   width: 80%;
-  margin: 0 auto;
+  margin: 40px auto;
   display: flex;
   flex-wrap: wrap;
   .business__light {
@@ -81,6 +87,12 @@ const WrapperContent = styled.div`
   }
   .business__hot__job {
     width: 40%;
+  }
+
+  h2 {
+    padding-top: 16px;
+    font-size: 1.3rem;
+    font-weight: bold;
   }
 
   @media screen and (max-width: 700px) {

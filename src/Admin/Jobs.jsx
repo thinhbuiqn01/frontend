@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Jobs = () => {
-  return <div>Jobs</div>;
+  return <>Jobs</>;
 };
 
 export default Jobs;

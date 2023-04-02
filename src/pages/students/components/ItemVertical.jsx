@@ -27,7 +27,8 @@ export default ItemVertical;
 const Wrapper = styled.div`
   display: flex;
   width: 48%;
-  border: 0.001em solid #412a2a;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   margin: 10px auto;
 
   &:hover {
@@ -62,10 +63,14 @@ const Wrapper = styled.div`
       display: block;
       text-overflow: ellipsis;
       overflow: hidden;
+      width: 80%;
+      text-transform: uppercase;
+      white-space: nowrap;
       font-size: 18px;
       font-weight: 500;
     }
     .location {
+      width: 80%;
       display: block;
       text-overflow: ellipsis;
       overflow: hidden;

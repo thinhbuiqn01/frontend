@@ -7,7 +7,7 @@ import Business from "../pages/Business";
 import NotFound from "../pages/NotFound";
 import School from "../school/School";
 
-import { AdminEditSchool } from "../Admin/component/";
+import { AdminEditSchool, AdminNewTech } from "../Admin/component/";
 import {
   AdminBusiness,
   AdminDashboard,
@@ -158,6 +158,10 @@ const Router = createBrowserRouter([
       {
         path: "/admin/cong-nghe",
         element: <AdminTechnology />,
+      },
+      {
+        path: "/admin/cong-nghe/them",
+        element: <AdminNewTech />,
       },
       {
         path: "/admin/cong-viec",

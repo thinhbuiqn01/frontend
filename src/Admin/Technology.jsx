@@ -2,6 +2,7 @@ import { Avatar, Card, List, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import axiosClient from "../api/axiosClient";
 import img from "../assets/images/img.png";
+import { host } from "../utils/APIRoutes";
 const Technology = () => {
   const [technologies, setTechnologies] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -39,13 +40,19 @@ const Technology = () => {
           {technologies.map((item) => (
             <List.Item key={item.id}>
               <List.Item.Meta
-                avatar={<Avatar src={item.image || img} />}
+                avatar={
+                  <Avatar
+                    src={item.image ? `${host}/uploads/${item.image}` : img}
+                  />
+                }
                 title={
                   <a href={item.linkPage} target="_plank">
                     {item.name}
                   </a>
                 }
-                description={"Công nghệ lập trình"}
+                description={
+                  item.description ? item.description : "Công nghệ lập trình"
+                }
               />
             </List.Item>
           ))}
