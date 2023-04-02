@@ -1,23 +1,13 @@
-import { Col, Row } from "antd";
-import React, { useEffect, useState } from "react";
-import axiosClient from "../../../api/axiosClient";
+import React from "react";
 import ItemVertical from "./ItemVertical";
 
 const ListJobVertical = ({ jobs, setJobs, loading }) => {
+  console.log(jobs);
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {loading ? (
         <>
-          {jobs.map((job) => (
-            <ItemVertical key={job.id} job={job} />
-          ))}
-          {jobs.map((job) => (
-            <ItemVertical key={job.id} job={job} />
-          ))}
-          {jobs.map((job) => (
-            <ItemVertical key={job.id} job={job} />
-          ))}
-          {jobs.map((job) => (
+          {jobs.slice(0, 6).map((job) => (
             <ItemVertical key={job.id} job={job} />
           ))}
         </>

@@ -51,8 +51,7 @@ const options = [
         to: "/admin/nha-truong",
       },
       {
-        key: 22,
-
+        key: 22, 
         name: "Thêm tài khoản cho trường",
         to: "/admin/nha-truong/them",
       },
@@ -74,11 +73,16 @@ const options = [
         name: "Công nghệ",
         to: "/admin/cong-nghe",
       },
+      {
+        key: 33,
+        name: "Thêm công nghệ",
+        to: "/admin/cong-nghe/them",
+      },
     ],
   },
 
   {
-    key: 3,
+    key: 4,
     name: "Thông báo",
     icon: <NotificationOutlined />,
   },
@@ -101,12 +105,9 @@ const items2 = options?.map((option, index) => {
 const { Header, Content, Footer, Sider } = Layout;
 
 const Dashboard = () => {
-  const [users, setUsers] = useState([]);
-
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <div>
       <Layout
