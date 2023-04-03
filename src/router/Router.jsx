@@ -7,7 +7,11 @@ import Business from "../pages/Business";
 import NotFound from "../pages/NotFound";
 import School from "../school/School";
 
-import { AdminEditSchool, AdminNewTech } from "../Admin/component/";
+import {
+  AdminEditSchool,
+  AdminEditTech,
+  AdminNewTech,
+} from "../Admin/component/";
 import {
   AdminBusiness,
   AdminDashboard,
@@ -34,6 +38,7 @@ import StudentPage from "../pages/students/StudentPage";
 import { StudentCareer, StudentHome } from "../pages/students";
 import PageSearch from "../pages/students/PageSearch";
 import Counter from "../pages/counter/Counter";
+import Hire from "../pages/students/hire/Hire";
 
 const Router = createBrowserRouter([
   {
@@ -95,6 +100,10 @@ const Router = createBrowserRouter([
             element: <PageSearch />,
           },
           {
+            path: "/nha-tuyen-dung/:idBusiness",
+            element: <Hire />,
+          },
+          {
             path: "/",
             element: <StudentHome />,
           },
@@ -108,7 +117,6 @@ const Router = createBrowserRouter([
         path: "/doanh-nghiep/cong-viec/:businessID",
         element: <BusinessEditJob />,
       },
-
       {
         path: "/doanh-nghiep/cong-viec",
         element: <Jobs />,
@@ -162,6 +170,10 @@ const Router = createBrowserRouter([
       {
         path: "/admin/cong-nghe/them",
         element: <AdminNewTech />,
+      },
+      {
+        path: "/admin/cong-nghe/edit/:idTech",
+        element: <AdminEditTech />,
       },
       {
         path: "/admin/cong-viec",

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../api/axiosClient";
 import img from "../assets/images/img.png";
 import { host } from "../utils/APIRoutes";
+import { Link } from "react-router-dom";
 const Technology = () => {
   const [technologies, setTechnologies] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -46,9 +47,9 @@ const Technology = () => {
                   />
                 }
                 title={
-                  <a href={item.linkPage} target="_plank">
+                  <Link to={`/admin/cong-nghe/edit/${item.id}`}>
                     {item.name}
-                  </a>
+                  </Link>
                 }
                 description={
                   item.description ? item.description : "Công nghệ lập trình"

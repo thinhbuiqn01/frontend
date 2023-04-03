@@ -8,8 +8,7 @@ import { useStateContext } from "../../context/ContextProvider";
 
 const PageSearch = () => {
   const { search } = useStateContext();
-
-  console.log(search);
+ 
   const [jobs, setJobs] = useState();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -26,7 +25,7 @@ const PageSearch = () => {
       })
       .catch();
   }, [search]);
-
+  console.log(jobs);
   return (
     <Wrapper>
       <ListJobHorizontal jobs={jobs} loading={loading} />

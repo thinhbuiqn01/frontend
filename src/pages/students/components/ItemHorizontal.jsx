@@ -8,7 +8,7 @@ import ConvertDescription from "../../../components/ConvertDescription";
 const ItemHorizontal = ({ job }) => {
   return (
     <Wrapper>
-      <Link>
+      <Link to={`/nha-tuyen-dung/${job.business_id}`}>
         <div className="image">
           <img src={h1} />
         </div>

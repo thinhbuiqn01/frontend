@@ -2,12 +2,15 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Select, Upload } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React from "react";
+import { useParams } from "react-router-dom";
 
 const FormTech = ({
   name,
   detail,
   status,
+  image,
   linkWebsite,
+  params,
   setName,
   setDetail,
   setLinkWebsite,
@@ -36,16 +39,12 @@ const FormTech = ({
             onChange={(e) => setName(e.target.value)}
           />
         </Form.Item>
-        {status ? (
-          <Form.Item label="Trạng thái">
-            <Select value={status} onChange={(e) => setStatus(e)}>
-              <Select.Option value="1">Kích hoạt</Select.Option>
-              <Select.Option value="0">Tắt</Select.Option>
-            </Select>
-          </Form.Item>
-        ) : (
-          ""
-        )}
+        <Form.Item label="Trạng thái">
+          <Select value={status} onChange={(e) => setStatus(e)}>
+            <Select.Option value="1">Kích hoạt</Select.Option>
+            <Select.Option value="0">Tắt</Select.Option>
+          </Select>
+        </Form.Item>
 
         <Form.Item label="Mô tả">
           <TextArea
@@ -55,8 +54,13 @@ const FormTech = ({
           />
         </Form.Item>
         <Form.Item label="Trang chủ công nghệ">
-          <TextArea rows={1} onChange={(e) => setLinkWebsite(e.target.value)} />
+          <TextArea
+            value={linkWebsite}
+            rows={1}
+            onChange={(e) => setLinkWebsite(e.target.value)}
+          />
         </Form.Item>
+
         <Form.Item label="Chọn hình ảnh">
           <input
             name="images[]"
@@ -66,8 +70,11 @@ const FormTech = ({
             onChange={(e) => handleChangeImage(e)}
           />
         </Form.Item>
-        <Form.Item label="Thêm mới">
-          <Button onClick={(e) => handleSubmitData()}>Thêm mới</Button>
+
+        <Form.Item label={params ? "Chỉnh sửa" : "Thêm mới"}>
+          <Button onClick={(e) => handleSubmitData()}>
+            {params ? "Chỉnh sửa" : "Thêm mới"}
+          </Button>
         </Form.Item>
       </Form>
     </div>
