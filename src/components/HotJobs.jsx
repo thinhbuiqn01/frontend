@@ -6,7 +6,6 @@ import axiosClient from "../api/axiosClient";
 
 const HotJobs = () => {
   const [jobs, setJobs] = useState([]);
-
   useEffect(() => {
     axiosClient
       .post("jobs-hot")
@@ -27,7 +26,7 @@ const HotJobs = () => {
           {jobs.map((job) => (
             <div key={job.id} className="item-job">
               <h3> {job.name}</h3>
-              <Link to={`/cong-viec/${job.id}`}>
+              <Link to={`/nha-tuyen-dung/${job.business_id}`}>
                 <h4> {job.name_job}</h4>
               </Link>
               <h5>Ứng tuyển ngay</h5>
@@ -60,7 +59,7 @@ const Wrapper = styled.div`
   .list-job {
     margin-top: 20px;
     .item-job {
-      position: relative; 
+      position: relative;
       padding: 8px 12px;
       overflow: hidden;
       text-overflow: ellipsis;

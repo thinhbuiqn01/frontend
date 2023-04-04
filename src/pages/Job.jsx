@@ -7,19 +7,18 @@ import PageComponent from "../components/PageComponent";
 const Job = () => {
   const [loading, setLoading] = useState(false);
   const [job, setJob] = useState();
-  const params = useParams(); 
+  const params = useParams();
 
   useEffect(() => {
     axiosClient
       .get(`job/${params.idJob}`)
       .then((res) => {
-        console.log(res.data.job);
         setJob(res.data.job);
       })
       .catch((err) => {
         console.log(e);
       });
-  }, []); 
+  }, []);
   return (
     <PageComponent>
       <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">

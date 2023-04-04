@@ -19,7 +19,7 @@ const colors = [
 ];
 
 const text = "Chỉ có sinh viên mới có thể ứng tuyển";
-const description = "Delete the task";
+const description = "Bạn không phải là sinh viên ";
 
 const HireContentJob = ({ jobs, business }) => {
   const { currentUser } = useStateContext();

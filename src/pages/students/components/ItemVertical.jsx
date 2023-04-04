@@ -89,12 +89,11 @@ const Wrapper = styled.div`
   }
 
   @media only screen and (max-width: 800px) {
-    width: 80%;
-    margin: 10px auto;
+ display: none;
   }
 
   @media only screen and (max-width: 450px) {
-    width: 90%;
+    width: 100%;
     margin: 10px auto;
 
     .content {

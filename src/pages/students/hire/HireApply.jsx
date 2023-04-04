@@ -21,6 +21,8 @@ const HireApply = ({ job, business, onClose, open }) => {
   const [PDF, setPDF] = useState();
   const [statusApply, setStatusApply] = useState(false);
 
+  const [messageResponse, setMessageResponse] = useState("");
+  const [statusMessage, setStatusMessage] = useState(false);
   const handleChangePDF = (e) => {
     const pdfArr = [];
     for (let i = 0; i < e.target.files.length; i++) {
@@ -44,7 +46,10 @@ const HireApply = ({ job, business, onClose, open }) => {
           status: 1,
         })
         .then((res) => {
-          if (PDF) {
+          if (res.data.status == "error") {
+            setMessageResponse(res.data.response.message);
+            setStatusMessage(true);
+          } else {
             const formData = new FormData();
             for (let i = 0; i < PDF.length; i++) {
               formData.append("images[]", PDF[i]);
@@ -61,7 +66,6 @@ const HireApply = ({ job, business, onClose, open }) => {
       message.warning("Vui lòng chọn CV ");
     }
   };
-
   return (
     <>
       <Drawer
@@ -87,6 +91,13 @@ const HireApply = ({ job, business, onClose, open }) => {
               <Alert message="Ứng tuyển thành công" type="success" />
               {setTimeout(() => {
                 setStatusApply(false);
+              }, 5000)}
+            </>
+          ) : statusMessage ? (
+            <>
+              <Alert message={messageResponse} type="warning" />
+              {setTimeout(() => {
+                setStatusMessage(false);
               }, 5000)}
             </>
           ) : (

@@ -15,6 +15,7 @@ import {
 import {
   AdminBusiness,
   AdminDashboard,
+  AdminDashboardPage,
   AdminJobs,
   AdminNewStudents,
   AdminSchool,
@@ -135,6 +136,10 @@ const Router = createBrowserRouter([
     path: "/admin",
     element: <AdminDashboard />,
     children: [
+      {
+        path: "/admin",
+        element: <AdminDashboardPage />,
+      },
       {
         path: "/admin/sinh-vien",
         element: <AdminStudents />,

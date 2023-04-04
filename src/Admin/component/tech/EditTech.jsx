@@ -56,8 +56,7 @@ const EditTech = () => {
   };
 
   const handleChangeImage = (e) => {
-    const imagesArray = [];
-    console.log(e.target.files.length);
+    const imagesArray = []; 
     for (let i = 0; i < e.target.files.length; i++) {
       imagesArray.push(e.target.files[i]);
     }

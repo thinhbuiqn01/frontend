@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axiosClient from "../../../api/axiosClient";
 import HireInformation from "./HireInformation";
 import TabContent from "./TabContent";
+import { Spin } from "antd";
 const Hire = () => {
   const params = useParams();
   const [business, setBusiness] = useState();
@@ -68,7 +69,7 @@ const Hire = () => {
           </Wrapper>
         </>
       ) : (
-        "Loading"
+        <Spin />
       )}
     </>
   );

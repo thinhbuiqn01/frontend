@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "../../redux/slices/counterSlice";
+import Task from "./Task";
 
 const Counter = () => {
   const count = useSelector((state) => {
@@ -21,6 +22,8 @@ const Counter = () => {
       <button onClick={handleIncrement}>Increment</button>
       <button onClick={handleDecrement}>Decrement</button>
       <div className="">{count}</div>
+
+      <Task />
     </>
   );
 };

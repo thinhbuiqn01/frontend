@@ -1,11 +1,12 @@
 import { Button, Space } from "antd";
 import { differenceBy } from "lodash";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigation } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 import validator from "validator";
 import * as XLSX from "xlsx";
 import axiosClient from "../../api/axiosClient";
 import TableManage from "../../components/TableManage";
+import { useStateContext } from "../../context/ContextProvider";
 const columns = [
   {
     title: "STT",
@@ -40,22 +41,25 @@ const NewStudents = ({ route }) => {
   const [nameFile, setNameFile] = useState(null);
   const [excelFileError, setExcelFileError] = useState(null);
   const [students, setStudents] = useState([]);
-  const [informs, setInforms] = useState([]);
 
-  const navigate = useNavigation();
-
+  const { userToken, currentUser } = useStateContext();
+  const navigate = useNavigate();
   useEffect(() => {
-    axiosClient
-      .post("users")
-      .then((data) => {
-        const studentFilter = data.data.users?.filter((i) => {
-          return i.role == 1;
+    if (userToken && currentUser.role === 4) {
+      axiosClient
+        .post("users")
+        .then((data) => {
+          const studentFilter = data.data.users?.filter((i) => {
+            return i.role == 1;
+          });
+          setStudents(studentFilter);
+        })
+        .catch((e) => {
+          console.log(e);
         });
-        setStudents(studentFilter);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    } else {
+      navigate("/");
+    }
   }, []);
   const handleImportFile = (e) => {
     let selectFile = e.target.files[0];

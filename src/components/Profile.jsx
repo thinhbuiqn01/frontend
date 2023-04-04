@@ -1,5 +1,5 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Upload } from "antd";
+import { Spin, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import axiosClient from "../api/axiosClient";
 import { useStateContext } from "../context/ContextProvider";
@@ -322,7 +322,7 @@ const Profile = () => {
           </div>
         )
       ) : (
-        ""
+        <Spin />
       )}
     </PageComponent>
   );

@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
-import h1 from "../../../assets/images/swiper/h1.jpg";
 import ConvertDescription from "../../../components/ConvertDescription";
+
+import h1 from "../../../assets/images/swiper/h1.jpg";
 
 const ItemHorizontal = ({ job }) => {
   return (
@@ -30,12 +31,12 @@ export default ItemHorizontal;
 
 const Wrapper = styled.div`
   width: 23%;
- 
+
   height: 400px;
   margin: 1%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- 
-  margin: 1%; 
+
+  margin: 1%;
   position: relative;
   border-radius: 5px;
   .image {
@@ -73,10 +74,10 @@ const Wrapper = styled.div`
     }
   }
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 1000px) {
     width: 30%;
   }
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     width: 46%;
   }
   @media only screen and (max-width: 450px) {

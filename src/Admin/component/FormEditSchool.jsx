@@ -44,8 +44,7 @@ const FormEditSchool = ({ data }) => {
         onChange={(e) => setPhone(e.target.value)}
       />
       <label>Trạng thái hoạt động</label>
-      <Space>
-        {console.log(data.status)}
+      <Space> 
         <Select
           defaultValue={data.status ? "Đang hoạt động" : "Tạm khóa"}
           style={{
