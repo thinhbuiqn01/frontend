@@ -34,12 +34,13 @@ import {
 import Profile from "../components/Profile";
 import Jobs from "../pages/business/Jobs";
 import NewJob from "../components/Business/NewJob";
-import { BusinessEditJob } from "../components/Business";
+import { BusinessEditJob, BusinessHire } from "../components/Business";
 import StudentPage from "../pages/students/StudentPage";
 import { StudentCareer, StudentHome } from "../pages/students";
 import PageSearch from "../pages/students/PageSearch";
 import Counter from "../pages/counter/Counter";
 import Hire from "../pages/students/hire/Hire";
+import ReadCV from "../components/Business/readCV/ReadCV";
 
 const Router = createBrowserRouter([
   {
@@ -84,10 +85,7 @@ const Router = createBrowserRouter([
         path: "/trang-truong",
         element: <School />,
       },
-      {
-        path: "/doanh-nghiep/ho-so",
-        element: <Profile />,
-      },
+
       {
         path: "/",
         element: <StudentPage />,
@@ -111,6 +109,10 @@ const Router = createBrowserRouter([
         ],
       },
       {
+        path: "/doanh-nghiep/ho-so",
+        element: <Profile />,
+      },
+      {
         path: "/doanhnghiep",
         element: <Business />,
       },
@@ -121,6 +123,10 @@ const Router = createBrowserRouter([
       {
         path: "/doanh-nghiep/cong-viec",
         element: <Jobs />,
+      },
+      {
+        path: "/doanh-nghiep/ung-vien",
+        element: <BusinessHire />,
       },
       {
         path: "/doanh-nghiep/cong-viec/them",

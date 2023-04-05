@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "../slices/counterSlice";
-import taskReducer from "../slices/taskSlice";
+import wardReducer from "../slices/taskSlice";
 export default configureStore({
   reducer: {
     counter: counterReducer,
-    task: taskReducer,
+    ward: wardReducer,
   },
 });

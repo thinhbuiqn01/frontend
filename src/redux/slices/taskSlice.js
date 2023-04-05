@@ -1,47 +1,79 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+import axiosClient from "../../api/axiosClient";
 const initialState = {
-  tasks: [],
+  wards: [],
   status: "idle",
 };
 
-export const addTaskAsync = createAsyncThunk(
-  "task/addTask",
-  async (taskName) => {
-    const response = await fetch(
-      "https://jsonplaceholder.typicode.com/users"
-    ).then((response) => response.json());
-    const titleArray = response.map((todo) => todo.email);
-    return [...titleArray, taskName];
+export const getWardAsync = createAsyncThunk("ward/getWardAsync", async () => {
+  const response = await axiosClient.get("address/ward/local").then((res) => {
+    return res.data.ward;
+  });
+  const wardLocal = response.map((ward) => {
+    return {
+      name: ward._name,
+      id: ward.id,
+    };
+  });
+
+  return wardLocal;
+});
+
+export const addWardAsync = createAsyncThunk(
+  "ward/addWardAsync",
+  async (ward) => { 
+    const response = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(ward);
+      }, 1000);
+    });
+    response.then((ward) => {
+      return ward;
+    });
+    return response;
   }
 );
 
-export const taskSlice = createSlice({
-  name: "task",
+export const wardSlice = createSlice({
+  name: "ward",
   initialState,
   reducers: {
-    //     addTask: (state, action) => {
-    //       state.tasks.push(action.payload);
-    //     },
-    removeTask: (state, action) => {
-      console.log(state);
-      const data = state.tasks.filter((email) => {
-        return email !== action.payload;
+    addWard: (state, action) => {
+      console.log(action);
+      state.wards.push({
+        id: state.wards.length,
+        name: action.payload,
       });
-      state.tasks = data;
+    },
+    removeWard: (state, action) => {
+      const data = state.wards.filter((ward) => {
+        return ward.name !== action.payload;
+      });
+      state.wards = data;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addTaskAsync.pending, (state) => {
+      .addCase(getWardAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(addTaskAsync.fulfilled, (state, action) => {
+      .addCase(getWardAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.tasks.push(action.payload);
+        state.wards = [...action.payload];
+      })
+      .addCase(addWardAsync.pending, (state) => {
+        state.status = "Loading";
+      })
+      .addCase(addWardAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.wards.push({
+          name: action.payload,
+          id: state.wards.length,
+        });
       });
   },
 });
 
-export const { removeTask } = taskSlice.actions;
-export const selectTask = (state) => state.task;
-export default taskSlice.reducer;
+export const { removeWard, addWard } = wardSlice.actions;
+export default wardSlice.reducer;

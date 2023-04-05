@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import {
   Alert,
   Button,
-  Checkbox,
   Col,
   Drawer,
   Form,
   Row,
   Space,
-  message,
+  message
 } from "antd";
-import { useStateContext } from "../../../context/ContextProvider";
+
 import axiosClient from "../../../api/axiosClient";
-import { useNavigate } from "react-router-dom";
+import { useStateContext } from "../../../context/ContextProvider";
 
 const HireApply = ({ job, business, onClose, open }) => {
   const { currentUser } = useStateContext();

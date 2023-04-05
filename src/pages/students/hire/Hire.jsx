@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+
+import { Spin } from "antd";
+
 import axiosClient from "../../../api/axiosClient";
 import HireInformation from "./HireInformation";
 import TabContent from "./TabContent";
-import { Spin } from "antd";
+
 const Hire = () => {
   const params = useParams();
   const [business, setBusiness] = useState();

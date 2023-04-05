@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { Popconfirm, Tag } from "antd";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useStateContext } from "../../../context/ContextProvider";
-import { Button, Popconfirm, message, Space, Tag } from "antd";
 import HireApply from "./HireApply";
-import axiosClient from "../../../api/axiosClient";
 
 const colors = [
   "red",

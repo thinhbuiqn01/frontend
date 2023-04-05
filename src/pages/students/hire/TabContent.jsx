@@ -1,8 +1,8 @@
 import React from "react";
-import { Badge, Radio, Space, Tabs } from "antd";
-import HireContentJob from "./HireContentJob";
+import { Badge, Tabs } from "antd";
+
 import HireContentBusiness from "./HireContentBusiness";
-import styled from "styled-components";
+import HireContentJob from "./HireContentJob";
 
 const TabContent = ({ loading, business, jobs }) => {
   const listTab = [

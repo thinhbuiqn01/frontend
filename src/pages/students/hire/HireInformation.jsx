@@ -1,6 +1,7 @@
 import React from "react";
-import { host } from "../../../utils/APIRoutes";
 import styled from "styled-components";
+
+import { host } from "../../../utils/APIRoutes";
 
 const HireInformation = ({ business }) => {
   return (
