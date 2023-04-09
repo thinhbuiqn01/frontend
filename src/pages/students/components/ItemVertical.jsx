@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 import { DiffOutlined } from "@ant-design/icons";
 import h1 from "../../../assets/images/swiper/h1.jpg";
+import { host } from "../../../utils/APIRoutes";
 
 const ItemVertical = ({ job, width }) => {
   return (
     <Wrapper>
       <div className="image">
-        <img src={h1} alt="2312" />
+        <img src={job.image ? `${host}/uploads/${job.image}` : h1} alt="2312" />
       </div>
       <div className="content">
         <div className="title">{job.name_job}</div>
@@ -89,7 +90,7 @@ const Wrapper = styled.div`
   }
 
   @media only screen and (max-width: 800px) {
- display: none;
+    display: none;
   }
 
   @media only screen and (max-width: 450px) {

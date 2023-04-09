@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import FormTech from "./FormTech";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../../../api/axiosClient";
+import { useStateContext } from "../../../context/ContextProvider";
 
 const EditTech = () => {
+  const { currentUser, userToken } = useStateContext();
   const [name, setName] = useState("");
   const [detail, setDetail] = useState("");
   const [image, setImage] = useState("");
@@ -14,7 +16,9 @@ const EditTech = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getData();
+    if (currentUser.role == 4 && userToken) {
+      getData();
+    }
   }, []);
 
   const getData = async () => {
@@ -47,6 +51,10 @@ const EditTech = () => {
           axiosClient
             .post(`technologies/image-store/${params.idTech}`, formData)
             .then((res) => {
+              axiosClient.post("history/add", {
+                content: `${currentUser.name} - ${currentUser.id} Đã sửa chỉnh sửa thông tin công nghệ`,
+                user_id: currentUser.id,
+              });
               navigate("/admin/cong-nghe", { replace: true });
             });
         }
@@ -56,7 +64,7 @@ const EditTech = () => {
   };
 
   const handleChangeImage = (e) => {
-    const imagesArray = []; 
+    const imagesArray = [];
     for (let i = 0; i < e.target.files.length; i++) {
       imagesArray.push(e.target.files[i]);
     }

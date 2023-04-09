@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import HotJobs from "../../components/HotJobs";
-import Blog from "./Blog";
 import BusinessHighlight from "./components/BusinessHighlight";
 
-import Wrapper from "../../components/Wrapper";
 import ListJobVertical from "./components/ListJobVertical";
 import ListJobHorizontal from "./components/ListJobHorizontal";
 import styled from "styled-components";
-import SearchData from "../../components/SearchData";
 import axiosClient from "../../api/axiosClient";
 import ListCardBusiness from "../../components/listcard/ListCardBusiness";
 
@@ -21,7 +18,7 @@ const Home = () => {
     axiosClient
       .get("/jobs-full")
       .then((res) => {
-        setJobsHorizontal(res.data);
+        setJobsHorizontal(res.data.slice(0, 8));
         setLoading(true);
       })
       .catch((err) => console.log(err));

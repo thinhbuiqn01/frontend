@@ -28,8 +28,7 @@ const StatisticalItem = ({ title, total, percent, color }) => {
 export default StatisticalItem;
 
 const Content = styled.div`
-  width: 25%;
-  margin: 1%;
+  width: 25%;  
   background-color: #fff;
   border-radius: 8px;
   .content {

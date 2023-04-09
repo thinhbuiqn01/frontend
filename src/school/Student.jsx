@@ -17,14 +17,17 @@ const columns = [
   {
     title: "Họ tên sinh viên",
     dataIndex: "name",
+    key: "id",
   },
   {
     title: "Email",
     dataIndex: "email",
+    key: "id",
   },
   {
     title: "Trạng thái",
     dataIndex: "status",
+    key: "id",
     render: (_, record, index) => (
       <Space size="middle" key={index}>
         {record.status === 1 ? "Hoạt động" : "Tạm khóa"}
@@ -59,7 +62,7 @@ const Student = () => {
       .catch((e) => {
         console.log(e);
       });
-  }, []); 
+  }, []);
   return (
     <PageComponent title="Quản lý sinh viên">
       <TableManage columns={columns} dataSources={students} />

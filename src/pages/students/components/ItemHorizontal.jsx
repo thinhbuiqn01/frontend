@@ -5,13 +5,15 @@ import styled from "styled-components";
 import ConvertDescription from "../../../components/ConvertDescription";
 
 import h1 from "../../../assets/images/swiper/h1.jpg";
+import { host } from "../../../utils/APIRoutes";
 
 const ItemHorizontal = ({ job }) => {
+  console.log(job);
   return (
     <Wrapper>
       <Link to={`/nha-tuyen-dung/${job.business_id}`}>
         <div className="image">
-          <img src={h1} />
+          <img src={job.image ? `${host}/uploads/${job.image}` : h1} />
         </div>
         <div className="info">
           <div className="info__name">{job.name_job.toUpperCase()}</div>
@@ -41,6 +43,7 @@ const Wrapper = styled.div`
   border-radius: 5px;
   .image {
     margin: 0 auto;
+    padding: 10px;
     width: 50%;
     img {
       width: 100%;
@@ -49,7 +52,7 @@ const Wrapper = styled.div`
   .info {
     width: 80%;
     margin: 0 auto;
-    padding: 40px 0;
+    padding: 0 0 40px 0;
 
     &__name {
       font-size: 1.2rem;

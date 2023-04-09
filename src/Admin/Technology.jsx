@@ -1,11 +1,14 @@
 import { Avatar, Card, List, Spin } from "antd";
 import React, { useEffect, useState } from "react";
-import axiosClient from "../api/axiosClient";
-import img from "../assets/images/img.png";
-import { host } from "../utils/APIRoutes";
 import { Link, useNavigate } from "react-router-dom";
-import { useStateContext } from "../context/ContextProvider";
 import styled from "styled-components";
+
+import { useStateContext } from "../context/ContextProvider";
+import axiosClient from "../api/axiosClient";
+import { host } from "../utils/APIRoutes";
+
+import img from "../assets/images/img.png";
+
 const Technology = () => {
   const [technologies, setTechnologies] = useState([]);
   const [loading, setLoading] = useState(false);

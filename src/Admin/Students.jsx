@@ -1,4 +1,4 @@
-import { Space, Spin } from "antd";
+import { Space, Spin, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
@@ -21,6 +21,13 @@ const columns = [
   {
     title: "Trạng thái",
     dataIndex: "status",
+    render: (_, record, index) => (
+      <Space size="middle" key={record.id}>
+        <Tag color={record.status ? "green" : "red"}>
+          {record.status ? "Hoạt động" : " Tạm khóa"}
+        </Tag>
+      </Space>
+    ),
   },
   {
     title: "Hành động",

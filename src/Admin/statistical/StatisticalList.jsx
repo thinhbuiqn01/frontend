@@ -12,7 +12,7 @@ const StatisticalList = () => {
   const [students, setStudents] = useState([]);
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+
   const { userToken, currentUser } = useStateContext();
   const navigate = useNavigate();
 
@@ -61,7 +61,7 @@ const StatisticalList = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <div className="flex gap-4">
       <StatisticalItem
         title={"Bài đăng"}
         total={jobs.length}
@@ -86,13 +86,8 @@ const StatisticalList = () => {
         percent={hired.length * 1.3}
         color={[color[3], color[4]]}
       />
-    </Wrapper>
+    </div>
   );
 };
 
 export default StatisticalList;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;

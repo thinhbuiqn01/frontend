@@ -20,29 +20,30 @@ const status = [
     status: 0,
   },
 ];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const defaultPassword = "abc01234";
 const EditStudent = () => {
-  const state = useLocation();
+  const { state } = useLocation();
   const [selected, setSelected] = useState(status[0]);
-
-  const user = state.state.currentUser;
   const [edit, setEdit] = useState(false);
-  const [phone, setPhone] = useState(user?.phone);
+  const [phone, setPhone] = useState(state.user?.phone);
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSaveEdit = (e) => {
     axiosClient
-      .post(`/user/edit/${user.id}`, {
-        name: user.name,
-        email: user.email,
+      .post(`/user/edit/${state.user.id}`, {
+        name: state.user.name,
+        email: state.user.email,
         password: password !== "" ? password : defaultPassword,
         phone: phone,
         status: selected.status,
+      })
+      .then((res) => {
+        navigate(-1);
       })
 
       .catch((error) => {
@@ -50,16 +51,16 @@ const EditStudent = () => {
       });
     setEdit(false);
   };
-  console.log(user);
+  console.log(state.user);
   return (
     <PageComponent title="Quản lý sinh viên">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
           <h3 className="text-base font-semibold leading-6 text-gray-900">
-            {user?.name}
+            {state.user?.name}
             <span style={{ float: "right" }}>
               {edit == true ? (
-                <Button primary onClick={() => handleSaveEdit(user?.id)}>
+                <Button primary onClick={() => handleSaveEdit(state.user?.id)}>
                   Lưu
                 </Button>
               ) : (
@@ -70,10 +71,10 @@ const EditStudent = () => {
             </span>
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            {user?.role == 1
-              ? `Sinh viên khóa 20${user?.email.slice(0, 2)}`
-              : user?.role == 2
-              ? `Tham gia ngày ${user.created_at.slice(0, 10)}`
+            {state.user?.role == 1
+              ? `Sinh viên khóa 20${state.user?.email.slice(0, 2)}`
+              : state.user?.role == 2
+              ? `Tham gia ngày ${state.user.created_at.slice(0, 10)}`
               : ""}
           </p>
         </div>
@@ -87,7 +88,7 @@ const EditStudent = () => {
               >
                 <dt className="text-sm font-medium text-gray-500">Email</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {user?.email}
+                  {state.user?.email}
                 </dd>
               </div>
               <div
@@ -137,7 +138,7 @@ const EditStudent = () => {
                   style={{ paddingBottom: "100px" }}
                 >
                   {edit == false ? (
-                    user?.status == 1 ? (
+                    state.user?.status == 1 ? (
                       "Đang hoạt động"
                     ) : (
                       "Đang khóa"

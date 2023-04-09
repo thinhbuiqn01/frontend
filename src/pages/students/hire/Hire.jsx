@@ -28,6 +28,7 @@ const Hire = () => {
       })
       .catch((err) => {});
   };
+  console.log(business);
   return (
     <>
       {loading ? (
@@ -42,7 +43,21 @@ const Hire = () => {
                 <ul className="information__data">
                   <li>
                     <h3>Website</h3>
-                    <div>- {business.link_website}</div>
+                    <div>
+                      -{" "}
+                      <a
+                        href={
+                          business.link_website.includes("https://www")
+                            ? business.link_website
+                            : "https://www." + business.link_website
+                        }
+                        target="_blank"
+                      >
+                        {business.link_website.includes("https://www")
+                          ? business.link_website.replace("https://www.", "")
+                          : business.link_website}
+                      </a>
+                    </div>
                   </li>
                   <li>
                     <h3>Trụ sở</h3>
