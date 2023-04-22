@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import TitleComponent from "../../../components/TitleComponent";
-import company from "../../../assets/images/company.jpg";
-import axiosClient from "../../../api/axiosClient";
+import { ThunderboltTwoTone } from "@ant-design/icons";
 import { Carousel, Spin } from "antd";
-import {
-  DashOutlined,
-  RightSquareFilled,
-  ThunderboltTwoTone,
-} from "@ant-design/icons";
+import axiosClient from "../../../api/axiosClient";
+import company from "../../../assets/images/company.jpg";
+import TitleComponent from "../../../components/TitleComponent";
 
 const BusinessHighlight = () => {
   const [loading, setLoading] = useState(false);
@@ -27,7 +23,7 @@ const BusinessHighlight = () => {
   }, []);
   return (
     <>
-      <TitleComponent title={"Công ty nỖi bật"} size="20px" />
+      <TitleComponent title="Công ty nỖi bật" size="20px" />
       <>
         {loading == false ? (
           <Spin />

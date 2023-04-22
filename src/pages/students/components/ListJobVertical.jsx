@@ -2,7 +2,6 @@ import React from "react";
 import ItemVertical from "./ItemVertical";
 
 const ListJobVertical = ({ jobs, setJobs, loading }) => {
-  console.log(jobs);
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {loading ? (

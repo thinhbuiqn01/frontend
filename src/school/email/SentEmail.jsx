@@ -1,14 +1,12 @@
-import React, { useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { useStateContext } from "../../context/ContextProvider";
-import axiosClient from "../../api/axiosClient";
+import React, { useRef } from "react";
 const SentEmail = ({ job, sentEmailStatus }) => {
   const form = useRef();
   console.log(job);
 
   const sendEmail = (e) => {
     e.preventDefault();
-    /*     emailjs
+    emailjs
       .sendForm(
         "service_2phamrk",
         "template_7xpioma",
@@ -22,7 +20,7 @@ const SentEmail = ({ job, sentEmailStatus }) => {
         (error) => {
           console.log(error.text);
         }
-      ); */
+      );
     console.log(form);
     e.target.reset();
   };

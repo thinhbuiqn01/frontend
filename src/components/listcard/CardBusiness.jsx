@@ -29,8 +29,9 @@ const Card = styled.div`
   margin: 1%;
   padding: 1px;
   .card__image {
-    height: 200px;
-    padding: 12%;
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 20px;
     vertical-align: middle;
     img {
       border: 0;

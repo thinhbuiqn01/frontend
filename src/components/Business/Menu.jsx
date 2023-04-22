@@ -30,6 +30,10 @@ const items = [
             ),
             key: "setting:3",
           },
+          {
+            label: <Link to="/doanh-nghiep/ung-vien">Danh sách ứng viên</Link>,
+            key: "setting:31",
+          },
         ],
       },
     ],

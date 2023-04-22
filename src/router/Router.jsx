@@ -7,10 +7,15 @@ import Business from "../pages/Business";
 import NotFound from "../pages/NotFound";
 import School from "../school/School";
 
-import { AdminEditSchool, AdminNewTech } from "../Admin/component/";
+import {
+  AdminEditSchool,
+  AdminEditTech,
+  AdminNewTech,
+} from "../Admin/component/";
 import {
   AdminBusiness,
   AdminDashboard,
+  AdminDashboardPage,
   AdminJobs,
   AdminNewStudents,
   AdminSchool,
@@ -29,11 +34,13 @@ import {
 import Profile from "../components/Profile";
 import Jobs from "../pages/business/Jobs";
 import NewJob from "../components/Business/NewJob";
-import { BusinessEditJob } from "../components/Business";
+import { BusinessEditJob, BusinessHire } from "../components/Business";
 import StudentPage from "../pages/students/StudentPage";
 import { StudentCareer, StudentHome } from "../pages/students";
 import PageSearch from "../pages/students/PageSearch";
 import Counter from "../pages/counter/Counter";
+import Hire from "../pages/students/hire/Hire";
+import ReadCV from "../components/Business/readCV/ReadCV";
 
 const Router = createBrowserRouter([
   {
@@ -71,17 +78,14 @@ const Router = createBrowserRouter([
         element: <SchoolBusinessDetails />,
       },
       {
-        path: "/truong/cong-viec/duyet/:idJob",
+        path: "truong/cong-viec/duyet/:idJob",
         element: <SchoolReviewJob />,
       },
       {
         path: "/trang-truong",
         element: <School />,
       },
-      {
-        path: "/doanh-nghiep/ho-so",
-        element: <Profile />,
-      },
+
       {
         path: "/",
         element: <StudentPage />,
@@ -95,10 +99,18 @@ const Router = createBrowserRouter([
             element: <PageSearch />,
           },
           {
+            path: "/nha-tuyen-dung/:idBusiness",
+            element: <Hire />,
+          },
+          {
             path: "/",
             element: <StudentHome />,
           },
         ],
+      },
+      {
+        path: "/doanh-nghiep/ho-so",
+        element: <Profile />,
       },
       {
         path: "/doanhnghiep",
@@ -108,10 +120,13 @@ const Router = createBrowserRouter([
         path: "/doanh-nghiep/cong-viec/:businessID",
         element: <BusinessEditJob />,
       },
-
       {
         path: "/doanh-nghiep/cong-viec",
         element: <Jobs />,
+      },
+      {
+        path: "/doanh-nghiep/ung-vien",
+        element: <BusinessHire />,
       },
       {
         path: "/doanh-nghiep/cong-viec/them",
@@ -127,6 +142,10 @@ const Router = createBrowserRouter([
     path: "/admin",
     element: <AdminDashboard />,
     children: [
+      {
+        path: "/admin",
+        element: <AdminDashboardPage />,
+      },
       {
         path: "/admin/sinh-vien",
         element: <AdminStudents />,
@@ -162,6 +181,10 @@ const Router = createBrowserRouter([
       {
         path: "/admin/cong-nghe/them",
         element: <AdminNewTech />,
+      },
+      {
+        path: "/admin/cong-nghe/edit/:idTech",
+        element: <AdminEditTech />,
       },
       {
         path: "/admin/cong-viec",

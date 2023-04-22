@@ -1,27 +1,34 @@
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import { Button, Space, Spin, Tag, Modal } from "antd";
+import { Button, Modal, Space, Spin, Tag } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import TableManage from "../components/TableManage";
+import { useStateContext } from "../context/ContextProvider";
 const { confirm } = Modal;
 
 const School = () => {
+  const navigate = useNavigate();
   const [school, setSchool] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { userToken, currentUser } = useStateContext();
   useEffect(() => {
-    axiosClient
-      .post("users")
-      .then((res) => {
-        const data = res.data.users?.filter((i) => {
-          return i.role == 2;
+    if (userToken && currentUser.role === 4) {
+      axiosClient
+        .post("users")
+        .then((res) => {
+          const data = res.data.users?.filter((i) => {
+            return i.role == 2;
+          });
+          setSchool(data);
+          setLoading(true);
+        })
+        .catch((e) => {
+          console.log(e);
         });
-        setSchool(data);
-        setLoading(true);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    } else {
+      navigate("/");
+    }
   }, []);
 
   const showDeleteConfirm = (record) => {

@@ -1,19 +1,27 @@
 import React from "react";
+import styled from "styled-components";
+import { Spin } from "antd";
 import ItemHorizontal from "./ItemHorizontal";
+
 const ListJobHorizontal = ({ jobs, setJobs, loading }) => {
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <Wrapper>
       {loading ? (
         <>
           {jobs?.map((job) => (
-            <ItemHorizontal key={Math.random()} job={job} />
+            <ItemHorizontal key={job.id} loading={loading} job={job} />
           ))}
         </>
       ) : (
-        "Loading..."
+        <Spin />
       )}
-    </div>
+    </Wrapper>
   );
 };
 
 export default ListJobHorizontal;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;

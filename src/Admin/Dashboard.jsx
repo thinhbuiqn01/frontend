@@ -5,23 +5,21 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Button, Layout, Menu, theme } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
-
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
 
 const options = [
   {
     key: 0,
     name: "Dashboard",
     icon: <UnorderedListOutlined />,
+    children: [
+      {
+        key: 0.1,
+        name: "Thống kê",
+        to: "/admin ",
+      },
+    ],
   },
   {
     key: 1,
@@ -51,7 +49,7 @@ const options = [
         to: "/admin/nha-truong",
       },
       {
-        key: 22, 
+        key: 22,
         name: "Thêm tài khoản cho trường",
         to: "/admin/nha-truong/them",
       },
@@ -166,7 +164,7 @@ const Dashboard = () => {
               style={{
                 padding: 24,
                 minHeight: 360,
-                background: colorBgContainer,
+                background: "#ffffff0",
               }}
             >
               <Outlet />

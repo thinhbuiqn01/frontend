@@ -8,7 +8,7 @@ const ConvertDescription = ({ data }) => {
   return (
     <Ul>
       {convertArray.map((item, index) => (
-        <li key={index}>{item.replace(/-/gi, "")}</li>
+        <li key={index}>&#183; {item.replace(/-/gi, "")}</li>
       ))}
     </Ul>
   );

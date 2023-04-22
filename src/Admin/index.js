@@ -6,6 +6,7 @@ import NewStudents from "./component/NewStudents";
 import Business from "./Business";
 import SchoolCreate from "./SchoolCreate";
 import Jobs from "./Jobs";
+import DashboardPage from "./DashboardPage";
 
 export { Dashboard as AdminDashboard };
 export { Technology as AdminTechnology };
@@ -15,3 +16,4 @@ export { School as AdminSchool };
 export { Jobs as AdminJobs };
 export { SchoolCreate as AdminSchoolCreate };
 export { Business as AdminBusiness };
+export { DashboardPage as AdminDashboardPage };

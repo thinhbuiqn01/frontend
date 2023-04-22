@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import FormTech from "./FormTech";
 import axiosClient from "../../../api/axiosClient";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useNavigation } from "react-router-dom";
+import { useStateContext } from "../../../context/ContextProvider";
 
 const NewTech = () => {
   const [name, setName] = useState("");
@@ -10,7 +11,14 @@ const NewTech = () => {
   const [status, setStatus] = useState(true);
   const [linkWebsite, setLinkWebsite] = useState("");
 
+  const { currentUser, userToken } = useStateContext();
   const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    if (currentUser.role !== 4 && userToken) {
+      navigate("/");
+    }
+  });
   const handleSubmitData = (e) => {
     const formData = new FormData();
     for (let i = 0; i < image.length; i++) {
@@ -28,6 +36,10 @@ const NewTech = () => {
         axiosClient
           .post(`technologies/image-store/${res.data.id}`, formData)
           .then((res) => {
+            axiosClient.post("history/add", {
+              content: `${currentUser.name} - ${currentUser.id} Đã sửa thêm công nghệ mới`,
+              user_id: currentUser.id,
+            });
             navigate("/admin/cong-nghe", { replace: true });
           });
       })

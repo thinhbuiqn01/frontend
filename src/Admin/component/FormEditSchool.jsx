@@ -1,10 +1,9 @@
-import { UserOutlined } from "@ant-design/icons";
 import { Button, Select, Space } from "antd";
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import axiosClient from "../../api/axiosClient";
 import { useNavigate } from "react-router-dom";
+import axiosClient from "../../api/axiosClient";
 
 const FormEditSchool = ({ data }) => {
   const navigate = useNavigate();
@@ -45,7 +44,6 @@ const FormEditSchool = ({ data }) => {
       />
       <label>Trạng thái hoạt động</label>
       <Space>
-        {console.log(data.status)}
         <Select
           defaultValue={data.status ? "Đang hoạt động" : "Tạm khóa"}
           style={{

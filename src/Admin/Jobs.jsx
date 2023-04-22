@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import ListJob from "./component/ListJob";
 
 const Jobs = () => {
-  return <>Jobs</>;
+  return (
+    <div className="bg-white p-4 rounded-md">
+      <ListJob />
+    </div>
+  );
 };
 
 export default Jobs;

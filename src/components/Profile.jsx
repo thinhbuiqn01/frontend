@@ -1,5 +1,5 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Upload } from "antd";
+import { Spin, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import axiosClient from "../api/axiosClient";
 import { useStateContext } from "../context/ContextProvider";
@@ -35,37 +35,37 @@ const Profile = () => {
   const handleSubmitInformBusiness = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    for (let i = 0; i < image.length; i++) {
-      formData.append("images[]", image[i]);
-    }
+    // for (let i = 0; i < image.length; i++) {
+    //   formData.append("images[]", image[i]);
+    // }
+    formData.append("image", image);
+    formData.append("name", nameCPN);
+    formData.append("scales", scales);
+    formData.append("description", description);
+    formData.append("link_website", linkWebsite);
+    formData.append("task", task);
+    formData.append("status", 1);
+    formData.append("location", location);
+    formData.append("user_id", currentUser.id);
 
     axiosClient
-      .post("extra-info", {
-        name: nameCPN,
-        scales: scales,
-        description,
-        link_website: linkWebsite,
-        image: formData,
-        task: task,
-        status: 1,
-        location: location,
-        user_id: currentUser.id,
-      })
+      .post("extra-info", formData)
       .then((res) => {
-        axiosClient
-          .post(`extra-info-image/${currentUser.id}`, formData)
-          .then((res) => setInfoProfile(res.data));
+        setInfoProfile(res.data);
+        // axiosClient
+        //   .post(`extra-info-image/${currentUser.id}`, formData)
+        //   .then((res) => setInfoProfile(res.data));
       })
       .catch((e) => {
         console.log(e);
       });
   };
   const handleChangeImage = (e) => {
-    const imagesArray = [];
-    for (let i = 0; i < e.target.files.length; i++) {
-      imagesArray.push(e.target.files[i]);
-    }
-    setImage(imagesArray);
+    // const imagesArray = [];
+    // for (let i = 0; i < e.target.files.length; i++) {
+    //   imagesArray.push(e.target.files[i]);
+    // }
+    setImage(e.target.files[0]);
   };
 
   return (
@@ -322,7 +322,7 @@ const Profile = () => {
           </div>
         )
       ) : (
-        ""
+        <Spin />
       )}
     </PageComponent>
   );

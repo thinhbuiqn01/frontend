@@ -1,6 +1,6 @@
 import { Avatar, Col, List, Row, Spin, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../api/axiosClient";
 import MenuBusiness from "../../components/Business/Menu";
 import HotJobs from "../../components/HotJobs";
@@ -11,12 +11,13 @@ import { host } from "../../utils/APIRoutes";
 const avatar = `https://joesch.moe/api/v1/random?key=1`;
 
 const Jobs = () => {
-  const { currentUser } = useStateContext();
+  const { currentUser, userToken } = useStateContext();
 
   const [loading, setLoading] = useState(false);
   const [jobs, setJobs] = useState();
   const [jobsConfirm, setJobsConfirm] = useState([]);
   const [jobsNonConfirm, setJobsNonConfirm] = useState([]);
+  const navigate = useNavigate();
   const items = [
     {
       key: "1",
@@ -34,22 +35,37 @@ const Jobs = () => {
       children: <ListJobComponent data={jobsNonConfirm} />,
     },
   ];
-  useEffect(() => {
-    const getData = async () => {
-      const businessInfo = await axiosClient.get(`business/${currentUser.id}`);
-      const jobsInfo = await axiosClient.get(
-        `jobs/${businessInfo.data.business.id}`
-      );
-      setJobs(jobsInfo.data.jobs);
 
-      const confirm = jobsInfo.data.jobs.filter((job) => job.status == 1);
-      const nonConfirm = jobsInfo.data.jobs.filter((job) => job.status == 0);
+  useEffect(() => {
+    if (currentUser.role == 3 && userToken) {
+      getData();
+    } else {
+      navigate("/");
+    }
+  }, []);
+
+  const getData = async () => {
+    try {
+      const businessInfo = await axiosClient
+        .get(`business/${currentUser.id}`)
+        .then((res) => {
+          return res.data.business[0];
+        });
+      const jobsInfo = await axiosClient
+        .get(`business/jobs/${businessInfo.id}`)
+        .then((res) => {
+          return res.data;
+        });
+      setJobs(jobsInfo);
+
+      const confirm = jobsInfo.filter((job) => job.status == 1);
+      const nonConfirm = jobsInfo.filter((job) => job.status == 0);
       setJobsConfirm(confirm);
       setJobsNonConfirm(nonConfirm);
       setLoading(true);
-    };
-    getData();
-  }, []);
+    } catch (error) {}
+  };
+
   return (
     <PageComponent title={<MenuBusiness />}>
       {loading == false ? (
@@ -92,7 +108,9 @@ const Wrapper = styled.div`
 
 const ListJobComponent = ({ data }) => {
   const { currentUser } = useStateContext();
-  const [business, setBusiness] = useState(); 
+  const [business, setBusiness] = useState();
+  const [loading, setLoading] = useState();
+
   const handleConvertTech = (techUse) => {
     const convertArray = JSON.parse(techUse);
     const mergeTech = convertArray.map((item) => {
@@ -103,11 +121,15 @@ const ListJobComponent = ({ data }) => {
     return replayMergeTech;
   };
   useEffect(() => {
-    axiosClient.get(`business/${currentUser.id}`).then((res) => {
-      setBusiness(res.data.business); 
-    });
+    axiosClient
+      .get(`business/${currentUser.id}`)
+      .then((res) => {
+        setBusiness(res.data.business[0]);
+        setLoading(true);
+      })
+      .catch((err) => {});
   }, []);
-  return (
+  return loading ? (
     <List
       itemLayout="vertical"
       size="large"
@@ -148,6 +170,8 @@ const ListJobComponent = ({ data }) => {
         </List.Item>
       )}
     />
+  ) : (
+    ""
   );
 };
 

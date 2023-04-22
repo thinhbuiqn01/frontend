@@ -1,36 +1,47 @@
-import { Avatar, Card, List, Spin } from "antd";
+import { Avatar, List, Spin } from "antd";
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
 import axiosClient from "../api/axiosClient";
-import img from "../assets/images/img.png";
+import { useStateContext } from "../context/ContextProvider";
 import { host } from "../utils/APIRoutes";
+
+import img from "../assets/images/img.png";
+
 const Technology = () => {
   const [technologies, setTechnologies] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const { userToken, currentUser } = useStateContext();
+  const navigate = useNavigate();
   useEffect(() => {
-    axiosClient
-      .get("technologies")
-      .then((res) => {
-        const data = res.data.tech;
-        const formatData = data.map((item) => {
-          return {
-            id: item.id,
-            name: item.name,
-            description: item.description,
-            linkPage: item.link_page,
-            image: item.image,
-          };
+    if (userToken && currentUser.role === 4) {
+      axiosClient
+        .get("technologies")
+        .then((res) => {
+          const data = res.data.tech;
+          const formatData = data.map((item) => {
+            return {
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              linkPage: item.link_page,
+              image: item.image,
+            };
+          });
+          setTechnologies(formatData);
+          setLoading(true);
+        })
+        .catch((e) => {
+          console.log(e);
         });
-        setTechnologies(formatData);
-        setLoading(true);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    } else {
+      navigate("/");
+    }
   }, []);
 
   return (
-    <>
+    <Wrapper>
       {loading == false ? (
         <div style={{ width: "700px", height: "300px", margin: "0 auto" }}>
           <Spin />
@@ -46,9 +57,9 @@ const Technology = () => {
                   />
                 }
                 title={
-                  <a href={item.linkPage} target="_plank">
+                  <Link to={`/admin/cong-nghe/edit/${item.id}`}>
                     {item.name}
-                  </a>
+                  </Link>
                 }
                 description={
                   item.description ? item.description : "Công nghệ lập trình"
@@ -58,8 +69,14 @@ const Technology = () => {
           ))}
         </List>
       )}
-    </>
+    </Wrapper>
   );
 };
 
 export default Technology;
+
+const Wrapper = styled.div`
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+`;

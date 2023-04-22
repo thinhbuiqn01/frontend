@@ -1,10 +1,10 @@
+import { BellOutlined, UserAddOutlined } from "@ant-design/icons";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Badge, Drawer, Space } from "antd";
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
-import { Avatar, Badge, Drawer, List, Modal, Skeleton, Space } from "antd";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { BellOutlined, DashOutlined, UserAddOutlined } from "@ant-design/icons";
 import { useStateContext } from "../context/ContextProvider";
 
 import logo from "../assets/images/logo.png";

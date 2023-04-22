@@ -26,7 +26,6 @@ const Job = (props) => {
     }
   };
 
-  console.log(props.job);
   const reviewJob = async () => {
     axiosClient
       .post(`job-status-edit/${props.job.id}`, {
@@ -73,8 +72,6 @@ const Job = (props) => {
       },
     });
   };
-  console.log(props.job);
-  console.log(business?.name);
   return (
     <>
       <form ref={formRef} style={{ display: "none" }}>
