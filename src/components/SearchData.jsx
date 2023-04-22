@@ -37,7 +37,6 @@ const WrapperSearch = styled.div`
       border-radius: 10px 0px 0px 10px;
       padding: 6px 10px;
       display: block;
-      width: ;
     }
     button {
       width: 10%;

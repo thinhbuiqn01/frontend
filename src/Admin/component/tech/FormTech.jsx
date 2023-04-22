@@ -1,8 +1,6 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Select, Upload } from "antd";
+import { Button, Form, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React from "react";
-import { useParams } from "react-router-dom";
 
 const FormTech = ({
   name,

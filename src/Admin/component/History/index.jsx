@@ -1,6 +1,8 @@
 import React from "react";
-import ListHistory from "./ListHistory";
 import styled from "styled-components";
+
+import ListHistory from "./ListHistory";
+import ListNotification from "../ListNotification";
 
 const Index = () => {
   return (
@@ -9,7 +11,9 @@ const Index = () => {
         <h3 className="p-4 font-semibold text-base">Lịch sử chỉnh hoạt động</h3>
         <ListHistory />
       </div>
-      {/* <div className="col-span-2 ml-2 bg-white rounded-lg p-3 mb-4 sm:mb-0"></div> */}
+      <div className="col-span-2 ml-2 bg-white rounded-lg p-3 mb-4 sm:mb-0">
+        <ListNotification />
+      </div>
     </div>
   );
 };

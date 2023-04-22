@@ -1,9 +1,9 @@
+import { Table } from "antd";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useStateContext } from "../../../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../api/axiosClient";
-import { Space, Table, Tag } from "antd";
-import moment from "moment";
+import { useStateContext } from "../../../context/ContextProvider";
 
 const ListHistory = () => {
   const [histories, setHistories] = useState([]);

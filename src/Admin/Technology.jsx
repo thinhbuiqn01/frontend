@@ -1,10 +1,10 @@
-import { Avatar, Card, List, Spin } from "antd";
+import { Avatar, List, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../api/axiosClient";
+import { useStateContext } from "../context/ContextProvider";
 import { host } from "../utils/APIRoutes";
 
 import img from "../assets/images/img.png";

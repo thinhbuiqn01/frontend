@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import PageComponent from "../components/PageComponent";
-import { PaperClipIcon } from "@heroicons/react/20/solid";
-import { redirect, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "antd";
+import React, { Fragment, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
+import PageComponent from "../components/PageComponent";
 
 const status = [
   {

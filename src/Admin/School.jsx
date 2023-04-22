@@ -1,7 +1,7 @@
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import { Button, Space, Spin, Tag, Modal } from "antd";
+import { Button, Modal, Space, Spin, Tag } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import TableManage from "../components/TableManage";
 import { useStateContext } from "../context/ContextProvider";

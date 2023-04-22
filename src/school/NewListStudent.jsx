@@ -1,18 +1,11 @@
-import React, { useState } from "react";
-import validator from "validator";
-import * as XLSX from "xlsx";
+import React from "react";
 import { AdminNewStudents } from "../Admin";
-import axiosClient from "../api/axiosClient";
 import PageComponent from "../components/PageComponent";
 
-const endEmail = "@sv.ute.udn.vn";
-const fileType = [
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-];
 const NewListStudent = () => {
   return (
     <PageComponent title="Thêm danh sách sinh viên mới">
-      <AdminNewStudents route={'/truong/sinh-vien'} />
+      <AdminNewStudents route={"/truong/sinh-vien"} />
     </PageComponent>
   );
 };

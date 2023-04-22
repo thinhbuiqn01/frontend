@@ -1,12 +1,7 @@
-import React, { useState } from "react";
-import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import PageComponent from "../components/PageComponent";
-import { PaperClipIcon } from "@heroicons/react/20/solid";
-import { redirect, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "antd";
-import axiosClient from "../api/axiosClient";
+import React, { Fragment, useState } from "react";
 
 const status = [
   {
@@ -28,7 +23,7 @@ function classNames(...classes) {
 const Details = ({ state, ...props }) => {
   const defaultPassword = "abc01234";
   const [selected, setSelected] = useState(status[0]);
-  const [edit, setEdit] = useState(false); 
+  const [edit, setEdit] = useState(false);
   const [phone, setPhone] = useState(user?.phone);
   const [password, setPassword] = useState("");
 

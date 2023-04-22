@@ -1,6 +1,6 @@
 import { Button, Form, Input, Select, Space, Spin } from "antd";
 import React, { useEffect, useState } from "react";
-import { json, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axiosClient from "../../api/axiosClient";
 import PageComponent from "../PageComponent";
 
@@ -50,7 +50,6 @@ const EditJob = () => {
     setTechUsingEdit(label);
   };
 
- 
   const options = techUsing?.map((tech) => {
     return {
       value: tech.id,

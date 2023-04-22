@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  Alert,
-  Button,
-  Col,
-  Drawer,
-  Form,
-  Row,
-  Space,
-  message
-} from "antd";
+import { Alert, Button, Col, Drawer, Form, Row, Space, message } from "antd";
 
 import axiosClient from "../../../api/axiosClient";
 import { useStateContext } from "../../../context/ContextProvider";
@@ -68,7 +59,7 @@ const HireApply = ({ job, business, onClose, open }) => {
   return (
     <>
       <Drawer
-        title="Create a new account"
+        title="Đăng ký ứng tuyển"
         width={720}
         onClose={onClose}
         open={open}

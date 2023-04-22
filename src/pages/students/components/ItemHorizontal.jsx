@@ -8,7 +8,6 @@ import h1 from "../../../assets/images/swiper/h1.jpg";
 import { host } from "../../../utils/APIRoutes";
 
 const ItemHorizontal = ({ job }) => {
-  console.log(job);
   return (
     <Wrapper>
       <Link to={`/nha-tuyen-dung/${job.business_id}`}>

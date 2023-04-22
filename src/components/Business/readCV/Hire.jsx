@@ -1,9 +1,8 @@
-import { Anchor, Spin, Tabs } from "antd";
+import { Spin, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useStateContext } from "../../../context/ContextProvider";
 import axiosClient from "../../../api/axiosClient";
-import ReadCV from "./ReadCV";
+import { useStateContext } from "../../../context/ContextProvider";
 import ListHireBusiness from "./ListHireBusiness";
 
 const Hire = () => {

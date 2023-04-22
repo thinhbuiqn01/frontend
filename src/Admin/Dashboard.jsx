@@ -5,17 +5,8 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Button, Layout, Menu, theme } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
-
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
 
 const options = [
   {
