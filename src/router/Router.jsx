@@ -78,7 +78,7 @@ const Router = createBrowserRouter([
         element: <SchoolBusinessDetails />,
       },
       {
-        path: "/truong/cong-viec/duyet/:idJob",
+        path: "truong/cong-viec/duyet/:idJob",
         element: <SchoolReviewJob />,
       },
       {

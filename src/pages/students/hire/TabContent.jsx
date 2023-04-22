@@ -4,7 +4,7 @@ import { Badge, Tabs } from "antd";
 import HireContentBusiness from "./HireContentBusiness";
 import HireContentJob from "./HireContentJob";
 
-const TabContent = ({ loading, business, jobs }) => {
+const TabContent = ({ loading, business, jobs, isSchool }) => {
   const listTab = [
     {
       label: "Công ty",
@@ -18,7 +18,9 @@ const TabContent = ({ loading, business, jobs }) => {
         </Badge>
       ),
       key: 2,
-      children: <HireContentJob business={business} jobs={jobs} />,
+      children: (
+        <HireContentJob isSchool={isSchool} business={business} jobs={jobs} />
+      ),
     },
   ];
   return (

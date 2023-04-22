@@ -7,15 +7,21 @@ import { Spin } from "antd";
 import axiosClient from "../../../api/axiosClient";
 import HireInformation from "./HireInformation";
 import TabContent from "./TabContent";
+import { useStateContext } from "../../../context/ContextProvider";
 
 const Hire = () => {
   const params = useParams();
   const [business, setBusiness] = useState();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { currentUser, userToken } = useStateContext();
+  const [isSchool, setIsSchool] = useState(false);
 
   useEffect(() => {
     getData();
+    if (currentUser.role == 2) {
+      setIsSchool(true);
+    }
   }, []);
 
   const getData = () => {
@@ -28,7 +34,6 @@ const Hire = () => {
       })
       .catch((err) => {});
   };
-  console.log(business);
   return (
     <>
       {loading ? (
@@ -37,7 +42,12 @@ const Hire = () => {
             <>
               <div className="content">
                 <HireInformation business={business} />
-                <TabContent loading={loading} jobs={jobs} business={business} />
+                <TabContent
+                  isSchool={isSchool}
+                  loading={loading}
+                  jobs={jobs}
+                  business={business}
+                />
               </div>
               <div className="information">
                 <ul className="information__data">
