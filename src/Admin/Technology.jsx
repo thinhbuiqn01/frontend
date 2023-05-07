@@ -8,6 +8,7 @@ import { useStateContext } from "../context/ContextProvider";
 import { host } from "../utils/APIRoutes";
 
 import img from "../assets/images/img.png";
+import Loading from "../components/Loading";
 
 const Technology = () => {
   const [technologies, setTechnologies] = useState([]);
@@ -44,7 +45,7 @@ const Technology = () => {
     <Wrapper>
       {loading == false ? (
         <div style={{ width: "700px", height: "300px", margin: "0 auto" }}>
-          <Spin />
+          <Loading />
         </div>
       ) : (
         <List>

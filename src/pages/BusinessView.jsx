@@ -6,10 +6,11 @@ import axiosClient from "../api/axiosClient";
 import { Spin } from "antd";
 import { ListJobUser } from "../components/Job";
 import { host } from "../utils/APIRoutes";
+import Loading from "../components/Loading";
 const BusinessView = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [infoBusiness, setInfoBusiness] = useState(null);
- 
+
   useEffect(() => {
     axiosClient.get(`get-info/${data?.user.id}`).then((res) => {
       if (res.data.status == "success") {
@@ -25,7 +26,7 @@ const BusinessView = ({ data }) => {
   return (
     <>
       {loading === false ? (
-        <Spin />
+        <Loading />
       ) : (
         <>
           {infoBusiness !== null ? (

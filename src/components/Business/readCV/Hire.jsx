@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axiosClient from "../../../api/axiosClient";
 import { useStateContext } from "../../../context/ContextProvider";
 import ListHireBusiness from "./ListHireBusiness";
+import Loading from "../../Loading";
 
 const Hire = () => {
   const { currentUser, userToken } = useStateContext();
@@ -63,7 +64,7 @@ const Hire = () => {
           })}
         />
       ) : (
-        <Spin />
+        <Loading />
       )}
     </Wrapper>
   );

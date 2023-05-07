@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../api/axiosClient";
 import { useStateContext } from "../context/ContextProvider";
 import PageComponent from "./PageComponent";
+import Loading from "./Loading";
 
 const Profile = () => {
   const { currentUser } = useStateContext();
@@ -322,7 +323,7 @@ const Profile = () => {
           </div>
         )
       ) : (
-        <Spin />
+        <Loading />
       )}
     </PageComponent>
   );

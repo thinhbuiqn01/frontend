@@ -3,6 +3,7 @@ import CardBusiness from "./CardBusiness";
 import styled from "styled-components";
 import axiosClient from "../../api/axiosClient";
 import { Spin } from "antd";
+import Loading from "../Loading";
 
 const ListCardBusiness = () => {
   const [businesses, setBusinesses] = useState([]);
@@ -27,7 +28,7 @@ const ListCardBusiness = () => {
           <CardBusiness key={business.id} business={business} />
         ))
       ) : (
-        <Spin />
+        <Loading />
       )}
     </Wrapper>
   );

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import TableManage from "../components/TableManage";
+import Loading from "../components/Loading";
 
 const columns = [
   {
@@ -56,7 +57,7 @@ const Business = () => {
     <>
       {loading == false ? (
         <div style={{ width: "700px", height: "300px", margin: "0 auto" }}>
-          <Spin />
+          <Loading />
         </div>
       ) : (
         <TableManage columns={columns} dataSources={businesses} />

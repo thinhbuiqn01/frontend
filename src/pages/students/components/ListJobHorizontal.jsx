@@ -1,19 +1,25 @@
 import React from "react";
 import styled from "styled-components";
-import { Spin } from "antd";
 import ItemHorizontal from "./ItemHorizontal";
+import Loading from "../../../components/Loading";
 
 const ListJobHorizontal = ({ jobs, setJobs, loading }) => {
+  const isFormat = jobs.filter((job) => job.status === 1).slice(0, 8);
+  console.log(
+    "🚀 ~ file: ListJobHorizontal.jsx:8 ~ ListJobHorizontal ~ isFormat:",
+    isFormat
+  );
+
   return (
     <Wrapper>
       {loading ? (
         <>
-          {jobs?.map((job) => (
-            <ItemHorizontal key={job.id} loading={loading} job={job} />
+          {isFormat?.map((job, index) => (
+            <ItemHorizontal key={index} loading={loading} job={job} />
           ))}
         </>
       ) : (
-        <Spin />
+        <Loading />
       )}
     </Wrapper>
   );

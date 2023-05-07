@@ -7,6 +7,7 @@ import ListJobHorizontal from "./components/ListJobHorizontal";
 import styled from "styled-components";
 import axiosClient from "../../api/axiosClient";
 import ListCardBusiness from "../../components/listcard/ListCardBusiness";
+import Loading from "../../components/Loading";
 
 const Home = () => {
   const [jobsHorizontal, setJobsHorizontal] = useState([]);
@@ -18,7 +19,7 @@ const Home = () => {
     axiosClient
       .get("/jobs-full")
       .then((res) => {
-        setJobsHorizontal(res.data.slice(0, 8));
+        setJobsHorizontal(res.data);
         setLoading(true);
       })
       .catch((err) => console.log(err));
@@ -46,28 +47,34 @@ const Home = () => {
         </div>
       </WrapperContent>
 
-      <WrapperContent>
-        <h2>Công ty hàng đầu</h2>
-        <ListCardBusiness />
-      </WrapperContent>
-      <WrapperContent>
-        <h2>Công việc hàng đầu</h2>
+      {!loading ? (
+        <Loading />
+      ) : (
+        <>
+          <WrapperContent>
+            <h2>Công ty hàng đầu</h2>
+            <ListCardBusiness />
+          </WrapperContent>
+          <WrapperContent>
+            <h2>Công việc hàng đầu</h2>
 
-        <ListJobHorizontal
-          loading={loading}
-          jobs={jobsHorizontal}
-          setJobs={setJobsHorizontal}
-        />
-      </WrapperContent>
-      <WrapperContent>
-        <h2>Công việc hàng đầu</h2>
+            <ListJobHorizontal
+              loading={loading}
+              jobs={jobsHorizontal}
+              setJobs={setJobsHorizontal}
+            />
+          </WrapperContent>
+          <WrapperContent>
+            <h2>Công việc hàng đầu</h2>
 
-        <ListJobVertical
-          loading={loading}
-          jobs={jobsVertical}
-          setJobs={setJobsVertical}
-        />
-      </WrapperContent>
+            <ListJobVertical
+              loading={loading}
+              jobs={jobsVertical}
+              setJobs={setJobsVertical}
+            />
+          </WrapperContent>
+        </>
+      )}
     </>
   );
 };

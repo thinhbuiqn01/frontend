@@ -8,25 +8,18 @@ import axiosClient from "../api/axiosClient";
 import { useStateContext } from "../context/ContextProvider";
 
 import logo from "../assets/images/logo.png";
-const roleStudent = [
-  { name: "PT HIRE", to: "/", current: true },
-  { name: "Việc làm IT", to: "viec-lam", current: false },
-  { name: "Công ty IT", to: "cong-ty", current: false },
-  { name: "Blog IT", to: "blog", current: false },
-  { name: "Việc làm fresher", to: "fresher", current: false },
-  { name: "Việc làm thực tập sinh", to: "thuc-tap-sinh", current: false },
-];
+
+const roleStudent = [{ name: "PT HIRE", to: "/", current: true }];
 
 const roleBusiness = [
-  { name: "PT HIRE", to: "/doanhnghiep", current: false },
+  { name: "PT HIRE", to: "/", current: false },
   { name: "Công việc", to: "/doanh-nghiep/cong-viec", current: true },
 ];
 
 const roleSchool = [
-  { name: "PT HIRE UTE", to: "/trang-truong", current: true },
+  { name: "PT HIRE UTE", to: "/", current: true },
   { name: "Sinh viên", to: "/truong/sinh-vien", current: false },
   { name: "Doanh nghiệp", to: "/truong/doanh-nghiep", current: false },
-  { name: "Công việc", to: "/truong/cong-viec", current: false },
 ];
 
 function classNames(...classes) {
@@ -84,24 +77,17 @@ const Header = ({ currentUser }) => {
     }
   }, [currentUser.id]);
 
-  const handleDeleteInform = (e, id) => {
+  const handleDeleteInform = async (e, id) => {
     e.preventDefault();
     const deleteInform = async () => {
-      const response = await axiosClient.delete(`delete-inform/${id}`);
+      await axiosClient.delete(`delete-inform/${id}`);
       try {
         if (response.status == 200) {
           setInforms(response.data.inform);
         }
       } catch (error) {}
-      console.log(response);
     };
     deleteInform();
-    axiosClient
-      .get(`inform/${currentUser.id}`)
-      .then((data) => {
-        setInforms(data.data.inform);
-      })
-      .catch((e) => console.log(e));
   };
 
   return (

@@ -16,8 +16,8 @@ const ItemHorizontal = ({ job }) => {
         </div>
         <div className="info">
           <div className="info__name">{job.name_job.toUpperCase()}</div>
-          <div className="info__location">{job.location}</div>
-          <div className="info__description">{job.description}</div>
+          {/* <div className="info__location">{job.location}</div> */}
+          {/* <div className="info__description">{job.description}</div> */}
           <div className="info__require_job">
             <ConvertDescription data={job.require_job} />{" "}
           </div>

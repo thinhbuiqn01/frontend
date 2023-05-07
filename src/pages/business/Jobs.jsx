@@ -8,6 +8,7 @@ import PageComponent from "../../components/PageComponent";
 import { useStateContext } from "../../context/ContextProvider";
 import styled from "styled-components";
 import { host } from "../../utils/APIRoutes";
+import Loading from "../../components/Loading";
 const avatar = `https://joesch.moe/api/v1/random?key=1`;
 
 const Jobs = () => {
@@ -69,7 +70,7 @@ const Jobs = () => {
   return (
     <PageComponent title={<MenuBusiness />}>
       {loading == false ? (
-        <Spin />
+        <Loading />
       ) : (
         <Wrapper>
           <div className="tabs">

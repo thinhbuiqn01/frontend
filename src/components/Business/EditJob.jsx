@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosClient from "../../api/axiosClient";
 import PageComponent from "../PageComponent";
+import Loading from "../Loading";
 
 const { TextArea } = Input;
 const EditJob = () => {
@@ -61,7 +62,7 @@ const EditJob = () => {
     <PageComponent title="Chỉnh sửa thông tin đăng tuyển">
       <div>
         {loading === false ? (
-          <Spin />
+          <Loading />
         ) : (
           <Form form={form} layout="vertical">
             <Form.Item

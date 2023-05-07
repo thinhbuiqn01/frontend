@@ -5,6 +5,7 @@ import { Input, Spin } from "antd";
 import FormEditSchool from "./FormEditSchool";
 import axiosClient from "../../api/axiosClient";
 import { useStateContext } from "../../context/ContextProvider";
+import Loading from "../../components/Loading";
 const EditSchool = () => {
   const params = useParams();
   const [loading, setLoading] = useState(false);
@@ -25,7 +26,7 @@ const EditSchool = () => {
     }
   }, []);
 
-  return <>{loading ? <FormEditSchool data={user} /> : <Spin />}</>;
+  return <>{loading ? <FormEditSchool data={user} /> : <Loading />}</>;
 };
 
 export default EditSchool;

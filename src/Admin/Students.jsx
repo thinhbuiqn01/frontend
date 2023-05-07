@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import TableManage from "../components/TableManage";
 import { useStateContext } from "../context/ContextProvider";
+import Loading from "../components/Loading";
 
 const columns = [
   {
@@ -70,7 +71,7 @@ const Students = () => {
     <>
       {loading == false ? (
         <div style={{ width: "700px", height: "300px", margin: "0 auto" }}>
-          <Spin />
+          <Loading />
         </div>
       ) : (
         <TableManage columns={columns} dataSources={users} />

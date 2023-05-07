@@ -6,6 +6,7 @@ import { Carousel, Spin } from "antd";
 import axiosClient from "../../../api/axiosClient";
 import company from "../../../assets/images/company.jpg";
 import TitleComponent from "../../../components/TitleComponent";
+import Loading from "../../../components/Loading";
 
 const BusinessHighlight = () => {
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,7 @@ const BusinessHighlight = () => {
       <TitleComponent title="Công ty nỖi bật" size="20px" />
       <>
         {loading == false ? (
-          <Spin />
+          ""
         ) : (
           <>
             <Carousel autoplay>
