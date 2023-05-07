@@ -8,6 +8,7 @@ import axiosClient from "../../../api/axiosClient";
 import HireInformation from "./HireInformation";
 import TabContent from "./TabContent";
 import { useStateContext } from "../../../context/ContextProvider";
+import Loading from "../../../components/Loading";
 
 const Hire = () => {
   const params = useParams();
@@ -97,7 +98,7 @@ const Hire = () => {
           </Wrapper>
         </>
       ) : (
-        <Spin />
+        <Loading />
       )}
     </>
   );
@@ -119,7 +120,6 @@ const Wrapper = styled.div`
   }
   .information {
     width: 20%;
-
     margin: 1%;
     &__data {
       border-radius: 8px;

@@ -27,7 +27,9 @@ const NewJob = () => {
   useEffect(() => {
     axiosClient
       .get(`business/${currentUser.id}`)
-      .then((res) => setBusiness(res.data.business))
+      .then((res) => {
+        setBusiness(res.data.business[0]);
+      })
       .catch((e) => console.log(e));
     axiosClient
       .get("technologies")
@@ -36,8 +38,8 @@ const NewJob = () => {
       })
       .catch((e) => console.log(e));
   }, []);
+  console.log(business);
   const handleGiveJob = () => {
-    console.log(mapWork);
     const jobs = {
       name,
       techUsing,
@@ -50,18 +52,16 @@ const NewJob = () => {
     };
     const giveJob = async () => {
       const response = await axiosClient.post("give-job", jobs);
-      const response1 = await axiosClient.post("create-inform-job-school", {
+      await axiosClient.post("create-inform-job-school", {
         job_id: response.data.data.id,
         name: `Thông báo tuyển dụng`,
         status: 1,
         role_take: 2,
         description: `Thông báo tuyển dụng của doanh nghiệp ${business.name}`,
       });
-      console.log(response1);
     };
     giveJob();
     navigate("/doanh-nghiep/cong-viec");
-    console.log(locationWork + mapWork);
   };
 
   const options = techs?.map((tech) => {

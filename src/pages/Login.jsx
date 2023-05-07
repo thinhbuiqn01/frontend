@@ -13,6 +13,7 @@ const color = {
 const Login = () => {
   const { setCurrentUser, setUserToken, currentUser, userToken } =
     useStateContext();
+  const navigate = useNavigate();
   const [size, setSize] = useState("default");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +36,7 @@ const Login = () => {
         setCurrentUser(data.user);
         setUserToken(data.token);
         setInformationLogin({ status: data.status, message: data.message });
+        navigate("/");
       })
       .catch((e) => {
         setInformationLogin({

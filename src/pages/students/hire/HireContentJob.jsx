@@ -36,6 +36,7 @@ const HireContentJob = ({ jobs, business, isSchool }) => {
   const showDrawer = () => {
     setOpen(true);
   };
+
   const onClose = () => {
     setOpen(false);
   };

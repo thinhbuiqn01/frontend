@@ -1,5 +1,6 @@
 import React from "react";
 import ItemVertical from "./ItemVertical";
+import Loading from "../../../components/Loading";
 
 const ListJobVertical = ({ jobs, setJobs, loading }) => {
   return (
@@ -11,7 +12,7 @@ const ListJobVertical = ({ jobs, setJobs, loading }) => {
           ))}
         </>
       ) : (
-        ""
+        <Loading />
       )}
     </div>
   );
