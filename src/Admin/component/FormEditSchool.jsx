@@ -4,9 +4,11 @@ import styled from "styled-components";
 
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../api/axiosClient";
+import { useStateContext } from "../../context/ContextProvider";
 
 const FormEditSchool = ({ data }) => {
   const navigate = useNavigate();
+  const { currentUser, userToken } = useStateContext();
   const [name, setName] = useState(data.name);
   const [email, setEmail] = useState(data.email);
   const [phone, setPhone] = useState(data.phone);
@@ -19,6 +21,10 @@ const FormEditSchool = ({ data }) => {
         email,
       })
       .then((res) => {
+        axiosClient.post("history/add", {
+          content: `${currentUser.name} - ${currentUser.id} Đã sửa chỉnh sửa thông tin tài khoản nhà trường`,
+          user_id: currentUser.id,
+        });
         navigate("/admin/nha-truong");
       });
   };

@@ -7,7 +7,9 @@ import Business from "./Business";
 import SchoolCreate from "./SchoolCreate";
 import Jobs from "./Jobs";
 import DashboardPage from "./DashboardPage";
-
+import TopStudentHire from "./TopStudentHire";
+import TopPostHire from "./TopPostHire";
+import TopHireBusinesses from "./TopHireBusinesses";
 export { Dashboard as AdminDashboard };
 export { Technology as AdminTechnology };
 export { Students as AdminStudents };
@@ -17,3 +19,6 @@ export { Jobs as AdminJobs };
 export { SchoolCreate as AdminSchoolCreate };
 export { Business as AdminBusiness };
 export { DashboardPage as AdminDashboardPage };
+export { TopStudentHire as AdminTopStudentHire };
+export { TopPostHire as AdminTopPostHire };
+export { TopHireBusinesses as AdminTopHireBusinesses };

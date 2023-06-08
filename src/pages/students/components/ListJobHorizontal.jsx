@@ -5,11 +5,6 @@ import Loading from "../../../components/Loading";
 
 const ListJobHorizontal = ({ jobs, setJobs, loading }) => {
   const isFormat = jobs.filter((job) => job.status === 1).slice(0, 8);
-  console.log(
-    "🚀 ~ file: ListJobHorizontal.jsx:8 ~ ListJobHorizontal ~ isFormat:",
-    isFormat
-  );
-
   return (
     <Wrapper>
       {loading ? (

@@ -4,13 +4,14 @@ import { Alert, Button, Col, Drawer, Form, Row, Space, message } from "antd";
 
 import axiosClient from "../../../api/axiosClient";
 import { useStateContext } from "../../../context/ContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const HireApply = ({ job, business, onClose, open }) => {
   const { currentUser } = useStateContext();
 
   const [PDF, setPDF] = useState();
   const [statusApply, setStatusApply] = useState(false);
-
+  const navigate = useNavigate();
   const [messageResponse, setMessageResponse] = useState("");
   const [statusMessage, setStatusMessage] = useState(false);
   const handleChangePDF = (e) => {

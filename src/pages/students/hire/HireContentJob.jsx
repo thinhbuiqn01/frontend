@@ -5,6 +5,7 @@ import { useStateContext } from "../../../context/ContextProvider";
 import HireApply from "./HireApply";
 import axiosClient from "../../../api/axiosClient";
 import emailjs from "@emailjs/browser";
+import { useNavigate } from "react-router-dom";
 
 const colors = [
   "red",
@@ -25,7 +26,6 @@ const description = "Bạn không phải là sinh viên ";
 const HireContentJob = ({ jobs, business, isSchool }) => {
   const { currentUser } = useStateContext();
   const disabled = currentUser !== 1 ? true : false;
-  console.log(isSchool);
   const [job, setJob] = useState();
   const [post, setPost] = useState(jobs);
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ const HireContentJob = ({ jobs, business, isSchool }) => {
     setJob(jobActive);
     setLoading(true);
   };
-  console.log(sentEmail);
+  const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
   const openNotificationWithIcon = (type) => {
     api[type]({
@@ -164,14 +164,13 @@ const HireContentJob = ({ jobs, business, isSchool }) => {
                   </div>
                 ) : (
                   <div>
-                    {currentUser.role !== 1 ? (
+                    {currentUser?.role !== 1 ? (
                       <Popconfirm
                         placement="top"
                         title={text}
                         description={description}
                         okText="Tôi biết"
                         okType="danger"
-                        cancelText="Tắt"
                       >
                         <button>Ứng tuyển</button>
                       </Popconfirm>

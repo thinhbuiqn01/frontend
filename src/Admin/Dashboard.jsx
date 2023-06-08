@@ -62,17 +62,35 @@ const options = [
     icon: <LaptopOutlined />,
     children: [
       {
-        key: 31,
+        key: 30,
         name: "Công việc",
         to: "/admin/cong-viec",
       },
+
+      {
+        key: 31,
+        name: "Top ứng tuyển",
+        to: "/admin/ung-tuyen",
+      },
+
       {
         key: 32,
         name: "Công nghệ",
         to: "/admin/cong-nghe",
       },
+
       {
         key: 33,
+        name: "Top bài tuyển dụng",
+        to: "/admin/top-tuyen-dung",
+      },
+      {
+        key: 35,
+        name: "Top công ty",
+        to: "/admin/top-cong-ty-tuyen-dung",
+      },
+      {
+        key: 34,
         name: "Thêm công nghệ",
         to: "/admin/cong-nghe/them",
       },
@@ -175,7 +193,7 @@ const Dashboard = () => {
               textAlign: "center",
             }}
           >
-            Ant Design ©2023 Created by Ant UED
+            Dự án kết nối nhà trường và doanh nghiệp
           </Footer>
         </Layout>
       </Layout>

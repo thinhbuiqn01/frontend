@@ -20,8 +20,7 @@ const colors = [
 const Index = () => {
   const [jobs, setJobs] = useState([]);
   const [search, setSearch] = useState("");
-  const [filterApprove, setFilterApprove] = useState([]);
-  const [filterUnApprove, setFilterUnApprove] = useState([]);
+  const [filterJobs, setFilterJobs] = useState([]);
   const [isStatus, setIsStatus] = useState(true);
   const { currentUser, userToken } = useStateContext();
   useEffect(() => {
@@ -33,14 +32,7 @@ const Index = () => {
   const getData = async () => {
     const response = await axiosClient.get("jobs");
     setJobs(response.data.jobs);
-    // const filterSortApprove = response.data.jobs.filter((item) => {
-    //   return item.status == false;
-    // });
-    // const filterSortUnApprove = response.data.jobs.filter((item) => {
-    //   return item.status == false;
-    // });
-    // setFilterUnApprove(filterSortUnApprove);
-    // setFilterApprove(filterSortApprove);
+    setFilterJobs(response.data.jobs);
   };
 
   const columns = [
@@ -119,7 +111,7 @@ const Index = () => {
       let techSearch = job.tech_using.toUpperCase();
       return nameSearch.includes(toUpSearch) || techSearch.includes(toUpSearch);
     });
-    setJobs(filterJobs);
+    setFilterJobs(filterJobs);
   };
 
   return (
@@ -133,7 +125,7 @@ const Index = () => {
         <button onClick={(e) => handleSearch(e)}>Tìm kiếm</button>
       </Input>
 
-      <Table columns={columns} dataSource={jobs} />
+      <Table columns={columns} dataSource={filterJobs} />
     </div>
   );
 };

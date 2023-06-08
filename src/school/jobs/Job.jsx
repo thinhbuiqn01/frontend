@@ -48,6 +48,7 @@ const Job = (props) => {
           )
           .then(
             (result) => {
+              alert(result.text);
               console.log(result.text);
             },
             (error) => {

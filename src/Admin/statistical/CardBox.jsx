@@ -10,14 +10,8 @@ const CardBox = () => {
         <img src={bannerimg} alt="" />
       </div>
       <div className="row-7">
-        <h3>Welcome back</h3>
+        <h3>Chào mừng đến với trang quản lý</h3>
         <h2>{currentUser.name}</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde hic non
-          repellendus debitis iure, doloremque assumenda. Autem modi, corrupti,
-          nobis ea iure fugiat, veniam non quaerat mollitia animi error
-          corporis.
-        </p>
       </div>
     </Wrapper>
   );

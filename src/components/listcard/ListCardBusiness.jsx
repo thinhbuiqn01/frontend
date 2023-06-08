@@ -16,7 +16,7 @@ const ListCardBusiness = () => {
     axiosClient
       .get("/admin/businesses")
       .then((res) => {
-        setBusinesses(res.data);
+        setBusinesses(res.data.slice(0, 4));
         setLoading(true);
       })
       .catch((err) => {});
