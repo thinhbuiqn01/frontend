@@ -83,7 +83,14 @@ const TopStudentHire = () => {
     await axiosClient
       .get(`export-top-student-hire/${record?.user_id}`)
       .then((res) => {
-        setDataStudent(res.data);
+        const filSet = res.data.map((item) => {
+          return {
+            ...item,
+            status: item.status ? "Đã duyệt" : "Chưa duyệt",
+          };
+        });
+        setDataStudent(filSet);
+
         const timeOut = setTimeout(() => {
           refCv.current.link.click();
           addHistory(record?.user_id);
@@ -122,6 +129,10 @@ const TopStudentHire = () => {
     {
       label: "Ngày Đăng",
       key: "ngayDang",
+    },
+    {
+      label: "Trạng thái",
+      key: "status",
     },
   ];
 
