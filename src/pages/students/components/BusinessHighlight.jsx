@@ -15,7 +15,7 @@ const BusinessHighlight = () => {
     axiosClient
       .get("business-hot")
       .then((response) => {
-        setBusinesses(response.data);
+        setBusinesses(response.data.slice(0, 4));
         setLoading(true);
       })
       .catch((error) => {

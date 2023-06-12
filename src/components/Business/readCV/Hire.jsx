@@ -34,35 +34,41 @@ const Hire = () => {
   return (
     <Wrapper>
       {loading ? (
-        <Tabs
-          defaultActiveKey="1"
-          centered
-          items={jobs.map((job, i) => {
-            return {
-              label: `Bài đăng ${i + 1}`,
-              key: i,
-              children: (
-                <>
-                  <Info>
-                    <div className="info-job">
-                      <div className="info-name">{job.name_job}</div>
-                      <div className="info-require">
-                        <h3>Yêu cầu công việc</h3>
-                        <ul>
-                          {job.require_job.split("\n").map((i) => (
-                            <li>- {i}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </Info>
+        <div>
+          {
+            <Tabs
+              defaultActiveKey="1"
+              tabPosition="left"
+              items={jobs.map((job, i) => {
+                const id = String(i);
+                return {
+                  label: <NameJob>{job.name_job}</NameJob>,
+                  key: id,
+                  disabled: i === 28,
+                  children: (
+                    <div>
+                      {/*       <Info>
+                        <div className="info-job">
+                          <div className="info-name">{job.name_job}</div>
+                          <div className="info-require">
+                            <h3>Yêu cầu công việc</h3>
+                            <ul>
+                              {job.require_job.split("\n").map((i) => (
+                                <li>- {i}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </Info> */}
 
-                  <ListHireBusiness job={job} />
-                </>
-              ),
-            };
-          })}
-        />
+                      <ListHireBusiness job={job} />
+                    </div>
+                  ),
+                };
+              })}
+            />
+          }
+        </div>
       ) : (
         <Loading />
       )}
@@ -72,9 +78,15 @@ const Hire = () => {
 
 export default Hire;
 
+const NameJob = styled.div`
+  width: 100px;
+  text-overflow: hidden;
+`;
+
 const Wrapper = styled.div`
   width: 80%;
   margin: 0 auto;
+  min-height: 70vh;
   padding: 40px 0;
 
   .content {

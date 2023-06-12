@@ -11,7 +11,6 @@ const Task = () => {
   const wardData = useSelector((state) => {
     return state.ward;
   });
-  console.log(wardData);
   const dispatch = useDispatch();
   const [ward, setWard] = useState("");
 

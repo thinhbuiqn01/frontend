@@ -80,11 +80,14 @@ const Header = ({ currentUser }) => {
   const handleDeleteInform = async (e, id) => {
     e.preventDefault();
     const deleteInform = async () => {
-      await axiosClient.delete(`delete-inform/${id}`);
       try {
-        if (response.status == 200) {
-          setInforms(response.data.inform);
-        }
+        await axiosClient.delete(`delete-inform/${id}`);
+        const filterD = informs.filter((item) => {
+          if (item.id !== id) {
+            return item;
+          }
+        });
+        setInforms(filterD);
       } catch (error) {}
     };
     deleteInform();
@@ -103,8 +106,8 @@ const Header = ({ currentUser }) => {
         <div className="mt-8">
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
-              {informs.map((inform) => (
-                <li key={inform.id} className="flex py-6">
+              {informs?.map((inform) => (
+                <li key={inform?.id} className="flex py-6">
                   <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
                       src={logo}
@@ -121,15 +124,15 @@ const Header = ({ currentUser }) => {
                             <Link
                               to={`truong/cong-viec/duyet/${inform.job_id}`}
                             >
-                              {inform.name}
+                              {inform?.name}
                             </Link>
                           ) : currentUser.role == 1 ? (
-                            <Link to={`/cong-viec/${inform.job_id}`}>
-                              {inform.name}
+                            <Link to={`/cong-viec/${inform?.job_id}`}>
+                              {inform?.name || inform.description}
                             </Link>
-                          ) : currentUser.role == 3 ? (
+                          ) : currentUser?.role == 3 ? (
                             <Link
-                              to={`doanh-nghiep/cong-viec/${inform.job_id}`}
+                              to={`doanh-nghiep/cong-viec/${inform?.job_id}`}
                             >
                               {inform.name}
                             </Link>

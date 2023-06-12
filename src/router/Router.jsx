@@ -22,6 +22,9 @@ import {
   AdminSchoolCreate,
   AdminStudents,
   AdminTechnology,
+  AdminTopHireBusinesses,
+  AdminTopPostHire,
+  AdminTopStudentHire,
 } from "../Admin";
 import {
   SchoolBusiness,
@@ -189,6 +192,18 @@ const Router = createBrowserRouter([
       {
         path: "/admin/cong-viec",
         element: <AdminJobs />,
+      },
+      {
+        path: "/admin/top-tuyen-dung",
+        element: <AdminTopPostHire />,
+      },
+      {
+        path: "/admin/top-cong-ty-tuyen-dung",
+        element: <AdminTopHireBusinesses />,
+      },
+      {
+        path: "/admin/ung-tuyen",
+        element: <AdminTopStudentHire />,
       },
     ],
   },

@@ -46,8 +46,8 @@ const NewJob = () => {
       requireJob,
       description,
       locationWork: locationWork + mapWork,
-      emailGiveCV: currentUser.email,
-      business_id: business.id,
+      emailGiveCV: currentUser?.email,
+      business_id: business?.id,
       status: 0,
     };
     const giveJob = async () => {

@@ -127,6 +127,10 @@ const NewStudents = ({ route }) => {
         alert("Cập nhật danh sách sinh viên thành công");
         setExcelData([]);
         setExcelFile(null);
+        axiosClient.post("history/add", {
+          content: `${currentUser.name} - ${currentUser.id} Đã thêm danh sách sinh viên`,
+          user_id: currentUser.id,
+        });
       })
       .catch((e) => {
         setResponseBackend("Dữ liệu đã tồn tại");
